@@ -1,0 +1,16 @@
+Phytochemical,Plant,CID,SMILES,Database,Target_Name,Gene_Symbol,UniProt_ID,ChEMBL_ID,Target_Class,Target_Key,Probability,P_Value,Max_Tc,Rank
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Aldose reductase,AKR1B1,P15121,CHEMBL1900,Enzyme,P15121,1.0,,,1
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase II,CA2,P00918,CHEMBL205,Lyase,P00918,1.0,,,2
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase VII,CA7,P43166,CHEMBL2326,Lyase,P43166,1.0,,,3
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Estrogen receptor beta,ESR2,Q92731,CHEMBL242,Nuclear receptor,Q92731,1.0,,,4
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase I,CA1,P00915,CHEMBL261,Lyase,P00915,1.0,,,5
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase III,CA3,P07451,CHEMBL2885,Lyase,P07451,1.0,,,6
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase VI,CA6,P23280,CHEMBL3025,Lyase,P23280,1.0,,,7
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase XII,CA12,O43570,CHEMBL3242,Lyase,O43570,1.0,,,8
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase XIV,CA14,Q9ULX7,CHEMBL3510,Lyase,Q9ULX7,1.0,,,9
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase IX,CA9,Q16790,CHEMBL3594,Lyase,Q16790,1.0,,,10
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase IV,CA4,P22748,CHEMBL3729,Lyase,P22748,1.0,,,11
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase VB,CA5B,Q9Y2D0,CHEMBL3969,Lyase,Q9Y2D0,1.0,,,12
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase VA,CA5A,P35218,CHEMBL4789,Lyase,P35218,1.0,,,13
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Macrophage migration inhibitory factor,MIF,P14174,CHEMBL2085,Enzyme,P14174,0.258510080397,,,14
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Arachidonate 5-lipoxygenase,ALOX5,P09917,CHEMBL215,Oxidoreductase,P09917,0.208479014792,,,15

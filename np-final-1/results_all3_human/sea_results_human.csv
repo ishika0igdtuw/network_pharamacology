@@ -1,0 +1,87 @@
+Phytochemical,Plant,CID,SMILES,Database,Target_Name,Gene_Symbol,UniProt_ID,ChEMBL_ID,Target_Class,Target_Key,Probability,P_Value,Max_Tc,Rank
+(+)-Bornyl acetate,Abies alba,6950274,CC(=O)OC1CC2CCC1(C)C2(C)C,SEA,TAS2R31,,T2R31_HUMAN,,Taste receptor type 2 member 31,T2R31_HUMAN,,4.441e-16,0.31,1
+(+)-Bornyl acetate,Abies alba,6950274,CC(=O)OC1CC2CCC1(C)C2(C)C,SEA,TRPM2,,TRPM2_HUMAN,,Transient receptor potential cation channel subfamily M member 2,TRPM2_HUMAN,,4.251e-12,0.30,2
+(+)-Bornyl acetate,Abies alba,6950274,CC(=O)OC1CC2CCC1(C)C2(C)C,SEA,CPB2,,CBPB2_HUMAN,,Carboxypeptidase B2,CBPB2_HUMAN,,6.959e-08,0.39,3
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA3,,CAH3_HUMAN,,Carbonic anhydrase 3,CAH3_HUMAN,,1.966e-29,1.00,1
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA6,,CAH6_HUMAN,,Carbonic anhydrase 6,CAH6_HUMAN,,4.201e-29,1.00,2
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA5B,,CAH5B_HUMAN,,"Carbonic anhydrase 5B, mitochondrial",CAH5B_HUMAN,,5.523e-27,1.00,3
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA5A,,CAH5A_HUMAN,,"Carbonic anhydrase 5A, mitochondrial",CAH5A_HUMAN,,2.466e-26,1.00,4
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA14,,CAH14_HUMAN,,Carbonic anhydrase 14,CAH14_HUMAN,,7.845e-21,1.00,5
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA7,,CAH7_HUMAN,,Carbonic anhydrase 7,CAH7_HUMAN,,9.975e-20,1.00,6
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,AKR1B1,,ALDR_HUMAN,,Aldo-keto reductase family 1 member B1,ALDR_HUMAN,,5.551e-16,1.00,7
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,ESR2,,ESR2_HUMAN,,Estrogen receptor beta,ESR2_HUMAN,,3.537e-13,1.00,8
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA4,,CAH4_HUMAN,,Carbonic anhydrase 4,CAH4_HUMAN,,8.212e-10,1.00,9
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA9,,CAH9_HUMAN,,Carbonic anhydrase 9,CAH9_HUMAN,,1.039e-07,1.00,10
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA12,,CAH12_HUMAN,,Carbonic anhydrase 12,CAH12_HUMAN,,1.16e-07,1.00,11
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA1,,CAH1_HUMAN,,Carbonic anhydrase 1,CAH1_HUMAN,,6.912e-07,1.00,12
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA2,,CAH2_HUMAN,,Carbonic anhydrase 2,CAH2_HUMAN,,1.311e-05,1.00,13
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,NR0B2,,NR0B2_HUMAN,,Nuclear receptor subfamily 0 group B member 2,NR0B2_HUMAN,,3.76e-67,0.35,14
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,ESR1,,ESR1_HUMAN,,Estrogen receptor,ESR1_HUMAN,,2.657e-62,0.58,15
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CXCL12,,SDF1_HUMAN,,Stromal cell-derived factor 1,SDF1_HUMAN,,1.069e-58,0.53,16
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,ALDH5A1,,SSDH_HUMAN,,"Succinate-semialdehyde dehydrogenase, mitochondrial",SSDH_HUMAN,,3.987e-46,0.37,17
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,AKR1B10,,AK1BA_HUMAN,,Aldo-keto reductase family 1 member B10,AK1BA_HUMAN,,1.499e-33,0.65,18
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,GPR183,,GP183_HUMAN,,G-protein coupled receptor 183,GP183_HUMAN,,9.245e-32,0.33,19
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,NFKB1,,NFKB1_HUMAN,,Nuclear factor NF-kappa-B p105 subunit,NFKB1_HUMAN,,6.123e-30,0.40,20
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,ABAT,,GABT_HUMAN,,"4-aminobutyrate aminotransferase, mitochondrial",GABT_HUMAN,,1.275e-29,0.37,21
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,MYOC,,MYOC_HUMAN,,Myocilin,MYOC_HUMAN,,2.026e-28,0.35,22
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,RHOA,,RHOA_HUMAN,,Transforming protein RhoA,RHOA_HUMAN,,2.575e-28,0.39,23
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,APP,,A4_HUMAN,,Amyloid-beta precursor protein,A4_HUMAN,,2.907e-25,0.52,24
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,AKR1C3,,AK1C3_HUMAN,,Aldo-keto reductase family 1 member C3,AK1C3_HUMAN,,1.206e-24,0.41,25
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,MMP9,,MMP9_HUMAN,,Matrix metalloproteinase-9,MMP9_HUMAN,,9.903e-22,0.61,26
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,MMP1,,MMP1_HUMAN,,Interstitial collagenase,MMP1_HUMAN,,1.688e-21,0.61,27
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,ABCG2,,ABCG2_HUMAN,,Broad substrate specificity ATP-binding cassette transporter ABCG2,ABCG2_HUMAN,,1.846e-20,0.43,28
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,PAM,,AMD_HUMAN,,Peptidyl-glycine alpha-amidating monooxygenase,AMD_HUMAN,,4.268e-20,0.34,29
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,MIF,,MIF_HUMAN,,Macrophage migration inhibitory factor,MIF_HUMAN,,8.058e-20,0.50,30
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,TTR,,TTHY_HUMAN,,Transthyretin,TTHY_HUMAN,,1.821e-19,0.48,31
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,MAOB,,AOFB_HUMAN,,Amine oxidase [flavin-containing] B,AOFB_HUMAN,,2.724e-19,0.57,32
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,MB,,MYG_HUMAN,,Myoglobin,MYG_HUMAN,,1.882e-17,0.33,33
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,MMP2,,MMP2_HUMAN,,72 kDa type IV collagenase,MMP2_HUMAN,,3.419e-17,0.61,34
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,GLO1,,LGUL_HUMAN,,Lactoylglutathione lyase,LGUL_HUMAN,,4.07e-17,0.42,35
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,ESRRG,,ERR3_HUMAN,,Estrogen-related receptor gamma,ERR3_HUMAN,,3.553e-15,0.32,36
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CYP1B1,,CP1B1_HUMAN,,Cytochrome P450 1B1,CP1B1_HUMAN,,2.087e-14,0.48,37
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,MAPT,,TAU_HUMAN,,Microtubule-associated protein tau,TAU_HUMAN,,4.043e-13,0.36,38
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,TRPM2,,TRPM2_HUMAN,,Transient receptor potential cation channel subfamily M member 2,TRPM2_HUMAN,,1.608e-12,0.31,39
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,NFE2L2,,NF2L2_HUMAN,,Nuclear factor erythroid 2-related factor 2,NF2L2_HUMAN,,1.625e-12,0.48,40
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,BACE1,,BACE1_HUMAN,,Beta-secretase 1,BACE1_HUMAN,,4.172e-12,0.65,41
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HDAC8,,HDAC8_HUMAN,,Histone deacetylase 8,HDAC8_HUMAN,,2.397e-11,0.57,42
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,RBBP9,,RBBP9_HUMAN,,Serine hydrolase RBBP9,RBBP9_HUMAN,,2.943e-11,0.30,43
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HDAC2,,HDAC2_HUMAN,,Histone deacetylase 2,HDAC2_HUMAN,,3.263e-11,0.57,44
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HDAC11,,HDA11_HUMAN,,Histone deacetylase 11,HDA11_HUMAN,,3.816e-11,0.57,45
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,PTGER3,,PE2R3_HUMAN,,Prostaglandin E2 receptor EP3 subtype,PE2R3_HUMAN,,4.308e-11,0.41,46
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CISD1,,CISD1_HUMAN,,CDGSH iron-sulfur domain-containing protein 1,CISD1_HUMAN,,1.582e-10,0.42,47
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HDAC9,,HDAC9_HUMAN,,Histone deacetylase 9,HDAC9_HUMAN,,3.633e-10,0.57,48
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,PTGER2,,PE2R2_HUMAN,,Prostaglandin E2 receptor EP2 subtype,PE2R2_HUMAN,,3.655e-10,0.41,49
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,PTPN11,,PTN11_HUMAN,,Tyrosine-protein phosphatase non-receptor type 11,PTN11_HUMAN,,4.205e-10,0.35,50
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,ODC1,,DCOR_HUMAN,,Ornithine decarboxylase,DCOR_HUMAN,,5.952e-10,0.38,51
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HSPE1,,CH10_HUMAN,,"10 kDa heat shock protein, mitochondrial",CH10_HUMAN,,6.557e-10,0.33,52
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HSPD1,,CH60_HUMAN,,"60 kDa heat shock protein, mitochondrial",CH60_HUMAN,,6.557e-10,0.33,53
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,F3,,TF_HUMAN,,Tissue factor,TF_HUMAN,,8.375e-10,0.71,54
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,JUN,,JUN_HUMAN,,Transcription factor AP-1,JUN_HUMAN,,8.83e-10,0.42,55
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,PTGER4,,PE2R4_HUMAN,,Prostaglandin E2 receptor EP4 subtype,PE2R4_HUMAN,,1.383e-09,0.41,56
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CYP26B1,,CP26B_HUMAN,,Cytochrome P450 26B1,CP26B_HUMAN,,4.641e-09,0.38,57
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,TLR9,,TLR9_HUMAN,,Toll-like receptor 9,TLR9_HUMAN,,6.616e-09,0.65,58
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,TNFRSF1A,,TNR1A_HUMAN,,Tumor necrosis factor receptor superfamily member 1A,TNR1A_HUMAN,,9.494e-09,0.32,59
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,SLC37A4,,G6PT1_HUMAN,,Glucose-6-phosphate exchanger SLC37A4,G6PT1_HUMAN,,9.882e-09,0.29,60
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HDAC5,,HDAC5_HUMAN,,Histone deacetylase 5,HDAC5_HUMAN,,1.558e-08,0.32,61
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,NQO2,,NQO2_HUMAN,,Ribosyldihydronicotinamide dehydrogenase [quinone],NQO2_HUMAN,,1.84e-08,0.48,62
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,AKR1C4,,AK1C4_HUMAN,,Aldo-keto reductase family 1 member C4,AK1C4_HUMAN,,2.009e-08,0.35,63
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CA13,,CAH13_HUMAN,,Carbonic anhydrase 13,CAH13_HUMAN,,3.864e-08,0.48,64
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HDAC10,,HDA10_HUMAN,,Polyamine deacetylase HDAC10,HDA10_HUMAN,,4.043e-08,0.37,65
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,G6PC,,G6PC_HUMAN,,Glucose-6-phosphatase,G6PC_HUMAN,,4.778e-08,0.32,66
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,CTBP2,,CTBP2_HUMAN,,C-terminal-binding protein 2,CTBP2_HUMAN,,5.175e-08,0.31,67
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,MAOA,,AOFA_HUMAN,,Amine oxidase [flavin-containing] A,AOFA_HUMAN,,5.772e-08,0.48,68
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,FOS,,FOS_HUMAN,,Proto-oncogene c-Fos,FOS_HUMAN,,6.254e-08,0.42,69
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HCAR2,,HCAR2_HUMAN,,Hydroxycarboxylic acid receptor 2,HCAR2_HUMAN,,1.152e-07,0.67,70
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HDAC1,,HDAC1_HUMAN,,Histone deacetylase 1,HDAC1_HUMAN,,1.191e-07,0.57,71
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,LPAR2,,LPAR2_HUMAN,,Lysophosphatidic acid receptor 2,LPAR2_HUMAN,,1.923e-07,0.32,72
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,GNB1,,GBB1_HUMAN,,Guanine nucleotide-binding protein G(I)/G(S)/G(T) subunit beta-1,GBB1_HUMAN,,3.814e-07,0.30,73
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,GNG2,,GBG2_HUMAN,,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-2,GBG2_HUMAN,,3.814e-07,0.30,74
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HDAC7,,HDAC7_HUMAN,,Histone deacetylase 7,HDAC7_HUMAN,,9.555e-07,0.30,75
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,SLC12A2,,S12A2_HUMAN,,Solute carrier family 12 member 2,S12A2_HUMAN,,1.092e-06,0.28,76
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HDAC4,,HDAC4_HUMAN,,Histone deacetylase 4,HDAC4_HUMAN,,1.395e-06,0.34,77
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,EP300,,EP300_HUMAN,,Histone acetyltransferase p300,EP300_HUMAN,,1.993e-06,0.33,78
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,RARB,,RARB_HUMAN,,Retinoic acid receptor beta,RARB_HUMAN,,3.06e-06,0.44,79
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,HSPA1A,,HS71A_HUMAN,,Heat shock 70 kDa protein 1A,HS71A_HUMAN,,3.285e-06,0.30,80
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,TUBB1,,TBB1_HUMAN,,Tubulin beta-1 chain,TBB1_HUMAN,,4.321e-06,0.29,81
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,IKBKG,,NEMO_HUMAN,,NF-kappa-B essential modulator,NEMO_HUMAN,,6.235e-06,0.29,82
+4-Hydroxycinnamic acid,Abrus precatorius,637542,OC(=O)/C=C/c1ccc(cc1)O,SEA,STAT1,,STAT1_HUMAN,,Signal transducer and activator of transcription 1-alpha/beta,STAT1_HUMAN,,8.923e-06,0.30,83
