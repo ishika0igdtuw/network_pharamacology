@@ -1,0 +1,3 @@
+0000000000000000000000000000000000000000 536537924c45ced8185c251a7e1dd876327dcfc1 Ishika Manchanda <ishikamanchanda81@gmail.com> 1769501856 +0530	clone: from https://github.com/aakritiieee7/np-final-1.git
+536537924c45ced8185c251a7e1dd876327dcfc1 ee416ac54072377c685b76419e44bc1a8c03a9a6 Ishika Manchanda <ishikamanchanda81@gmail.com> 1769596141 +0530	commit: Integrated FastAPI/React GUI, real-time log streaming, and full-screen UI redesign. Fixed pathing and Selenium driver issues.
+ee416ac54072377c685b76419e44bc1a8c03a9a6 ba27eb97c8ddfcbd574912a97f9d7053624f792d Ishika Manchanda <ishikamanchanda81@gmail.com> 1769596622 +0530	commit (merge): Merged remote changes and resolved conflicts in results and scripts.

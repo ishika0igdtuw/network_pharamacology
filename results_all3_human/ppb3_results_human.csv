@@ -1,0 +1,191 @@
+Phytochemical,Plant,CID,SMILES,Database,Target_Name,Gene_Symbol,UniProt_ID,ChEMBL_ID,Target_Class,Target_Key,Probability,P_Value,Max_Tc,Rank
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,HL-60,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.12,,,1
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.11,,,2
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.08,,,3
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Prelamin-A/C,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.04,,,4
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Aldehyde dehydrogenase 1A1,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.01,,,5
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,DNA polymerase beta,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.0,,,6
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Microtubule-associated protein tau,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.0,,,7
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,NAD-dependent protein deacetylase sirtuin-6,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.0,,,8
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Menin/Histone-lysine N-methyltransferase MLL,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.0,,,9
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Heat shock protein HSP 90-alpha,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.0,,,10
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,SW872,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.0,,,11
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,C8166,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.0,,,12
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,A2780,,,,DNN(ECFP4),Homo sapiens,0.27,,,13
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Prelamin-A/C,,,,DNN(ECFP4),Homo sapiens,0.19,,,14
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(ECFP4),Homo sapiens,0.18,,,15
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,LoVo,,,,DNN(ECFP4),Homo sapiens,0.17,,,16
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Cytochrome P450 2C19,,,,DNN(ECFP4),Homo sapiens,0.16,,,17
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(ECFP4),Homo sapiens,0.16,,,18
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,MAP kinase ERK2,,,,DNN(ECFP4),Homo sapiens,0.16,,,19
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,5637,,,,DNN(ECFP4),Homo sapiens,0.13,,,20
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,KB,,,,DNN(ECFP4),Homo sapiens,0.11,,,21
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,NCI-H187,,,,DNN(ECFP4),Homo sapiens,0.11,,,22
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Menin/Histone-lysine N-methyltransferase MLL,,,,DNN(ECFP4),Homo sapiens,0.11,,,23
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Cytochrome P450 3A4,,,,DNN(ECFP4),Homo sapiens,0.11,,,24
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(RDKit),Homo sapiens,0.09,,,25
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(RDKit),Homo sapiens,0.09,,,26
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Prelamin-A/C,,,,DNN(RDKit),Homo sapiens,0.07,,,27
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Microtubule-associated protein tau,,,,DNN(RDKit),Homo sapiens,0.04,,,28
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Bile acid transporter,,,,DNN(RDKit),Homo sapiens,0.04,,,29
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,H9,,,,DNN(RDKit),Homo sapiens,0.04,,,30
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,11-beta-hydroxysteroid dehydrogenase 2,,,,DNN(RDKit),Homo sapiens,0.04,,,31
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Aldehyde dehydrogenase 1A1,,,,DNN(RDKit),Homo sapiens,0.04,,,32
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,G-protein coupled bile acid receptor 1,,,,DNN(RDKit),Homo sapiens,0.03,,,33
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Survival motor neuron protein,,,,DNN(RDKit),Homo sapiens,0.03,,,34
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,HeLa,,,,DNN(RDKit),Homo sapiens,0.02,,,35
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(Layered),Homo sapiens,0.15,,,36
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(Layered),Homo sapiens,0.13,,,37
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Ubiquitin carboxyl-terminal hydrolase 2,,,,DNN(Layered),Homo sapiens,0.1,,,38
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Microtubule-associated protein tau,,,,DNN(Layered),Homo sapiens,0.07,,,39
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Cytochrome P450 2C19,,,,DNN(Layered),Homo sapiens,0.07,,,40
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Menin/Histone-lysine N-methyltransferase MLL,,,,DNN(Layered),Homo sapiens,0.06,,,41
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Neuropeptide S receptor,,,,DNN(Layered),Homo sapiens,0.06,,,42
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,MAP kinase ERK2,,,,DNN(Layered),Homo sapiens,0.05,,,43
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,H9,,,,DNN(Layered),Homo sapiens,0.05,,,44
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Thyroid stimulating hormone receptor,,,,DNN(Layered),Homo sapiens,0.05,,,45
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Aldehyde dehydrogenase 1A1,,,,DNN(Layered),Homo sapiens,0.05,,,46
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Prelamin-A/C,,,,DNN(Layered),Homo sapiens,0.05,,,47
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Cytochrome P450 19A1,,,,DNN(MHFP6),Homo sapiens,0.08,,,48
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(MHFP6),Homo sapiens,0.03,,,49
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Tyrosyl-DNA phosphodiesterase 1,,,,DNN(MHFP6),Homo sapiens,0.02,,,50
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(MHFP6),Homo sapiens,0.02,,,51
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,HUVEC,,,,DNN(MHFP6),Homo sapiens,0.02,,,52
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Cannabinoid CB2 receptor,,,,DNN(MHFP6),Homo sapiens,0.02,,,53
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(ECFP6),Homo sapiens,0.82,,,54
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(ECFP6),Homo sapiens,0.77,,,55
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Survival motor neuron protein,,,,DNN(ECFP6),Homo sapiens,0.06,,,56
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Prelamin-A/C,,,,DNN(ECFP6),Homo sapiens,0.04,,,57
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Menin/Histone-lysine N-methyltransferase MLL,,,,DNN(ECFP6),Homo sapiens,0.04,,,58
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Huntingtin,,,,DNN(ECFP6),Homo sapiens,0.03,,,59
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Thyroid hormone receptor beta-1,,,,DNN(ECFP6),Homo sapiens,0.03,,,60
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Neuropeptide S receptor,,,,DNN(ECFP6),Homo sapiens,0.03,,,61
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Microtubule-associated protein tau,,,,DNN(ECFP6),Homo sapiens,0.03,,,62
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Bloom syndrome protein,,,,DNN(ECFP6),Homo sapiens,0.03,,,63
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Nuclear factor NF-kappa-B p105 subunit,,,,DNN(ECFP6),Homo sapiens,0.02,,,64
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(AtomPair),Homo sapiens,0.35,,,65
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(AtomPair),Homo sapiens,0.31,,,66
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Nuclear factor NF-kappa-B p105 subunit,,,,DNN(AtomPair),Homo sapiens,0.17,,,67
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Thrombopoietin,,,,DNN(AtomPair),Homo sapiens,0.1,,,68
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Carboxylesterase 2,,,,DNN(AtomPair),Homo sapiens,0.06,,,69
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Prelamin-A/C,,,,DNN(AtomPair),Homo sapiens,0.05,,,70
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Glycine receptor subunit alpha-1,,,,DNN(AtomPair),Homo sapiens,0.04,,,71
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Serotonin 7 (5-HT7) receptor,,,,DNN(AtomPair),Homo sapiens,0.03,,,72
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Aldehyde dehydrogenase 1A1,,,,DNN(AtomPair),Homo sapiens,0.03,,,73
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B3,,,,Consensus,Homo sapiens,0.82,,,74
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Solute carrier organic anion transporter family member 1B1,,,,Consensus,Homo sapiens,0.77,,,75
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,A2780,,,,Consensus,Homo sapiens,0.27,,,76
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Prelamin-A/C,,,,Consensus,Homo sapiens,0.19,,,77
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,LoVo,,,,Consensus,Homo sapiens,0.17,,,78
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Nuclear factor NF-kappa-B p105 subunit,,,,Consensus,Homo sapiens,0.17,,,79
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,Cytochrome P450 2C19,,,,Consensus,Homo sapiens,0.16,,,80
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,PPB3,MAP kinase ERK2,,,,Consensus,Homo sapiens,0.16,,,81
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VII,,,,DNN(ECFP4+MHFP6),Homo sapiens,1.0,,,1
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XIV,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.99,,,2
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VI,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.96,,,3
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VA,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.96,,,4
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IX,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.95,,,5
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IV,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.94,,,6
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XII,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.93,,,7
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase III,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.91,,,8
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase I,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.9,,,9
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase II,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.9,,,10
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Tyrosinase,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.88,,,11
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VB,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.78,,,12
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Aldose reductase,,,,DNN(ECFP4+MHFP6),Homo sapiens,0.74,,,13
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XIV,,,,DNN(ECFP4),Homo sapiens,0.97,,,14
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VII,,,,DNN(ECFP4),Homo sapiens,0.94,,,15
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VI,,,,DNN(ECFP4),Homo sapiens,0.94,,,16
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VA,,,,DNN(ECFP4),Homo sapiens,0.94,,,17
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XII,,,,DNN(ECFP4),Homo sapiens,0.88,,,18
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IX,,,,DNN(ECFP4),Homo sapiens,0.85,,,19
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(ECFP4),Homo sapiens,0.85,,,20
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(ECFP4),Homo sapiens,0.84,,,21
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VB,,,,DNN(ECFP4),Homo sapiens,0.76,,,22
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IV,,,,DNN(ECFP4),Homo sapiens,0.75,,,23
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase II,,,,DNN(ECFP4),Homo sapiens,0.74,,,24
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase III,,,,DNN(ECFP4),Homo sapiens,0.66,,,25
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Estrogen receptor alpha,,,,DNN(ECFP4),Homo sapiens,0.63,,,26
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase I,,,,DNN(ECFP4),Homo sapiens,0.62,,,27
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XIV,,,,DNN(RDKit),Homo sapiens,0.98,,,28
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VI,,,,DNN(RDKit),Homo sapiens,0.98,,,29
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VII,,,,DNN(RDKit),Homo sapiens,0.98,,,30
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VA,,,,DNN(RDKit),Homo sapiens,0.96,,,31
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IX,,,,DNN(RDKit),Homo sapiens,0.95,,,32
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VB,,,,DNN(RDKit),Homo sapiens,0.95,,,33
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XII,,,,DNN(RDKit),Homo sapiens,0.94,,,34
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase III,,,,DNN(RDKit),Homo sapiens,0.87,,,35
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase I,,,,DNN(RDKit),Homo sapiens,0.78,,,36
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IV,,,,DNN(RDKit),Homo sapiens,0.76,,,37
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Xanthine dehydrogenase,,,,DNN(RDKit),Homo sapiens,0.75,,,38
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(RDKit),Homo sapiens,0.75,,,39
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(RDKit),Homo sapiens,0.73,,,40
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XIV,,,,DNN(Layered),Homo sapiens,0.96,,,41
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VII,,,,DNN(Layered),Homo sapiens,0.94,,,42
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VB,,,,DNN(Layered),Homo sapiens,0.9,,,43
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IX,,,,DNN(Layered),Homo sapiens,0.88,,,44
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase II,,,,DNN(Layered),Homo sapiens,0.85,,,45
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XII,,,,DNN(Layered),Homo sapiens,0.84,,,46
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VI,,,,DNN(Layered),Homo sapiens,0.81,,,47
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase I,,,,DNN(Layered),Homo sapiens,0.8,,,48
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VA,,,,DNN(Layered),Homo sapiens,0.79,,,49
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase III,,,,DNN(Layered),Homo sapiens,0.7,,,50
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IV,,,,DNN(Layered),Homo sapiens,0.39,,,51
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Aldose reductase,,,,DNN(Layered),Homo sapiens,0.37,,,52
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(Layered),Homo sapiens,0.33,,,53
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Tyrosinase,,,,DNN(Layered),Homo sapiens,0.28,,,54
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XIV,,,,DNN(MHFP6),Homo sapiens,0.98,,,55
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VII,,,,DNN(MHFP6),Homo sapiens,0.97,,,56
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase II,,,,DNN(MHFP6),Homo sapiens,0.96,,,57
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VA,,,,DNN(MHFP6),Homo sapiens,0.92,,,58
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IX,,,,DNN(MHFP6),Homo sapiens,0.9,,,59
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XII,,,,DNN(MHFP6),Homo sapiens,0.86,,,60
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase I,,,,DNN(MHFP6),Homo sapiens,0.85,,,61
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VB,,,,DNN(MHFP6),Homo sapiens,0.81,,,62
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Tyrosinase,,,,DNN(MHFP6),Homo sapiens,0.75,,,63
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IV,,,,DNN(MHFP6),Homo sapiens,0.73,,,64
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase III,,,,DNN(MHFP6),Homo sapiens,0.71,,,65
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VI,,,,DNN(MHFP6),Homo sapiens,0.59,,,66
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Aldose reductase,,,,DNN(MHFP6),Homo sapiens,0.58,,,67
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(MHFP6),Homo sapiens,0.57,,,68
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XIV,,,,DNN(ECFP6),Homo sapiens,0.99,,,69
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VII,,,,DNN(ECFP6),Homo sapiens,0.99,,,70
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VA,,,,DNN(ECFP6),Homo sapiens,0.97,,,71
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XII,,,,DNN(ECFP6),Homo sapiens,0.96,,,72
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IX,,,,DNN(ECFP6),Homo sapiens,0.96,,,73
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VB,,,,DNN(ECFP6),Homo sapiens,0.96,,,74
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VI,,,,DNN(ECFP6),Homo sapiens,0.94,,,75
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase I,,,,DNN(ECFP6),Homo sapiens,0.93,,,76
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IV,,,,DNN(ECFP6),Homo sapiens,0.92,,,77
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase III,,,,DNN(ECFP6),Homo sapiens,0.9,,,78
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase II,,,,DNN(ECFP6),Homo sapiens,0.9,,,79
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Aldose reductase,,,,DNN(ECFP6),Homo sapiens,0.71,,,80
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(ECFP6),Homo sapiens,0.69,,,81
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(ECFP6),Homo sapiens,0.68,,,82
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Raji,,,,DNN(ECFP6),Homo sapiens,0.65,,,83
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VII,,,,DNN(AtomPair),Homo sapiens,0.96,,,84
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XII,,,,DNN(AtomPair),Homo sapiens,0.92,,,85
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XIV,,,,DNN(AtomPair),Homo sapiens,0.9,,,86
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VI,,,,DNN(AtomPair),Homo sapiens,0.88,,,87
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase III,,,,DNN(AtomPair),Homo sapiens,0.81,,,88
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VA,,,,DNN(AtomPair),Homo sapiens,0.79,,,89
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IX,,,,DNN(AtomPair),Homo sapiens,0.78,,,90
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VB,,,,DNN(AtomPair),Homo sapiens,0.74,,,91
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase I,,,,DNN(AtomPair),Homo sapiens,0.66,,,92
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B3,,,,DNN(AtomPair),Homo sapiens,0.59,,,93
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B1,,,,DNN(AtomPair),Homo sapiens,0.55,,,94
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase II,,,,DNN(AtomPair),Homo sapiens,0.55,,,95
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Tyrosinase,,,,DNN(AtomPair),Homo sapiens,0.49,,,96
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VII,,,,Consensus,Homo sapiens,1.0,,,97
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XIV,,,,Consensus,Homo sapiens,0.99,,,98
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VI,,,,Consensus,Homo sapiens,0.98,,,99
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VA,,,,Consensus,Homo sapiens,0.97,,,100
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase XII,,,,Consensus,Homo sapiens,0.96,,,101
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IX,,,,Consensus,Homo sapiens,0.96,,,102
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase VB,,,,Consensus,Homo sapiens,0.96,,,103
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase II,,,,Consensus,Homo sapiens,0.96,,,104
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase IV,,,,Consensus,Homo sapiens,0.94,,,105
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase I,,,,Consensus,Homo sapiens,0.93,,,106
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Carbonic anhydrase III,,,,Consensus,Homo sapiens,0.91,,,107
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Tyrosinase,,,,Consensus,Homo sapiens,0.88,,,108
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,PPB3,Solute carrier organic anion transporter family member 1B3,,,,Consensus,Homo sapiens,0.85,,,109

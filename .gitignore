@@ -1,0 +1,19 @@
+
+# Logs
+*.log
+VennDiagram*.log
+analysis_output.log
+fresh_analysis_output.log
+final_run.log
+final_run_v2.log
+
+# System
+.DS_Store
+
+# R
+.Rhistory
+.RData
+.Rproj.user
+
+# Temp
+typography_test/

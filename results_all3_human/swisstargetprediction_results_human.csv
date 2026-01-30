@@ -1,0 +1,226 @@
+Phytochemical,Plant,CID,SMILES,Database,Target_Name,Gene_Symbol,UniProt_ID,ChEMBL_ID,Target_Class,Target_Key,Probability,P_Value,Max_Tc,Rank
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Acetylcholinesterase,ACHE,P22303,CHEMBL220,Hydrolase,P22303,0.123286593176,,,1
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Vitamin D receptor,VDR,P11473,CHEMBL1977,Nuclear receptor,P11473,0.0926446451291,,,2
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Dual specificity phosphatase Cdc25A,CDC25A,P30304,CHEMBL3775,Phosphatase,P30304,0.0517133123472,,,3
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Protein-tyrosine phosphatase 1B,PTPN1,P18031,CHEMBL335,Phosphatase,P18031,0.0414702990123,,,4
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,HMG-CoA reductase,HMGCR,P04035,CHEMBL402,Oxidoreductase,P04035,0.0312265582077,,,5
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Cytochrome P450 19A1,CYP19A1,P11511,CHEMBL1978,Cytochrome P450,P11511,0.0312265582077,,,6
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,UDP-glucuronosyltransferase 2B7,UGT2B7,P16662,CHEMBL4370,Enzyme,P16662,0.0312265582077,,,7
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Thromboxane-A synthase,TBXAS1,P24557,CHEMBL1835,Cytochrome P450,P24557,0.0312265582077,,,8
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Cytochrome P450 11B1,CYP11B1,P15538,CHEMBL1908,Cytochrome P450,P15538,0.0312265582077,,,9
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Cytochrome P450 11B2,CYP11B2,P19099,CHEMBL2722,Cytochrome P450,P19099,0.0312265582077,,,10
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,DNA polymerase alpha subunit,POLA1,P09884,CHEMBL1828,Transferase,P09884,0.0312265582077,,,11
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,11-beta-hydroxysteroid dehydrogenase 1,HSD11B1,P28845,CHEMBL4235,Enzyme,P28845,0.0312265582077,,,12
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Alpha-2a adrenergic receptor,ADRA2A,P08913,CHEMBL1867,Family A G protein-coupled receptor,P08913,0.0312265582077,,,13
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Adrenergic receptor alpha-2,ADRA2C,P18825,CHEMBL1916,Family A G protein-coupled receptor,P18825,0.0312265582077,,,14
+(+)-Bornyl acetate,Abies alba,6950274.0,CC(=O)OC1CC2CCC1(C)C2(C)C,SwissTargetPrediction,Alpha-2b adrenergic receptor,ADRA2B,P18089,CHEMBL1942,Family A G protein-coupled receptor,P18089,0.0312265582077,,,15
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Aldose reductase,AKR1B1,P15121,CHEMBL1900,Enzyme,P15121,1.0,,,1
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase II,CA2,P00918,CHEMBL205,Lyase,P00918,1.0,,,2
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase VII,CA7,P43166,CHEMBL2326,Lyase,P43166,1.0,,,3
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Estrogen receptor beta,ESR2,Q92731,CHEMBL242,Nuclear receptor,Q92731,1.0,,,4
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase I,CA1,P00915,CHEMBL261,Lyase,P00915,1.0,,,5
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase III,CA3,P07451,CHEMBL2885,Lyase,P07451,1.0,,,6
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase VI,CA6,P23280,CHEMBL3025,Lyase,P23280,1.0,,,7
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase XII,CA12,O43570,CHEMBL3242,Lyase,O43570,1.0,,,8
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase XIV,CA14,Q9ULX7,CHEMBL3510,Lyase,Q9ULX7,1.0,,,9
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase IX,CA9,Q16790,CHEMBL3594,Lyase,Q16790,1.0,,,10
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase IV,CA4,P22748,CHEMBL3729,Lyase,P22748,1.0,,,11
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase VB,CA5B,Q9Y2D0,CHEMBL3969,Lyase,Q9Y2D0,1.0,,,12
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Carbonic anhydrase VA,CA5A,P35218,CHEMBL4789,Lyase,P35218,1.0,,,13
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Macrophage migration inhibitory factor,MIF,P14174,CHEMBL2085,Enzyme,P14174,0.258510080397,,,14
+4-Hydroxycinnamic acid,Abrus precatorius,637542.0,OC(=O)/C=C/c1ccc(cc1)O,SwissTargetPrediction,Arachidonate 5-lipoxygenase,ALOX5,P09917,CHEMBL215,Oxidoreductase,P09917,0.208479014792,,,15
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Platelet-derived growth factor receptor beta,PDGFRB,P09619,CHEMBL1913,Kinase,P09619,0.109339753231,,,1
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Leucine-rich repeat serine/threonine-protein kinase 2,LRRK2,Q5S007,CHEMBL1075104,Kinase,Q5S007,0.109339753231,,,2
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Bromodomain-containing protein 4,BRD4,O60885,CHEMBL1163125,Reader,O60885,0.109339753231,,,3
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Intercellular adhesion molecule-1,ICAM1,P05362,CHEMBL3070,Adhesion,P05362,0.109339753231,,,4
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Bromodomain-containing protein 9,BRD9,Q9H8M2,CHEMBL3108640,Reader,Q9H8M2,0.109339753231,,,5
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Vascular cell adhesion protein 1,VCAM1,P19320,CHEMBL3735,Adhesion,P19320,0.109339753231,,,6
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Selectin E,SELE,P16581,CHEMBL3890,Adhesion,P16581,0.109339753231,,,7
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Carbonic anhydrase II,CA2,P00918,CHEMBL205,Lyase,P00918,0.109339753231,,,8
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Carbonic anhydrase VII,CA7,P43166,CHEMBL2326,Lyase,P43166,0.109339753231,,,9
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Tyrosine-protein kinase SYK,SYK,P43405,CHEMBL2599,Kinase,P43405,0.109339753231,,,10
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Carbonic anhydrase VI,CA6,P23280,CHEMBL3025,Lyase,P23280,0.109339753231,,,11
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Carbonic anhydrase XII,CA12,O43570,CHEMBL3242,Lyase,O43570,0.109339753231,,,12
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Glycogen synthase kinase-3 beta,GSK3B,P49841,CHEMBL262,Kinase,P49841,0.109339753231,,,13
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Cyclin-dependent kinase 2,CDK2,P24941,CHEMBL301,Kinase,P24941,0.109339753231,,,14
+ABRUQUINONE-A,Abrus precatorius,172847.0,COC1=C(C=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC,SwissTargetPrediction,Cyclin-dependent kinase 4,CDK4,P11802,CHEMBL331,Kinase,P11802,0.109339753231,,,15
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Matrix metalloproteinase 2,MMP2,P08253,CHEMBL333,Protease,P08253,0.11573667475,,,1
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Leucine-rich repeat serine/threonine-protein kinase 2,LRRK2,Q5S007,CHEMBL1075104,Kinase,Q5S007,0.11573667475,,,2
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Serine/threonine-protein kinase Chk1,CHEK1,O14757,CHEMBL4630,Kinase,O14757,0.11573667475,,,3
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Tyrosine-protein kinase SYK,SYK,P43405,CHEMBL2599,Kinase,P43405,0.11573667475,,,4
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Epidermal growth factor receptor erbB1,EGFR,P00533,CHEMBL203,Kinase,P00533,0.11573667475,,,5
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Bromodomain-containing protein 4,BRD4,O60885,CHEMBL1163125,Reader,O60885,0.11573667475,,,6
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Bromodomain-containing protein 9,BRD9,Q9H8M2,CHEMBL3108640,Reader,Q9H8M2,0.11573667475,,,7
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Lysine-specific demethylase 5B,KDM5B,Q9UGL1,CHEMBL3774295,Eraser,Q9UGL1,0.11573667475,,,8
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Phosphodiesterase 5A,PDE5A,O76074,CHEMBL1827,Phosphodiesterase,O76074,0.11573667475,,,9
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Nerve growth factor receptor Trk-A,NTRK1,P04629,CHEMBL2815,Kinase,P04629,0.11573667475,,,10
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Intercellular adhesion molecule-1,ICAM1,P05362,CHEMBL3070,Adhesion,P05362,0.11573667475,,,11
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Selectin E,SELE,P16581,CHEMBL3890,Adhesion,P16581,0.11573667475,,,12
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Tyrosine-protein kinase JAK3,JAK3,P52333,CHEMBL2148,Kinase,P52333,0.11573667475,,,13
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Matrix metalloproteinase 13,MMP13,P45452,CHEMBL280,Protease,P45452,0.11573667475,,,14
+ABRUQUINONE-B,Abrus precatorius,3009614.0,COC1=C(C(=C2C(=C1)CC(CO2)C3=CC(=O)C(=C(C3=O)OC)OC)OC)OC,SwissTargetPrediction,Orexin receptor 2,HCRTR2,O43614,CHEMBL4792,Family A G protein-coupled receptor,O43614,0.11573667475,,,15
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Stem cell growth factor receptor,KIT,P10721,CHEMBL1936,Kinase,P10721,0.443225383719,,,1
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Delta opioid receptor,OPRD1,P41143,CHEMBL236,Family A G protein-coupled receptor,P41143,0.443225383719,,,2
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Aldose reductase (by homology),AKR1B1,P15121,CHEMBL1900,Enzyme,P15121,0.276588608241,,,3
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Cytochrome P450 1B1,CYP1B1,Q16678,CHEMBL4878,Cytochrome P450,Q16678,0.209877021734,,,4
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Multidrug resistance-associated protein 1,ABCC1,P33527,CHEMBL3004,Primary active transporter,P33527,0.176593624722,,,5
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Estrogen receptor beta,ESR2,Q92731,CHEMBL242,Nuclear receptor,Q92731,0.168264713882,,,6
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Beta amyloid A4 protein,APP,P05067,CHEMBL2487,Membrane receptor,P05067,0.159936683278,,,7
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Serine/threonine-protein kinase PIM1,PIM1,P11309,CHEMBL2147,Kinase,P11309,0.151564691457,,,8
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Adenosine A1 receptor (by homology),ADORA1,P30542,CHEMBL226,Family A G protein-coupled receptor,P30542,0.151564691457,,,9
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Adenosine A2a receptor (by homology),ADORA2A,P29274,CHEMBL251,Family A G protein-coupled receptor,P29274,0.151564691457,,,10
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Telomerase reverse transcriptase,TERT,O14746,CHEMBL2916,Enzyme,O14746,0.143269256947,,,11
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,NADPH oxidase 4,NOX4,Q9NPH5,CHEMBL1250375,Enzyme,Q9NPH5,0.134939008937,,,12
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Xanthine dehydrogenase,XDH,P47989,CHEMBL1929,Oxidoreductase,P47989,0.126610168686,,,13
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Carbonic anhydrase II,CA2,P00918,CHEMBL205,Lyase,P00918,0.126610168686,,,14
+Abrectorin,Abrus precatorius,44257585.0,COc1ccc(cc1O)c1cc(=O)c2c(o1)cc(c(c2)OC)O,SwissTargetPrediction,Carbonic anhydrase VII,CA7,P43166,CHEMBL2326,Lyase,P43166,0.126610168686,,,15
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,"Indoleamine 2,3-dioxygenase",IDO1,P14902,CHEMBL4685,Enzyme,P14902,0.155759218072,,,1
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 2b (5-HT2b) receptor,HTR2B,P41595,CHEMBL1833,Family A G protein-coupled receptor,P41595,0.0864426933852,,,2
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 1a (5-HT1a) receptor,HTR1A,P08908,CHEMBL214,Family A G protein-coupled receptor,P08908,0.0864426933852,,,3
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 2a (5-HT2a) receptor,HTR2A,P28223,CHEMBL224,Family A G protein-coupled receptor,P28223,0.0864426933852,,,4
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 2c (5-HT2c) receptor,HTR2C,P28335,CHEMBL225,Family A G protein-coupled receptor,P28335,0.0864426933852,,,5
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 7 (5-HT7) receptor,HTR7,P34969,CHEMBL3155,Family A G protein-coupled receptor,P34969,0.0864426933852,,,6
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Neurokinin 1 receptor,TACR1,P25103,CHEMBL249,Family A G protein-coupled receptor,P25103,0.0690974435253,,,7
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Angiotensin-converting enzyme,ACE,P12821,CHEMBL1808,Protease,P12821,0.0604245879294,,,8
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Cathepsin L,CTSL,P07711,CHEMBL3837,Protease,P07711,0.0604245879294,,,9
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Ephrin type-A receptor 2,EPHA2,P29317,CHEMBL2068,Kinase,P29317,0.0604245879294,,,10
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Ephrin type-B receptor 2,EPHB2,P29323,CHEMBL3290,Kinase,P29323,0.0604245879294,,,11
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Ephrin type-A receptor 5,EPHA5,P54756,CHEMBL3987,Kinase,P54756,0.0604245879294,,,12
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Ephrin type-A receptor 4,EPHA4,P54764,CHEMBL3988,Kinase,P54764,0.0604245879294,,,13
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Ephrin type-A receptor 8,EPHA8,P29322,CHEMBL4134,Kinase,P29322,0.0604245879294,,,14
+Abrine,Abrus precatorius,160511.0,CN[C@H](C(=O)O)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Ephrin type-A receptor 6,EPHA6,Q9UF33,CHEMBL4526,Kinase,Q9UF33,0.0604245879294,,,15
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Platelet-derived growth factor receptor beta,PDGFRB,P09619,CHEMBL1913,Kinase,P09619,0.109339753231,,,1
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Leucine-rich repeat serine/threonine-protein kinase 2,LRRK2,Q5S007,CHEMBL1075104,Kinase,Q5S007,0.109339753231,,,2
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Bromodomain-containing protein 4,BRD4,O60885,CHEMBL1163125,Reader,O60885,0.109339753231,,,3
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Intercellular adhesion molecule-1,ICAM1,P05362,CHEMBL3070,Adhesion,P05362,0.109339753231,,,4
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Bromodomain-containing protein 9,BRD9,Q9H8M2,CHEMBL3108640,Reader,Q9H8M2,0.109339753231,,,5
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Vascular cell adhesion protein 1,VCAM1,P19320,CHEMBL3735,Adhesion,P19320,0.109339753231,,,6
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Selectin E,SELE,P16581,CHEMBL3890,Adhesion,P16581,0.109339753231,,,7
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Carbonic anhydrase II,CA2,P00918,CHEMBL205,Lyase,P00918,0.109339753231,,,8
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Carbonic anhydrase VII,CA7,P43166,CHEMBL2326,Lyase,P43166,0.109339753231,,,9
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Tyrosine-protein kinase SYK,SYK,P43405,CHEMBL2599,Kinase,P43405,0.109339753231,,,10
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Carbonic anhydrase VI,CA6,P23280,CHEMBL3025,Lyase,P23280,0.109339753231,,,11
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Carbonic anhydrase XII,CA12,O43570,CHEMBL3242,Lyase,O43570,0.109339753231,,,12
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Glycogen synthase kinase-3 beta,GSK3B,P49841,CHEMBL262,Kinase,P49841,0.109339753231,,,13
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Cyclin-dependent kinase 2,CDK2,P24941,CHEMBL301,Kinase,P24941,0.109339753231,,,14
+Abruquinone A,Abrus precatorius,172847.0,COC1=C(OC)C(=O)C(C2COc3cc(OC)c(OC)cc3C2)=CC1=O,SwissTargetPrediction,Cyclin-dependent kinase 4,CDK4,P11802,CHEMBL331,Kinase,P11802,0.109339753231,,,15
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Matrix metalloproteinase 2,MMP2,P08253,CHEMBL333,Protease,P08253,0.11573667475,,,1
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Leucine-rich repeat serine/threonine-protein kinase 2,LRRK2,Q5S007,CHEMBL1075104,Kinase,Q5S007,0.11573667475,,,2
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Serine/threonine-protein kinase Chk1,CHEK1,O14757,CHEMBL4630,Kinase,O14757,0.11573667475,,,3
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Tyrosine-protein kinase SYK,SYK,P43405,CHEMBL2599,Kinase,P43405,0.11573667475,,,4
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Epidermal growth factor receptor erbB1,EGFR,P00533,CHEMBL203,Kinase,P00533,0.11573667475,,,5
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Bromodomain-containing protein 4,BRD4,O60885,CHEMBL1163125,Reader,O60885,0.11573667475,,,6
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Bromodomain-containing protein 9,BRD9,Q9H8M2,CHEMBL3108640,Reader,Q9H8M2,0.11573667475,,,7
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Lysine-specific demethylase 5B,KDM5B,Q9UGL1,CHEMBL3774295,Eraser,Q9UGL1,0.11573667475,,,8
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Phosphodiesterase 5A,PDE5A,O76074,CHEMBL1827,Phosphodiesterase,O76074,0.11573667475,,,9
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Nerve growth factor receptor Trk-A,NTRK1,P04629,CHEMBL2815,Kinase,P04629,0.11573667475,,,10
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Intercellular adhesion molecule-1,ICAM1,P05362,CHEMBL3070,Adhesion,P05362,0.11573667475,,,11
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Selectin E,SELE,P16581,CHEMBL3890,Adhesion,P16581,0.11573667475,,,12
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Tyrosine-protein kinase JAK3,JAK3,P52333,CHEMBL2148,Kinase,P52333,0.11573667475,,,13
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Matrix metalloproteinase 13,MMP13,P45452,CHEMBL280,Protease,P45452,0.11573667475,,,14
+Abruquinone B,Abrus precatorius,3009614.0,COC1=C(OC)C(=O)C(C2COc3c(cc(OC)c(OC)c3OC)C2)=CC1=O,SwissTargetPrediction,Orexin receptor 2,HCRTR2,O43614,CHEMBL4792,Family A G protein-coupled receptor,O43614,0.11573667475,,,15
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Acetylcholinesterase,ACHE,P22303,CHEMBL220,Hydrolase,P22303,0.113045471502,,,1
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Vitamin D receptor,VDR,P11473,CHEMBL1977,Nuclear receptor,P11473,0.0926446451291,,,2
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Protein-tyrosine phosphatase 1B,PTPN1,P18031,CHEMBL335,Phosphatase,P18031,0.0414702990123,,,3
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,HMG-CoA reductase,HMGCR,P04035,CHEMBL402,Oxidoreductase,P04035,0.0312265582077,,,4
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Cytochrome P450 19A1,CYP19A1,P11511,CHEMBL1978,Cytochrome P450,P11511,0.0312265582077,,,5
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,UDP-glucuronosyltransferase 2B7,UGT2B7,P16662,CHEMBL4370,Enzyme,P16662,0.0312265582077,,,6
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Dual specificity phosphatase Cdc25A,CDC25A,P30304,CHEMBL3775,Phosphatase,P30304,0.0312265582077,,,7
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Thromboxane-A synthase,TBXAS1,P24557,CHEMBL1835,Cytochrome P450,P24557,0.0312265582077,,,8
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,DNA polymerase alpha subunit,POLA1,P09884,CHEMBL1828,Transferase,P09884,0.0312265582077,,,9
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Cytochrome P450 11B2,CYP11B2,P19099,CHEMBL2722,Cytochrome P450,P19099,0.0312265582077,,,10
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Polyadenylate-binding protein 1,PABPC1,P11940,CHEMBL1293286,Unclassified protein,P11940,0.0312265582077,,,11
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Thymidylate synthase,TYMS,P04818,CHEMBL1952,Transferase,P04818,0.0312265582077,,,12
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Beta-chymotrypsin,CTRB1,P17538,CHEMBL4796,Protease,P17538,0.0312265582077,,,13
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,Cytochrome P450 11B1,CYP11B1,P15538,CHEMBL1908,Cytochrome P450,P15538,0.0,,,14
+Borneol acetate,Abies alba,93009.0,CC(=O)O[C@@H]1C[C@@H]2CC[C@@]1(C)C2(C)C,SwissTargetPrediction,"7,8-dihydro-8-oxoguanine triphosphatase",NUDT1,P36639,CHEMBL3708265,Enzyme,P36639,0.0,,,15
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Acetylcholinesterase,ACHE,P22303,CHEMBL220,Hydrolase,P22303,0.123286593176,,,1
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Vitamin D receptor,VDR,P11473,CHEMBL1977,Nuclear receptor,P11473,0.0926446451291,,,2
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Dual specificity phosphatase Cdc25A,CDC25A,P30304,CHEMBL3775,Phosphatase,P30304,0.0517133123472,,,3
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Protein-tyrosine phosphatase 1B,PTPN1,P18031,CHEMBL335,Phosphatase,P18031,0.0414702990123,,,4
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,HMG-CoA reductase,HMGCR,P04035,CHEMBL402,Oxidoreductase,P04035,0.0312265582077,,,5
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Cytochrome P450 19A1,CYP19A1,P11511,CHEMBL1978,Cytochrome P450,P11511,0.0312265582077,,,6
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,UDP-glucuronosyltransferase 2B7,UGT2B7,P16662,CHEMBL4370,Enzyme,P16662,0.0312265582077,,,7
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Thromboxane-A synthase,TBXAS1,P24557,CHEMBL1835,Cytochrome P450,P24557,0.0312265582077,,,8
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Cytochrome P450 11B1,CYP11B1,P15538,CHEMBL1908,Cytochrome P450,P15538,0.0312265582077,,,9
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Cytochrome P450 11B2,CYP11B2,P19099,CHEMBL2722,Cytochrome P450,P19099,0.0312265582077,,,10
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,DNA polymerase alpha subunit,POLA1,P09884,CHEMBL1828,Transferase,P09884,0.0312265582077,,,11
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,11-beta-hydroxysteroid dehydrogenase 1,HSD11B1,P28845,CHEMBL4235,Enzyme,P28845,0.0312265582077,,,12
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Alpha-2a adrenergic receptor,ADRA2A,P08913,CHEMBL1867,Family A G protein-coupled receptor,P08913,0.0312265582077,,,13
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Adrenergic receptor alpha-2,ADRA2C,P18825,CHEMBL1916,Family A G protein-coupled receptor,P18825,0.0312265582077,,,14
+Bornyl acetate,Abies alba,93009.0,CC(=O)OC1CC2C(C1(C)CC2)(C)C,SwissTargetPrediction,Alpha-2b adrenergic receptor,ADRA2B,P18089,CHEMBL1942,Family A G protein-coupled receptor,P18089,0.0312265582077,,,15
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Angiotensin-converting enzyme,ACE,P12821,CHEMBL1808,Protease,P12821,0.0807923867549,,,1
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Serotonin 2b (5-HT2b) receptor,HTR2B,P41595,CHEMBL1833,Family A G protein-coupled receptor,P41595,0.071715932485,,,2
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Serotonin 1a (5-HT1a) receptor,HTR1A,P08908,CHEMBL214,Family A G protein-coupled receptor,P08908,0.071715932485,,,3
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Serotonin 2a (5-HT2a) receptor,HTR2A,P28223,CHEMBL224,Family A G protein-coupled receptor,P28223,0.071715932485,,,4
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Serotonin 2c (5-HT2c) receptor,HTR2C,P28335,CHEMBL225,Family A G protein-coupled receptor,P28335,0.071715932485,,,5
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Serotonin 7 (5-HT7) receptor,HTR7,P34969,CHEMBL3155,Family A G protein-coupled receptor,P34969,0.071715932485,,,6
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Matrix metalloproteinase 3,MMP3,P08254,CHEMBL283,Protease,P08254,0.0626219668353,,,7
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Neprilysin,MME,P08473,CHEMBL1944,Protease,P08473,0.0626219668353,,,8
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,"Indoleamine 2,3-dioxygenase",IDO1,P14902,CHEMBL4685,Enzyme,P14902,0.0626219668353,,,9
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,"Intercellular adhesion molecule (ICAM-1), Integrin alpha-L/beta-2",ITGAL ICAM1 ITGB2,P20701 P05362 P05107,CHEMBL2096661,Membrane receptor,P20701 P05362 P05107,0.0626219668353,,,10
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Endothelin-converting enzyme 1,ECE1,P42892,CHEMBL4791,Protease,P42892,0.0535560755162,,,11
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Neurokinin 1 receptor,TACR1,P25103,CHEMBL249,Family A G protein-coupled receptor,P25103,0.0535560755162,,,12
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Serotonin transporter,SLC6A4,P31645,CHEMBL228,Electrochemical transporter,P31645,0.0535560755162,,,13
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Endoplasmic reticulum aminopeptidase 2,ERAP2,Q6P179,CHEMBL5043,Protease,Q6P179,0.0535560755162,,,14
+HYPAPHORINE,Abrus precatorius,442106.0,C[N+](C)(C)C(CC1=CNC2=CC=CC=C21)C(=O)[O-],SwissTargetPrediction,Ephrin type-A receptor 2,EPHA2,P29317,CHEMBL2068,Kinase,P29317,0.0535560755162,,,15
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Angiotensin-converting enzyme,ACE,P12821,CHEMBL1808,Protease,P12821,0.0807923867549,,,1
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Matrix metalloproteinase 3,MMP3,P08254,CHEMBL283,Protease,P08254,0.071715932485,,,2
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 2b (5-HT2b) receptor,HTR2B,P41595,CHEMBL1833,Family A G protein-coupled receptor,P41595,0.071715932485,,,3
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 1a (5-HT1a) receptor,HTR1A,P08908,CHEMBL214,Family A G protein-coupled receptor,P08908,0.071715932485,,,4
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 2a (5-HT2a) receptor,HTR2A,P28223,CHEMBL224,Family A G protein-coupled receptor,P28223,0.071715932485,,,5
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 2c (5-HT2c) receptor,HTR2C,P28335,CHEMBL225,Family A G protein-coupled receptor,P28335,0.071715932485,,,6
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin 7 (5-HT7) receptor,HTR7,P34969,CHEMBL3155,Family A G protein-coupled receptor,P34969,0.071715932485,,,7
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Neprilysin,MME,P08473,CHEMBL1944,Protease,P08473,0.0626219668353,,,8
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,"Indoleamine 2,3-dioxygenase",IDO1,P14902,CHEMBL4685,Enzyme,P14902,0.0626219668353,,,9
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,"Intercellular adhesion molecule (ICAM-1), Integrin alpha-L/beta-2",ITGAL ICAM1 ITGB2,P20701 P05362 P05107,CHEMBL2096661,Membrane receptor,P20701 P05362 P05107,0.0626219668353,,,10
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Endothelin-converting enzyme 1,ECE1,P42892,CHEMBL4791,Protease,P42892,0.0535560755162,,,11
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Neurokinin 1 receptor,TACR1,P25103,CHEMBL249,Family A G protein-coupled receptor,P25103,0.0535560755162,,,12
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Serotonin transporter,SLC6A4,P31645,CHEMBL228,Electrochemical transporter,P31645,0.0535560755162,,,13
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Endoplasmic reticulum aminopeptidase 2,ERAP2,Q6P179,CHEMBL5043,Protease,Q6P179,0.0535560755162,,,14
+Hypaphorine,Abrus precatorius,442106.0,[O-]C(=O)[C@@H]([N+](C)(C)C)Cc1c[nH]c2c1cccc2,SwissTargetPrediction,Ephrin type-A receptor 2,EPHA2,P29317,CHEMBL2068,Kinase,P29317,0.0535560755162,,,15
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,"Indoleamine 2,3-dioxygenase",IDO1,P14902,CHEMBL4685,Enzyme,P14902,0.155759218072,,,1
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Serotonin 2b (5-HT2b) receptor,HTR2B,P41595,CHEMBL1833,Family A G protein-coupled receptor,P41595,0.0864426933852,,,2
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Serotonin 1a (5-HT1a) receptor,HTR1A,P08908,CHEMBL214,Family A G protein-coupled receptor,P08908,0.0864426933852,,,3
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Serotonin 2a (5-HT2a) receptor,HTR2A,P28223,CHEMBL224,Family A G protein-coupled receptor,P28223,0.0864426933852,,,4
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Serotonin 2c (5-HT2c) receptor,HTR2C,P28335,CHEMBL225,Family A G protein-coupled receptor,P28335,0.0864426933852,,,5
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Serotonin 7 (5-HT7) receptor,HTR7,P34969,CHEMBL3155,Family A G protein-coupled receptor,P34969,0.0864426933852,,,6
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Neurokinin 1 receptor,TACR1,P25103,CHEMBL249,Family A G protein-coupled receptor,P25103,0.0690974435253,,,7
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Angiotensin-converting enzyme,ACE,P12821,CHEMBL1808,Protease,P12821,0.0604245879294,,,8
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Cathepsin L,CTSL,P07711,CHEMBL3837,Protease,P07711,0.0604245879294,,,9
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Ephrin type-A receptor 2,EPHA2,P29317,CHEMBL2068,Kinase,P29317,0.0604245879294,,,10
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Ephrin type-B receptor 2,EPHB2,P29323,CHEMBL3290,Kinase,P29323,0.0604245879294,,,11
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Ephrin type-A receptor 5,EPHA5,P54756,CHEMBL3987,Kinase,P54756,0.0604245879294,,,12
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Ephrin type-A receptor 4,EPHA4,P54764,CHEMBL3988,Kinase,P54764,0.0604245879294,,,13
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Ephrin type-A receptor 8,EPHA8,P29322,CHEMBL4134,Kinase,P29322,0.0604245879294,,,14
+L-Abrine,Abrus precatorius,160511.0,CN[C@@H](Cc1c[nH]c2ccccc12)C(=O)O,SwissTargetPrediction,Ephrin type-A receptor 6,EPHA6,Q9UF33,CHEMBL4526,Kinase,Q9UF33,0.0604245879294,,,15
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Acetylcholinesterase,ACHE,P22303,CHEMBL220,Hydrolase,P22303,0.123286593176,,,1
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Vitamin D receptor,VDR,P11473,CHEMBL1977,Nuclear receptor,P11473,0.0926446451291,,,2
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Dual specificity phosphatase Cdc25A,CDC25A,P30304,CHEMBL3775,Phosphatase,P30304,0.0517133123472,,,3
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Protein-tyrosine phosphatase 1B,PTPN1,P18031,CHEMBL335,Phosphatase,P18031,0.0414702990123,,,4
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,HMG-CoA reductase,HMGCR,P04035,CHEMBL402,Oxidoreductase,P04035,0.0312265582077,,,5
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Cytochrome P450 19A1,CYP19A1,P11511,CHEMBL1978,Cytochrome P450,P11511,0.0312265582077,,,6
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,UDP-glucuronosyltransferase 2B7,UGT2B7,P16662,CHEMBL4370,Enzyme,P16662,0.0312265582077,,,7
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Thromboxane-A synthase,TBXAS1,P24557,CHEMBL1835,Cytochrome P450,P24557,0.0312265582077,,,8
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Cytochrome P450 11B1,CYP11B1,P15538,CHEMBL1908,Cytochrome P450,P15538,0.0312265582077,,,9
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Cytochrome P450 11B2,CYP11B2,P19099,CHEMBL2722,Cytochrome P450,P19099,0.0312265582077,,,10
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,DNA polymerase alpha subunit,POLA1,P09884,CHEMBL1828,Transferase,P09884,0.0312265582077,,,11
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,11-beta-hydroxysteroid dehydrogenase 1,HSD11B1,P28845,CHEMBL4235,Enzyme,P28845,0.0312265582077,,,12
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Alpha-2a adrenergic receptor,ADRA2A,P08913,CHEMBL1867,Family A G protein-coupled receptor,P08913,0.0312265582077,,,13
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Adrenergic receptor alpha-2,ADRA2C,P18825,CHEMBL1916,Family A G protein-coupled receptor,P18825,0.0312265582077,,,14
+L-BORNYL-ACETATE,Abies alba,93009.0,CC(=O)OC1CC2CCC1(C2(C)C)C,SwissTargetPrediction,Alpha-2b adrenergic receptor,ADRA2B,P18089,CHEMBL1942,Family A G protein-coupled receptor,P18089,0.0312265582077,,,15
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Lysine-specific demethylase 4D-like,KDM4E,B2RXH2,CHEMBL1293226,Eraser,B2RXH2,0.212408695957,,,1
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Tyrosine-protein kinase FYN,FYN,P06241,CHEMBL1841,Kinase,P06241,0.212408695957,,,2
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Epidermal growth factor receptor erbB1,EGFR,P00533,CHEMBL203,Kinase,P00533,0.212408695957,,,3
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Tyrosine-protein kinase LCK,LCK,P06239,CHEMBL258,Kinase,P06239,0.212408695957,,,4
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Tyrosine 3-hydroxylase,TH,P07101,CHEMBL1969,Oxidoreductase,P07101,0.177302605236,,,5
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Voltage-gated calcium channel alpha2/delta subunit 1 (by homology),CACNA2D1,P54289,CHEMBL1919,Calcium channel auxiliary subunit alpha2delta family,P54289,0.150923844771,,,6
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Thyroid hormone receptor alpha,THRA,P10827,CHEMBL1860,Nuclear receptor,P10827,0.080569968052,,,7
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Thyroid hormone receptor beta-1,THRB,P10828,CHEMBL1947,Nuclear receptor,P10828,0.080569968052,,,8
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,L-type amino acid transporter 1,SLC7A5,Q01650,CHEMBL4459,Electrochemical transporter,Q01650,0.080569968052,,,9
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Bile acid receptor FXR,NR1H4,Q96RI1,CHEMBL2047,Nuclear receptor,Q96RI1,0.080569968052,,,10
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,DNA-(apurinic or apyrimidinic site) lyase,APEX1,P27695,CHEMBL5619,Enzyme,P27695,0.080569968052,,,11
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Receptor-type tyrosine-protein phosphatase alpha,PTPRA,P18433,CHEMBL3918,Phosphatase,P18433,0.080569968052,,,12
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Trace amine-associated receptor 1 (by homology),TAAR1,Q96RJ0,CHEMBL5857,Family A G protein-coupled receptor,Q96RJ0,0.080569968052,,,13
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Kynurenine 3-monooxygenase,KMO,O15229,CHEMBL2145,Oxidoreductase,O15229,0.0717871625222,,,14
+TYROSINE,Abrus precatorius,6057.0,C1=CC(=CC=C1CC(C(=O)O)N)O,SwissTargetPrediction,Lysine-specific demethylase 4C,KDM4C,Q9H3R0,CHEMBL6175,Eraser,Q9H3R0,0.0717871625222,,,15
