@@ -57,6 +57,7 @@ source(file.path(FUN_PATH, "disease_target_overlap.R"))
 source(file.path(FUN_PATH, "target_overlap_network.R"))
 source("tcmnp_functions/integrated_np_network.R")
 source(file.path(FUN_PATH, "integrated_np_disease_network.R"))
+source(file.path(FUN_PATH, "export_cytoscape.R")) # NEW: Load Cytoscape export function
 
 # Load typography theme
 source("tcmnp_functions/plot_theme_config.R")
@@ -168,7 +169,11 @@ tryCatch(
     message(sprintf("Saving TCM Network (Nodes: %d, Size: %.1f x %.1f inches)...", n_tcm_nodes, dyn_width_tcm, dyn_height_tcm))
 
     p3 <- tcm_net(tcm_data, label.degree = 0, rem.dis.inter = FALSE)
+    p3 <- tcm_net(tcm_data, label.degree = 0, rem.dis.inter = FALSE)
     save_publication_plot(p3, file.path(OUTPUT_DIR, "tcm_network"), width = dyn_width_tcm, height = dyn_height_tcm)
+    
+    # Export for Cytoscape
+    export_for_cytoscape(tcm_data, OUTPUT_DIR, file_prefix = "TCM_Network")
   },
   error = function(e) {
     message("TCM Network Plot failed: ", e$message)
@@ -406,13 +411,17 @@ if (!is.null(ppi_res)) {
     p4 <- ppi_plot(
         ppi_res$ppi_edges,
         label.degree = 0,
-        label.size = 5, # Larger labels (was 2.5)
-        graph.layout = "fr",
+        label.size = get_font_size("label", 0.8), # Use dynamic font size
+        graph.layout = "nicely", # Better layout for clusters/filling
         edge.width = c(0.1, 0.8),
         node.size = c(2, 6)
     )
     save_publication_plot(p4, file.path(OUTPUT_DIR, "ppi_network"), width = dyn_width_ppi, height = dyn_height_ppi)
+    save_publication_plot(p4, file.path(OUTPUT_DIR, "ppi_network"), width = dyn_width_ppi, height = dyn_height_ppi)
     write.csv(ppi_res$ppi_edges, file.path(OUTPUT_DIR, "ppi_edges.csv"), row.names = FALSE)
+    
+    # Export for Cytoscape
+    export_for_cytoscape(ppi_res$ppi_edges, OUTPUT_DIR, file_prefix = "PPI_Network")
   }, error = function(e) { message("PPI Network Plot skipped: ", e$message) })
 }
 

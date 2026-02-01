@@ -12,13 +12,14 @@ function App() {
     const [progress, setProgress] = useState(0)
     const [progressMessage, setProgressMessage] = useState('')
     const [message, setMessage] = useState({ type: '', text: '' })
-    const [openCategories, setOpenCategories] = useState({ image: true, csv: true })
+    const [openCategories, setOpenCategories] = useState({ image: true, csv: true, cytoscape: true })
     const [activeTab, setActiveTab] = useState('go_bp')
 
     // Settings
     const [fontSize, setFontSize] = useState(14)
     const [fontStyle, setFontStyle] = useState('bold')
     const [dpi, setDpi] = useState(600)
+    const [minProbability, setMinProbability] = useState(0.5) // Default 0.5
 
     const eventSourceRef = useRef(null)
     const resultsRef = useRef(null)
@@ -83,7 +84,11 @@ function App() {
             eventSourceRef.current.close()
         }
 
-        const params = new URLSearchParams({ fontSize, fontStyle, dpi })
+        if (eventSourceRef.current) {
+            eventSourceRef.current.close()
+        }
+
+        const params = new URLSearchParams({ fontSize, fontStyle, dpi, minProbability })
         const eventSource = new EventSource(`${API_BASE}/run-stream?${params.toString()}`)
         eventSourceRef.current = eventSource
 
@@ -155,14 +160,19 @@ function App() {
     const ppiPlot = results.find(f => f.category === 'ppi')
     const degreePlot = results.find(f => f.category === 'degree')
 
+    // Cytoscape Files
+    const cytoscapeFiles = results.filter(f => f.url.includes('cytoscape_files'))
+
     const groupedResults = {
         image: results.filter(f => f.type === 'image'),
-        csv: results.filter(f => f.type === 'csv')
+        csv: results.filter(f => f.type === 'csv' && !f.url.includes('cytoscape_files')), // Exclude cytoscape from general CSV
+        cytoscape: cytoscapeFiles
     }
 
     const categoryLabels = {
         image: '🖼️ All Plots & Graphs',
-        csv: '📊 Data Tables (CSV Preview)'
+        csv: '📊 Data Tables (CSV Preview)',
+        cytoscape: '🕸️ Cytoscape Ready Files'
     }
 
     const renderTabContent = () => {
@@ -252,6 +262,22 @@ function App() {
                             <option value="300">300 (Publication)</option>
                             <option value="600">600 (High Detail)</option>
                         </select>
+                    </div>
+                    <div className="settings-group">
+                        <label>Min. Confidence (0.1 - 1.0)</label>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <input
+                                type="range"
+                                min="0.1"
+                                max="1.0"
+                                step="0.05"
+                                value={minProbability}
+                                onChange={(e) => setMinProbability(parseFloat(e.target.value))}
+                                disabled={isRunning}
+                                style={{ flex: 1 }}
+                            />
+                            <span>{minProbability}</span>
+                        </div>
                     </div>
                 </div>
             </div>

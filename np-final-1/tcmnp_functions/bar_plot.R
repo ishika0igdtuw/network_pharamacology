@@ -139,7 +139,8 @@ bar_plot <- function(data,
       axis.title.x = element_text(face = "bold")
     ) +
     scale_x_continuous(expand = expansion(mult = c(0, 0.15))) +
-    scale_y_discrete(expand = c(0, -1)) +
+    scale_x_continuous(expand = expansion(mult = c(0, 0.15))) +
+    # scale_y_discrete(expand = c(0, -1)) + # REMOVED to fix truncated labels
     theme(legend.position = "right") +
     ylab(NULL) +
     xlab("Gene Count") +

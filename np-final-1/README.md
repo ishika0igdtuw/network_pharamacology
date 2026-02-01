@@ -69,6 +69,24 @@ chmod +x run_pipeline.sh
 ./run_pipeline_windows.sh
 ```
 
+### Web Interface (FastAPI + React)
+If you want to run the web application:
+
+1.  **Backend (FastAPI)**:
+    ```bash
+    cd backend
+    uvicorn app:app --reload
+    ```
+    *The API will be available at `http://localhost:8000`.*
+
+2.  **Frontend (React/Vite)**:
+    ```bash
+    cd frontend
+    npm install  # (First time only)
+    npm run dev
+    ```
+    *The web interface will be available at `http://localhost:5173`.*
+
 ### Manual Execution (Step-by-Step)
 If you prefer to run steps individually:
 

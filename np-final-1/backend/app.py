@@ -50,7 +50,7 @@ async def upload_file(file: UploadFile = File(...)):
 # -------------------------
 # Pipeline execution in background
 # -------------------------
-def run_pipeline_background(queue: Queue, font_size: int = 14, font_style: str = "bold", dpi: int = 600):
+def run_pipeline_background(queue: Queue, font_size: int = 14, font_style: str = "bold", dpi: int = 600, min_prob: float = 0.5):
     """Run pipeline and send logs to queue"""
     global pipeline_running
     pipeline_running = True
@@ -109,7 +109,8 @@ def run_pipeline_background(queue: Queue, font_size: int = 14, font_style: str =
         queue.put("PROGRESS:45:Building TCMNP Data Structures (Step 2/3)...\n")
         p2 = subprocess.Popen(
             ["python",
-             os.path.join(BASE_DIR, "3_tcmnp_input", "build_tcmnp_input.py")],
+             os.path.join(BASE_DIR, "3_tcmnp_input", "build_tcmnp_input.py"),
+             "--min-prob", str(min_prob)],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
@@ -174,7 +175,8 @@ def run_pipeline_background(queue: Queue, font_size: int = 14, font_style: str =
 async def run_pipeline_stream(
     fontSize: int = 14,
     fontStyle: str = "bold",
-    dpi: int = 600
+    dpi: int = 600,
+    minProbability: float = 0.5
 ):
     """Stream pipeline logs in real-time using Server-Sent Events"""
     global log_queue, pipeline_running
@@ -199,7 +201,7 @@ async def run_pipeline_stream(
     # Start pipeline in background thread with settings
     thread = threading.Thread(
         target=run_pipeline_background, 
-        args=(log_queue, fontSize, fontStyle, dpi)
+        args=(log_queue, fontSize, fontStyle, dpi, minProbability)
     )
     thread.daemon = True
     thread.start()
