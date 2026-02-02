@@ -1,117 +1,123 @@
-# Network Pharmacology Pipeline
+# Automated Network Pharmacology Analysis Pipeline
 
-This repository contains a comprehensive pipeline for network pharmacology analysis, integrating target prediction (SwissTargetPrediction, SEA, PPB3) and network construction/visualization (Sankey, Alluvial, PPI, Disease Overlap).
+This repository provides a standardized, high-performance R pipeline for comprehensive Network Pharmacology analysis. It integrates phytochemical-target prediction workflows with advanced network construction, topological analysis, and functional enrichment modules. The pipeline is designed for reproducibility, featuring content-aware visualization and publication-quality output generation.
 
-## Prerequisites
+## Project Overview
 
-Before running the pipeline, ensure you have the following installed on your system:
+The pipeline automates the transition from predicted target sets to biologically meaningful insights. It processes compound-target interactions, performs topological bottleneck analysis (hub identification), and executes multi-level enrichment (GO/KEGG/DO). Additionally, it integrates a disease-centric module that fetches real-time data from the Open Targets Platform to compute target overlaps and visualize intersection networks.
 
-### 1. R (Strict Requirement)
-*   **Version**: R >= 4.4.0 is **required** due to dependencies on recent Bioconductor packages (`clusterProfiler` v4.18+, `DOSE`, `org.Hs.eg.db`).
-*   **Download**: [https://cran.r-project.org/](https://cran.r-project.org/)
-*   **System Dependencies (Mac/Linux)**: You may need system libraries for R packages (e.g., `libcurl`, `openssl`, `libxml2`, `cmake`, `gfortran`).
-    *   *Mac (Homebrew)*: `brew install openssl libgit2 cairo`
-    *   *Ubuntu*: `sudo apt-get install libcurl4-openssl-dev libxml2-dev libssl-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev map jpeg-dev`
+## Folder Structure
 
-### 2. Python
-*   **Version**: Python 3.9 or higher.
-*   **Download**: [https://www.python.org/downloads/](https://www.python.org/downloads/)
-
-### 3. Google Chrome
-*   Required for the Selenium-based target prediction tools (SwissTargetPrediction, SEA).
-
----
-
-## Installation
-
-1.  **Clone the repository**:
-    ```bash
-    git clone <repository-url>
-    cd <repository-folder>
-    ```
-
-2.  **Set up Python Environment**:
-    It is recommended to use a virtual environment.
-    ```bash
-    # Create venv
-    python3 -m venv venv
-
-    # Activate venv
-    # Mac/Linux:
-    source venv/bin/activate
-    # Windows:
-    # venv\Scripts\activate
-    ```
-
-3.  **Install Python Dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *This installs `pandas`, `selenium`, `beautifulsoup4`, `requests`, and `webdriver-manager`.*
-
-4.  **R Package Setup**:
-    The analysis script `run_analysis.R` attempts to automatically install missing R packages (`tidyverse`, `igraph`, `ggraph`, `BiocManager`, etc.) on the first run. Ensure you have internet access.
-
----
-
-## Usage
-
-You can run the full pipeline using the provided shell script:
-
-### Mac / Linux
-```bash
-chmod +x run_pipeline.sh
-./run_pipeline.sh
+```text
+np/
+├── 1_input_data/           # Raw phytochemical data
+├── 2_target_prediction/    # SwissTargetPrediction/SEA/PPB3 outputs
+├── 3_tcmnp_input/          # Unified input for analysis
+│   └── tcm_input.csv       # Standardized input file
+├── tcmnp_functions/        # Modular R functions
+├── data/                   # Reference databases and cache
+├── outputs/                # Generated visualizations and reports
+│   ├── disease_overlap/    # Multi-set intersection analysis
+│   ├── kegg_pathways/      # High-bitrate pathway diagrams
+│   └── cytoscape/          # Cytoscape-compatible export files
+└── run_analysis.R          # Core execution script
 ```
 
-### Windows
-```bash
-./run_pipeline_windows.sh
+## Required Input Format
+
+The analysis requires a standardized CSV file located at `3_tcmnp_input/tcm_input.csv`. The file must contain the following columns (case-insensitive):
+
+| Column | Description | Example |
+| :--- | :--- | :--- |
+| Herb | Botanical source name | Panax ginseng |
+| Molecule | Phytochemical entry name | Ginsenoside Rg1 |
+| Target | Gene Symbol (Approved Symbol) | PTGS2 |
+| Probability | Confidence score (0 to 1) | 0.85 |
+
+## Installation and Setup
+
+### 1. R Environment
+R version 4.4.0 or higher is required to support the latest Bioconductor dependencies.
+
+### 2. Dependency Installation
+The pipeline includes an automated dependency manager. However, critical libraries can be pre-installed manually:
+
+```r
+# Core Analysis & Network Handling
+install.packages(c("dplyr", "ggplot2", "igraph", "ggraph", "tidyr", "data.table"))
+
+# Bioconductor Modules
+if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "DOSE", "pathview"))
 ```
 
-### Manual Execution (Step-by-Step)
-If you prefer to run steps individually:
+## Execution Guide
 
-1.  **Target Prediction** (Python):
-    ```bash
-    python 2_target_prediction/run_target_prediction.py 1_input_data/phytochemical_input.csv
-    ```
-    *Generates raw target predictions in `results_all3_human/`.*
+### Automated Execution (Rscript)
+Execute the full pipeline from the terminal/command prompt:
+```bash
+cd np
+Rscript run_analysis.R
+```
 
-2.  **Data Processing** (Python):
-    ```bash
-    python 3_tcmnp_input/build_tcmnp_input.py
-    ```
-    *Compiles predictions into `3_tcmnp_input/tcm_input.csv`.*
+### Interactive Execution (R Console)
+Open R or RStudio, set the working directory to the `np` folder, and run:
+```r
+setwd("/path/to/repository/np")
+source("run_analysis.R")
+```
 
-3.  **Network Analysis & Visualization** (R):
-    ```bash
-    Rscript run_analysis.R
-    ```
-    *Generates all plots and networks in `outputs/`.*
+## Module Descriptions
 
----
+### Phytochemical-Target Integration
+Processes raw outputs from prediction servers (SwissTargetPrediction, SEA) and applies probability filtering to ensure a high-confidence target landscape.
 
-## Outputs
+### Compound-Target Network Construction
+Generates bipartite networks connecting herbs, molecules, and targets. Uses a hierarchical layout to visualize the pharmacological flow through pharmacological space.
 
-All visualizations are saved in the `outputs/` directory:
+### Protein-Protein Interaction (PPI) Analysis
+Retrieves physical and functional interactions from the STRING database. The module identifies hub genes through four topological metrics: Degree, Betweenness, Closeness, and Eigenvector centrality.
 
-*   **Network Plots**: `ppi_network.png` (Protein-Protein Interaction), `tcm_network.png` (Compound-Target), `integrated_np_disease_network.png`.
-*   **Flow Diagrams**: `sankey_plot.png` (Source->Mol->Target), `alluvial_plot.pdf`.
-*   **Enrichment Plots**:
-    *   `KEGG_Lollipop_*.png`: Pathway enrichment.
-    *   `GO_BP_Lollipop_*.png`: Biological Processes.
-    *   `GO_MF_Lollipop_*.png`: Molecular Functions.
-    *   `GO_CC_Lollipop_*.png`: Cellular Components.
-    *   `DO_Lollipop_*.png`: Disease Ontology enrichment.
-*   **Disease Overlap**: `disease_target_overlap/` containing Venn diagrams and common target list.
+### Functional Enrichment (KEGG/GO/DO)
+Executes overrepresentation analysis using `clusterProfiler`. Outputs include:
+- KEGG Pathway Enrichment
+- Gene Ontology: Biological Process (BP), Molecular Function (MF), and Cellular Component (CC)
+- Disease Ontology (DO)
 
-## Troubleshooting
+### Disease-Target Overlap (Module 1)
+Fetches disease-associated targets via the Open Targets GraphQL API. Computes multi-set intersections (Venn/Upset diagrams) and generates specific CSV files for shared and unique targets.
 
-*   **R Package Installation Fails**: If `run_analysis.R` fails to install packages, try opening R/RStudio manually and running:
-    ```r
-    install.packages("BiocManager")
-    BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "DOSE"))
-    install.packages(c("dplyr", "ggplot2", "igraph", "ggraph", "ggsankey", "tidyr", "data.table"))
-    ```
-*   **Selenium Errors**: Ensure Google Chrome is installed and updated. `webdriver-manager` should handle the driver automatically.
+### Content-Aware Visualization (Module 2)
+Implements dynamic scaling where node size, edge transparency, and canvas dimensions are automatically adjusted based on network density and node count. This eliminates layout distortion and ensures consistent readability across varying dataset sizes.
+
+## Output Organization
+
+Results are exported to the `outputs/` directory in professional formats (PNG, SVG, and TIFF):
+
+- **Network Graphics**: `tcm_network`, `ppi_network`, `integrated_np_disease_network`
+- **Enrichment Visuals**: Lollipop and bar plots for all enrichment categories
+- **Cytoscape Export**: `.sif` files and attribute CSVs for external platform integration
+- **Pathview Diagrams**: High-resolution KEGG maps with hub gene highlighting
+
+## Reproducibility and Requirements
+
+- **Seed Control**: A fixed seed (42) is used for all force-directed layouts to ensure visual reproducibility across runs.
+- **Internet Requirements**: Active internet access is required on the first run for STRING database retrieval and Open Targets API synchronization.
+- **Hardware**: For networks exceeding 500 nodes, at least 8GB of RAM is recommended for optimal rendering.
+
+## Dependencies
+
+- **CRAN**: `dplyr`, `ggplot2`, `igraph`, `ggraph`, `RColorBrewer`, `ggVennDiagram`, `ComplexUpset`
+- **Bioconductor**: `clusterProfiler`, `org.Hs.eg.db`, `pathview`, `DOSE`
+
+## Citations
+
+When using this pipeline, please cite the following core libraries:
+
+- **Enrichment Analysis**: Wu T, et al. (2021). clusterProfiler 4.0: A universal enrichment tool for interpreting omics data. *Innovation*.
+- **PPI Database**: Szklarczyk D, et al. (2023). The STRING database in 2023: protein-protein association networks and functional enrichment analysis for any sequenced genome of interest. *Nucleic Acids Research*.
+- **Disease Context**: Ochoa D, et al. (2023). Open Targets Platform 2023: updating strategies for ethical and efficient platform evolution. *Nucleic Acids Research*.
+
+## License
+
+This project is intended for research and academic use. Please refer to individual package licenses for dependency compliance.
