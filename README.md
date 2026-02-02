@@ -1,123 +1,107 @@
-# Automated Network Pharmacology Analysis Pipeline
+# Network Pharmacology Analysis Pipeline
 
-This repository provides a standardized, high-performance R pipeline for comprehensive Network Pharmacology analysis. It integrates phytochemical-target prediction workflows with advanced network construction, topological analysis, and functional enrichment modules. The pipeline is designed for reproducibility, featuring content-aware visualization and publication-quality output generation.
+This repository hosts a comprehensive solution for Network Pharmacology analysis, integrating phytochemical-target prediction with advanced network construction, topological analysis, and functional enrichment. It encompasses a core bioinformatics pipeline, a RESTful API backend, and a modern web frontend.
 
-## Project Overview
+## 📂 Project Structure
 
-The pipeline automates the transition from predicted target sets to biologically meaningful insights. It processes compound-target interactions, performs topological bottleneck analysis (hub identification), and executes multi-level enrichment (GO/KEGG/DO). Additionally, it integrates a disease-centric module that fetches real-time data from the Open Targets Platform to compute target overlaps and visualize intersection networks.
+- **`np/`**: The core bioinformatics pipeline containing R and Python scripts for analysis, target prediction, and visualization.
+- **`backend/`**: A FastAPI-based server that acts as the bridge between the web interface and the analysis pipeline.
+- **`frontend/`**: A React/Vite web application that provides a user-friendly interface for uploading data, running analyses, and visualizing results.
 
-## Folder Structure
+---
 
-```text
-np/
-├── 1_input_data/           # Raw phytochemical data
-├── 2_target_prediction/    # SwissTargetPrediction/SEA/PPB3 outputs
-├── 3_tcmnp_input/          # Unified input for analysis
-│   └── tcm_input.csv       # Standardized input file
-├── tcmnp_functions/        # Modular R functions
-├── data/                   # Reference databases and cache
-├── outputs/                # Generated visualizations and reports
-│   ├── disease_overlap/    # Multi-set intersection analysis
-│   ├── kegg_pathways/      # High-bitrate pathway diagrams
-│   └── cytoscape/          # Cytoscape-compatible export files
-└── run_analysis.R          # Core execution script
-```
+## 🚀 Setup & Execution Guide
 
-## Required Input Format
+To run the full application, you need to set up and run all three components.
 
-The analysis requires a standardized CSV file located at `3_tcmnp_input/tcm_input.csv`. The file must contain the following columns (case-insensitive):
+### 1. Core Pipeline Setup (`np/`)
+*Location: `/np`*
 
-| Column | Description | Example |
-| :--- | :--- | :--- |
-| Herb | Botanical source name | Panax ginseng |
-| Molecule | Phytochemical entry name | Ginsenoside Rg1 |
-| Target | Gene Symbol (Approved Symbol) | PTGS2 |
-| Probability | Confidence score (0 to 1) | 0.85 |
+The pipeline performs the heavy lifting. It requires **Python 3.x** and **R 4.4.0+**.
 
-## Installation and Setup
+1.  **Navigate to the directory:**
+    ```bash
+    cd np
+    ```
 
-### 1. R Environment
-R version 4.4.0 or higher is required to support the latest Bioconductor dependencies.
+2.  **Set up the Python Environment:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate      # Mac/Linux
+    # .\venv\Scripts\activate     # Windows
+    
+    # Install dependencies
+    pip install -r requirements.txt
+    ```
 
-### 2. Dependency Installation
-The pipeline includes an automated dependency manager. However, critical libraries can be pre-installed manually:
+3.  **R Dependencies:**
+    R packages are auto-installed by the script, but ensure you have `BiocManager`, `dplyr`, `igraph`, `ggplot2`, and `clusterProfiler` available if running offline.
 
-```r
-# Core Analysis & Network Handling
-install.packages(c("dplyr", "ggplot2", "igraph", "ggraph", "tidyr", "data.table"))
+4.  **(Optional) Manual Execution:**
+    To run the pipeline without the UI:
+    ```bash
+    bash run_pipeline.sh
+    ```
 
-# Bioconductor Modules
-if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "DOSE", "pathview"))
-```
+### 2. Backend Setup (`backend/`)
+*Location: `/backend`*
 
-## Execution Guide
+The backend orchestrates the pipeline execution.
 
-### Automated Execution (Rscript)
-Execute the full pipeline from the terminal/command prompt:
-```bash
-cd np
-Rscript run_analysis.R
-```
+1.  **Navigate to the directory:**
+    ```bash
+    cd backend
+    ```
 
-### Interactive Execution (R Console)
-Open R or RStudio, set the working directory to the `np` folder, and run:
-```r
-setwd("/path/to/repository/np")
-source("run_analysis.R")
-```
+2.  **Set up the Python Environment:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate      # Mac/Linux
+    # .\venv\Scripts\activate     # Windows
+    ```
 
-## Module Descriptions
+3.  **Install Dependencies:**
+    ```bash
+    pip install fastapi uvicorn python-multipart
+    ```
 
-### Phytochemical-Target Integration
-Processes raw outputs from prediction servers (SwissTargetPrediction, SEA) and applies probability filtering to ensure a high-confidence target landscape.
+4.  **Start the Server:**
+    ```bash
+    uvicorn app:app --reload
+    ```
+    The server will start at: `http://localhost:8000`
 
-### Compound-Target Network Construction
-Generates bipartite networks connecting herbs, molecules, and targets. Uses a hierarchical layout to visualize the pharmacological flow through pharmacological space.
+### 3. Frontend Setup (`frontend/`)
+*Location: `/frontend`*
 
-### Protein-Protein Interaction (PPI) Analysis
-Retrieves physical and functional interactions from the STRING database. The module identifies hub genes through four topological metrics: Degree, Betweenness, Closeness, and Eigenvector centrality.
+The frontend provides the graphical interface.
 
-### Functional Enrichment (KEGG/GO/DO)
-Executes overrepresentation analysis using `clusterProfiler`. Outputs include:
-- KEGG Pathway Enrichment
-- Gene Ontology: Biological Process (BP), Molecular Function (MF), and Cellular Component (CC)
-- Disease Ontology (DO)
+1.  **Navigate to the directory:**
+    ```bash
+    cd frontend
+    ```
 
-### Disease-Target Overlap (Module 1)
-Fetches disease-associated targets via the Open Targets GraphQL API. Computes multi-set intersections (Venn/Upset diagrams) and generates specific CSV files for shared and unique targets.
+2.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
 
-### Content-Aware Visualization (Module 2)
-Implements dynamic scaling where node size, edge transparency, and canvas dimensions are automatically adjusted based on network density and node count. This eliminates layout distortion and ensures consistent readability across varying dataset sizes.
+3.  **Start the Application:**
+    ```bash
+    npm run dev
+    ```
+    The application will be available at: `http://localhost:3000`
 
-## Output Organization
+---
 
-Results are exported to the `outputs/` directory in professional formats (PNG, SVG, and TIFF):
+## 💻 Usage
 
-- **Network Graphics**: `tcm_network`, `ppi_network`, `integrated_np_disease_network`
-- **Enrichment Visuals**: Lollipop and bar plots for all enrichment categories
-- **Cytoscape Export**: `.sif` files and attribute CSVs for external platform integration
-- **Pathview Diagrams**: High-resolution KEGG maps with hub gene highlighting
+1.  **Start the Backend**: Ensure the terminal running `uvicorn` is active.
+2.  **Start the Frontend**: Ensure the terminal running `npm run dev` is active.
+3.  **Open Browser**: Go to `http://localhost:3000`.
+4.  **Upload**: Upload your input CSV/TXT file.
+5.  **Run**: Click "Run Pipeline". The logs will stream in the UI.
+6.  **Analyze**: Explore the generated network graphs and enrichment plots on the dashboard.
 
-## Reproducibility and Requirements
-
-- **Seed Control**: A fixed seed (42) is used for all force-directed layouts to ensure visual reproducibility across runs.
-- **Internet Requirements**: Active internet access is required on the first run for STRING database retrieval and Open Targets API synchronization.
-- **Hardware**: For networks exceeding 500 nodes, at least 8GB of RAM is recommended for optimal rendering.
-
-## Dependencies
-
-- **CRAN**: `dplyr`, `ggplot2`, `igraph`, `ggraph`, `RColorBrewer`, `ggVennDiagram`, `ComplexUpset`
-- **Bioconductor**: `clusterProfiler`, `org.Hs.eg.db`, `pathview`, `DOSE`
-
-## Citations
-
-When using this pipeline, please cite the following core libraries:
-
-- **Enrichment Analysis**: Wu T, et al. (2021). clusterProfiler 4.0: A universal enrichment tool for interpreting omics data. *Innovation*.
-- **PPI Database**: Szklarczyk D, et al. (2023). The STRING database in 2023: protein-protein association networks and functional enrichment analysis for any sequenced genome of interest. *Nucleic Acids Research*.
-- **Disease Context**: Ochoa D, et al. (2023). Open Targets Platform 2023: updating strategies for ethical and efficient platform evolution. *Nucleic Acids Research*.
-
-## License
-
-This project is intended for research and academic use. Please refer to individual package licenses for dependency compliance.
+## 📄 License
+Intended for research and academic use.
