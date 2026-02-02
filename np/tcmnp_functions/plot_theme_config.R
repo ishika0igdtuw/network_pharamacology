@@ -50,16 +50,17 @@ PLOT_THEME_CONFIG <- list(
 
     colors = list(
         # Network colors
-        hub_gene = "#DC143C", # Crimson red for hub genes
-        hub_gene_light = "#FF6B6B", # Light red
+        herb = "#3498db", # Blue for herbs
+        compound = "#2ecc71", # Green for compounds/molecules
+        target = "#f1c40f", # Yellow for neutral targets
+        hub_gene = "#e74c3c", # Red for hub genes
+        disease = "#c0392b", # Dark red for disease phenotype
+        hub_gene_light = "#ff7979", # Light red
         non_hub = "#E8E8E8", # Light grey for non-hubs
-        target = "#4A90E2", # Blue for targets
-        compound = "#F39C12", # Orange for compounds
-        disease = "#9B59B6", # Purple for disease
 
         # Enrichment plot colors
-        enrichment_low = "#FFA500", # Orange (low significance)
-        enrichment_high = "#DC143C", # Red (high significance)
+        enrichment_low = "#f1c40f", # Yellow (low significance)
+        enrichment_high = "#e74c3c", # Red (high significance)
 
         # Gradient scales
         continuous_low = "#E8F4F8",
@@ -240,8 +241,12 @@ calculate_canvas_size <- function(n_elements, type = "plot") {
 #' @return Scaled point size for geom_text
 get_scaled_label_size <- function(n_nodes) {
     base_size <- PLOT_THEME_CONFIG$font_sizes$label
-    if (n_nodes < 50) return(base_size)
-    if (n_nodes < 200) return(base_size * 0.8)
+    if (n_nodes < 50) {
+        return(base_size)
+    }
+    if (n_nodes < 200) {
+        return(base_size * 0.8)
+    }
     return(base_size * 0.6)
 }
 

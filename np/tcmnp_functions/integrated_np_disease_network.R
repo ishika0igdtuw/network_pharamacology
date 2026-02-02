@@ -4,20 +4,22 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
     new_packages <- required_packages[!(required_packages %in% installed.packages()[, "Package"])]
     if (length(new_packages)) install.packages(new_packages, repos = "https://cloud.r-project.org")
 
-    library(tidyverse)
-    library(igraph)
-    library(ggraph)
-    library(tidygraph)
-    library(svglite)
+    suppressPackageStartupMessages({
+        library(tidyverse)
+        library(igraph)
+        library(ggraph)
+        library(tidygraph)
+        library(svglite)
+    })
 
     message("Generating Integrated Network Pharmacology-Disease Network...")
 
     # 1. Read Disease-Associated Targets
-    # Check new multi-set intersection first, fallback to set_1
-    common_targets_path <- file.path("outputs", "disease_overlap", "common_intersection_all.csv")
+    # Check common_targets.csv first (new standardized name)
+    common_targets_path <- file.path("outputs", "disease_overlap", "common_targets.csv")
     if (!file.exists(common_targets_path)) {
-       sets <- list.files(file.path("outputs", "disease_overlap"), pattern = "^set_.*\\.csv", full.names = TRUE)
-       if (length(sets) > 0) common_targets_path <- sets[1]
+        sets <- list.files(file.path("outputs", "disease_overlap"), pattern = "^set_.*\\.csv", full.names = TRUE)
+        if (length(sets) > 0) common_targets_path <- sets[1]
     }
 
     if (!file.exists(common_targets_path)) {
@@ -26,20 +28,22 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
         return(NULL)
     }
 
-    common_targets_df <- read.csv(common_targets_path, show_col_types = FALSE)
-    # Handle different column names in sets (symbol) vs intersection (symbol)
-    disease_targets_list <- if("common_target" %in% colnames(common_targets_df)) {
+    common_targets_df <- read.csv(common_targets_path)
+    # Handle different column names in sets (symbol) vs intersection (common_target or symbol)
+    disease_targets_list <- if ("common_target" %in% colnames(common_targets_df)) {
         common_targets_df$common_target
-    } else {
+    } else if ("symbol" %in% colnames(common_targets_df)) {
         common_targets_df$symbol
+    } else {
+        common_targets_df[[1]]
     }
 
     # 2. Process TCM Data (Nodes & Edges) - FLOW PRESERVING
 
     # Filter TCM data to ensure we have valid rows
     tcm_clean <- tcm_data %>%
-        drop_na(herb, molecule, target) %>%
-        distinct()
+        tidyr::drop_na(herb, molecule, target) %>%
+        dplyr::distinct()
 
     # Assign colors to Herbs (Source of Truth for coloring)
     herbs <- unique(tcm_clean$herb)
@@ -50,9 +54,9 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
     # Edge Set 1: Herb -> Molecule
     # These are unique per (Herb, Mol) pair
     edges_herb_mol <- tcm_clean %>%
-        select(from = herb, to = molecule, herb_source = herb) %>%
-        distinct() %>%
-        mutate(
+        dplyr::select(from = herb, to = molecule, herb_source = herb) %>%
+        dplyr::distinct() %>%
+        dplyr::mutate(
             type = "herb_to_mol",
             edge_color = herb_pal[herb_source]
         )
@@ -60,10 +64,10 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
     # Edge Set 2: Molecule -> Target (KEY CHANGE: Multigraph)
     # We keep (Herb, Molecule, Target) triple to preserve source flow
     edges_mol_target <- tcm_clean %>%
-        select(from = molecule, to = target, herb_source = herb) %>%
+        dplyr::select(from = molecule, to = target, herb_source = herb) %>%
         # No distinct() on from/to only! Keep herb_source unique rows
-        distinct() %>%
-        mutate(
+        dplyr::distinct() %>%
+        dplyr::mutate(
             type = "mol_to_target",
             edge_color = herb_pal[herb_source]
         )
@@ -74,14 +78,14 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
         from = disease_targets_list,
         to = disease_label
     ) %>%
-        mutate(
+        dplyr::mutate(
             type = "target_to_disease",
             edge_color = "#ff7979",
             herb_source = NA
         )
 
     # Bind all edges
-    edge_list <- bind_rows(edges_herb_mol, edges_mol_target, edges_target_disease)
+    edge_list <- dplyr::bind_rows(edges_herb_mol, edges_mol_target, edges_target_disease)
 
     # 3. Create Node List with Classes
 
@@ -90,8 +94,8 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
     disease_node <- disease_label
 
     nodes <- data.frame(name = unique(c(herbs, molecules, targets, disease_node))) %>%
-        mutate(
-            node_type = case_when(
+        dplyr::mutate(
+            node_type = dplyr::case_when(
                 name == disease_label ~ "Disease Phenotype",
                 name %in% herbs ~ "Herb",
                 name %in% molecules ~ "Phytochemical",
@@ -102,54 +106,47 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
         )
 
     # 4. Filter Low-Degree Phytochemicals & Reduce Clutter
-    # Updated filtering logic to handle multigraph edges if needed
-    # Calculate simple degree for filtering logic (collapsing sources)
-    mol_degree_calc <- edges_mol_target %>% count(from, name = "degree")
+    mol_degree_calc <- edges_mol_target %>% dplyr::count(from, name = "degree")
 
     target_degree <- edges_mol_target %>%
-        filter(to %in% targets) %>%
-        select(from, to) %>%
-        distinct() %>% # count unique molecules, not edges
-        count(to, name = "degree")
+        dplyr::filter(to %in% targets) %>%
+        dplyr::select(from, to) %>%
+        dplyr::distinct() %>% # count unique molecules, not edges
+        dplyr::count(to, name = "degree")
 
     # Filter out molecules with only 1 target if the network is massive (>400 nodes)
     if (nrow(nodes) > 400) {
         message("Network is large. Filtering low-degree phytochemicals for readability...")
         # Keep molecules with degree > 1
         valid_mols <- mol_degree_calc %>%
-            filter(degree > 1) %>%
-            pull(from)
+            dplyr::filter(degree > 1) %>%
+            dplyr::pull(from)
 
         nodes_filtered <- nodes %>%
-            filter(
+            dplyr::filter(
                 node_type %in% c("Herb", "Disease-associated Target", "Disease Phenotype") |
                     (node_type == "Phytochemical" & name %in% valid_mols) |
                     (node_type == "Target")
             )
 
         edge_list <- edge_list %>%
-            filter(from %in% nodes_filtered$name & to %in% nodes_filtered$name)
+            dplyr::filter(from %in% nodes_filtered$name & to %in% nodes_filtered$name)
 
         nodes <- nodes_filtered
     }
-    # Note: Previous manual color assignment block removed as we map directly in edge construction
 
 
     # 5. Create Tidygraph Object
     g <- tbl_graph(nodes = nodes, edges = edge_list, directed = TRUE)
 
     # 6. Assign Layering for Hierarchical Layout & Visuals
-    # Flow: Herb -> Molecule -> Target -> Disease Target -> Disease Phenotype
-    # To make it nice, we put Disease Targets at layer 4 and Disease Node at 5.
-    # Normal Targets usually sit at layer 3.
-
     g <- g %>%
         mutate(
-            layer = case_when(
+            layer = dplyr::case_when(
                 node_type == "Herb" ~ 1,
                 node_type == "Phytochemical" ~ 2,
                 node_type == "Target" ~ 3,
-                node_type == "Disease-associated Target" ~ 4, # Distinct layer for emphasis
+                node_type == "Disease-associated Target" ~ 4,
                 node_type == "Disease Phenotype" ~ 5
             )
         )
@@ -162,15 +159,15 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
     g <- g %>%
         mutate(
             # Color
-            color = case_when(
-                node_type == "Herb" ~ "#2ecc71", # Green
-                node_type == "Phytochemical" ~ "#3498db", # Blue
-                node_type == "Target" ~ "#ecf0f1", # Very Light Grey (Background)
+            color = dplyr::case_when(
+                node_type == "Herb" ~ "#3498db", # Blue
+                node_type == "Phytochemical" ~ "#2ecc71", # Green
+                node_type == "Target" ~ "#f1c40f", # Yellow (Neutral Targets)
                 node_type == "Disease-associated Target" ~ "#e74c3c", # Red
-                node_type == "Disease Phenotype" ~ "#8e44ad" # Purple
+                node_type == "Disease Phenotype" ~ "#c0392b" # Dark Red
             ),
             # Size
-            size = case_when(
+            size = dplyr::case_when(
                 node_type == "Herb" ~ 8,
                 node_type == "Phytochemical" ~ 5,
                 node_type == "Target" ~ 3,
@@ -181,7 +178,7 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
             label_text = name,
 
             # Text Size - Increased for better visibility
-            text_size = case_when(
+            text_size = dplyr::case_when(
                 node_type == "Disease Phenotype" ~ 9,
                 node_type == "Disease-associated Target" ~ 7,
                 node_type == "Herb" ~ 8,
@@ -189,7 +186,7 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
                 TRUE ~ 6
             ),
             # Font Face
-            text_face = case_when(
+            text_face = dplyr::case_when(
                 node_type %in% c("Herb", "Disease Phenotype", "Disease-associated Target") ~ "bold",
                 TRUE ~ "plain"
             )
@@ -205,23 +202,17 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
     plot_title <- paste0("Mechanism: Herbs -> Phytochemicals -> Targets -> ", disease_label)
 
     p <- ggraph(g, layout = "sugiyama", layers = layer_vec) +
-        # Edges - Straight lines with variable width AND IDENTITY COLOR
         geom_edge_link(
             aes(alpha = stat(index), color = I(edge_color), width = as.factor(type)),
             arrow = arrow(length = unit(3, "mm"), type = "closed"),
             show.legend = FALSE
         ) +
         scale_edge_width_manual(values = c(
-            "herb_to_mol" = 0.8, # Slightly thicker to show off color
+            "herb_to_mol" = 0.8,
             "mol_to_target" = 0.4,
             "target_to_disease" = 1.5
         )) +
-        # Removed separate scale_edge_color_manual as we use I(edge_color)
-
-        # Nodes
         geom_node_point(aes(size = size, color = I(color), fill = I(color)), shape = 21, stroke = 0.5) +
-
-        # Labels (Repel)
         geom_node_text(
             aes(
                 label = label_text,
@@ -232,10 +223,8 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
             bg.color = "white",
             bg.r = 0.15,
             segment.color = "grey80",
-            max.overlaps = Inf # Ensure all labels are shown
+            max.overlaps = Inf
         ) +
-
-        # Scales & Theme
         scale_size_identity() +
         scale_radius(range = c(3, 14)) +
         theme_void() +
@@ -256,27 +245,18 @@ integrated_np_disease_network <- function(tcm_data, out_dir = "outputs", disease
     out_file_png <- file.path(out_dir, "integrated_np_disease_network.png")
     out_file_svg <- file.path(out_dir, "integrated_np_disease_network.svg")
 
-    # Dynamic Sizing based on node count
     n_total_nodes <- nrow(nodes)
-
-    # Calculate optimal dimensions
-    # Base size (18x14) + scaling factor
     calc_dim <- function(n, base) {
-        scaling <- n / 15 # Add 1 inch per 15 nodes
-        return(min(40, max(base, base + scaling / 2))) # Cap at 40 inches
+        scaling <- n / 15
+        return(min(40, max(base, base + scaling / 2)))
     }
 
     dyn_width <- calc_dim(n_total_nodes, 18)
     dyn_height <- calc_dim(n_total_nodes, 14)
 
     message(sprintf("Saving plot (Nodes: %d, Size: %.1f x %.1f inches)...", n_total_nodes, dyn_width, dyn_height))
-
-    message(paste("Saving plot to:", out_file_png))
     ggsave(out_file_png, plot = p, width = dyn_width, height = dyn_height, dpi = 600, bg = "white")
-
-    message(paste("Saving plot to:", out_file_svg))
     ggsave(out_file_svg, plot = p, width = dyn_width, height = dyn_height, bg = "white")
 
-    print(p)
-    message("Done.")
+    return(p)
 }

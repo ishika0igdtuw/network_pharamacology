@@ -11,7 +11,8 @@ source venv/bin/activate
 
 # Step 2: target prediction
 echo "[STEP 1] Running target prediction (SwissTarget + SEA + PPB3)"
-python 2_target_prediction/run_target_prediction.py 1_input_data/phytochemical_input.csv
+INPUT_CSV=${1:-1_input_data/phytochemical_input.csv}
+python 2_target_prediction/run_target_prediction.py "$INPUT_CSV"
 
 # Step 3: map to TCMNP input
 echo "[STEP 2] Mapping outputs to TCMNP input format"

@@ -35,6 +35,9 @@ for (p in bioc_pkgs) {
   library(p, character.only = TRUE)
 }
 
+# Avoid namespace collision for select
+select <- dplyr::select
+
 theme_set(theme(text = element_text(family = "sans")))
 cat("✔ Libraries loaded\n")
 
@@ -82,6 +85,18 @@ tcm_data <- distinct(tcm_data)
 cat("✔ Input rows:", nrow(tcm_data), "\n")
 
 # ===============================
+# 3.5. Identify Preliminary Hubs (for early visualization)
+# ===============================
+# Identify top 30 targets by degree to use as hubs in enrichment plots
+prelim_hubs <- tcm_data %>%
+  dplyr::count(target, sort = TRUE) %>%
+  dplyr::slice(1:30) %>%
+  dplyr::rename(gene = target)
+
+write.csv(prelim_hubs, file.path(OUTPUT_DIR, "hub_genes_automated.csv"), row.names = FALSE)
+cat("✔ Preliminary hub genes identified and saved\n")
+
+# ===============================
 # 4. Disease vs Predicted Target Overlap (MODULE 1)
 # ===============================
 cat("PROGRESS:70:Performing Disease Overlap Analysis...\n")
@@ -92,8 +107,8 @@ tryCatch(
     disease_ids <- unlist(strsplit(disease_ids_raw, ","))
     disease_ids <- trimws(disease_ids)
 
-    cat("Starting multi-set disease overlap analysis for:", paste(disease_ids, collapse=", "), "\n")
-    
+    cat("Starting multi-set disease overlap analysis for:", paste(disease_ids, collapse = ", "), "\n")
+
     disease_target_overlap(
       disease_ids = disease_ids,
       tcm_data = tcm_data,
@@ -117,7 +132,7 @@ tryCatch(
       tcm_data = tcm_data,
       out_dir = OUTPUT_DIR
     )
-    
+
     # Use primary disease ID for the combined network
     integrated_np_disease_network(
       tcm_data = tcm_data,
@@ -136,25 +151,27 @@ tryCatch(
 tryCatch(
   {
     predicted_targets <- unique(tcm_data$target)
-    common_targets_file <- file.path(OUTPUT_DIR, "disease_overlap", "common_intersection_all.csv")
-    
+    common_targets_file <- file.path(OUTPUT_DIR, "disease_overlap", "common_targets.csv")
+
     if (file.exists(common_targets_file)) {
       common_targets <- read.csv(common_targets_file)$symbol
-      
+
       # For visualization purposes, take first disease sets if available
       disease_sets <- list.files(file.path(OUTPUT_DIR, "disease_overlap"), pattern = "^set_.*\\.csv", full.names = TRUE)
       if (length(disease_sets) > 0) {
-          disease_targets <- read.csv(disease_sets[1])$symbol
-          target_overlap_network(
-            disease_targets   = disease_targets,
-            predicted_targets = predicted_targets,
-            common_targets    = common_targets,
-            out_dir           = OUTPUT_DIR
-          )
+        disease_targets <- read.csv(disease_sets[1])$symbol
+        target_overlap_network(
+          disease_targets   = disease_targets,
+          predicted_targets = predicted_targets,
+          common_targets    = common_targets,
+          out_dir           = OUTPUT_DIR
+        )
       }
     }
   },
-  error = function(e) { message("Target Overlap Network failed: ", e$message) }
+  error = function(e) {
+    message("Target Overlap Network failed: ", e$message)
+  }
 )
 
 
@@ -174,7 +191,7 @@ tryCatch(
     p3 <- tcm_net(tcm_data, label.degree = 0, rem.dis.inter = FALSE)
     p3 <- tcm_net(tcm_data, label.degree = 0, rem.dis.inter = FALSE)
     save_publication_plot(p3, file.path(OUTPUT_DIR, "tcm_network"), width = dyn_width_tcm, height = dyn_height_tcm)
-    
+
     # Export for Cytoscape
     export_for_cytoscape(tcm_data, OUTPUT_DIR, file_prefix = "TCM_Network")
   },
@@ -189,7 +206,7 @@ tryCatch(
 # ===============================
 tryCatch(
   {
-    hub_degree <- tcm_data %>% count(target, sort = TRUE)
+    hub_degree <- tcm_data %>% dplyr::count(target, sort = TRUE)
     write.csv(
       hub_degree,
       file.path(OUTPUT_DIR, "hub_targets_degree.csv"),
@@ -403,22 +420,27 @@ ppi_res <- tryCatch(
 if (!is.null(ppi_res)) {
   ppi_nodes <- unique(c(ppi_res$ppi_edges$from, ppi_res$ppi_edges$to))
   n_ppi_nodes <- length(ppi_nodes)
-  
+
   # CONTENT-AWARE SCALING
   ppi_canvas <- calculate_canvas_size(n_ppi_nodes, type = "network")
   message(sprintf("Saving PPI Network (Nodes: %d, Size: %.1f x %.1f inches)...", n_ppi_nodes, ppi_canvas$width, ppi_canvas$height))
 
-  tryCatch({
-    p_ppi <- ppi_plot(
+  tryCatch(
+    {
+      p_ppi <- ppi_plot(
         ppi_res$ppi_edges,
         label.degree = 0,
         label.size = get_scaled_label_size(n_ppi_nodes),
         edge.width = c(0.1, 0.8)
-    )
-    save_publication_plot(p_ppi, file.path(OUTPUT_DIR, "ppi_network"), width = ppi_canvas$width, height = ppi_canvas$height)
-    write.csv(ppi_res$ppi_edges, file.path(OUTPUT_DIR, "ppi_edges.csv"), row.names = FALSE)
-    export_for_cytoscape(ppi_res$ppi_edges, OUTPUT_DIR, file_prefix = "PPI_Network")
-  }, error = function(e) { message("PPI Network Plot failed: ", e$message) })
+      )
+      save_publication_plot(p_ppi, file.path(OUTPUT_DIR, "ppi_network"), width = ppi_canvas$width, height = ppi_canvas$height)
+      write.csv(ppi_res$ppi_edges, file.path(OUTPUT_DIR, "ppi_edges.csv"), row.names = FALSE)
+      export_for_cytoscape(ppi_res$ppi_edges, OUTPUT_DIR, file_prefix = "PPI_Network")
+    },
+    error = function(e) {
+      message("PPI Network Plot failed: ", e$message)
+    }
+  )
 }
 
 # ===============================

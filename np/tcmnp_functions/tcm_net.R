@@ -185,9 +185,9 @@ tcm_net <- function(network.data,
     # Class colors
     ggplot2::scale_color_manual(
       values = c(
-        "Herb"     = "#009E73",
-        "Molecule" = "#0072B2",
-        "Target"   = "#D55E00"
+        "Herb"     = "#3498db", # Blue
+        "Molecule" = "#2ecc71", # Green
+        "Target"   = "#e74c3c" # Red
       )
     ) +
 

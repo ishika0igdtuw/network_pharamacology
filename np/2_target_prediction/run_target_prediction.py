@@ -21,10 +21,15 @@ Output (human targets only; failures are NOT written as rows):
 import os
 import re
 import csv
+import sys
 import time
 import json
 import random
 import argparse
+
+# Force line buffering for real-time log streaming to dashboard
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any, Optional
@@ -583,6 +588,9 @@ def main():
     ap.add_argument("--max-compounds", type=int, default=None, help="Process only first N compounds")
     ap.add_argument("--min-wait", type=float, default=10.0, help="Min seconds between compounds (Swiss/SEA)")
     ap.add_argument("--max-wait", type=float, default=20.0, help="Max seconds between compounds (Swiss/SEA)")
+    ap.add_argument("--skip-swiss", action="store_true", help="Skip SwissTargetPrediction")
+    ap.add_argument("--skip-sea", action="store_true", help="Skip SEA analysis")
+    ap.add_argument("--skip-ppb3", action="store_true", help="Skip PPB3 analysis")
     args = ap.parse_args()
 
     compounds = read_phytochemical_csv(args.csv_file, max_compounds=args.max_compounds)
@@ -607,37 +615,46 @@ def main():
             print("=" * 70)
 
             # SwissTargetPrediction (already Homo sapiens)
-            try:
-                print("[SwissTarget] Running (Homo sapiens)...")
-                swisstarget_submit(driver, meta["SMILES"], species="Homo sapiens")
-                table = swisstarget_get_results(driver)
-                rows = swisstarget_parse_table(table, meta)
-                print(f"[SwissTarget] Parsed {len(rows)} human rows")
-                all_rows.extend(rows)
-            except Exception as e:
-                print(f"[SwissTarget] FAILED (skipping rows): {e}")
+            if not args.skip_swiss:
+                try:
+                    print("[SwissTarget] Running (Homo sapiens)...")
+                    swisstarget_submit(driver, meta["SMILES"], species="Homo sapiens")
+                    table = swisstarget_get_results(driver)
+                    rows = swisstarget_parse_table(table, meta)
+                    print(f"[SwissTarget] Parsed {len(rows)} human rows")
+                    all_rows.extend(rows)
+                except Exception as e:
+                    print(f"[SwissTarget] FAILED (skipping rows): {e}")
+            else:
+                print("[SwissTarget] Skipped by user")
 
             time.sleep(random.uniform(3, 6))
 
             # SEA (human only by _HUMAN)
-            try:
-                print("[SEA] Running (human-only by _HUMAN)...")
-                sea_submit(driver, meta["SMILES"])
-                table = sea_get_results(driver)
-                rows = sea_parse_table(table, meta)
-                print(f"[SEA] Parsed {len(rows)} human rows")
-                all_rows.extend(rows)
-            except Exception as e:
-                print(f"[SEA] FAILED (skipping rows): {e}")
+            if not args.skip_sea:
+                try:
+                    print("[SEA] Running (human-only by _HUMAN)...")
+                    sea_submit(driver, meta["SMILES"])
+                    table = sea_get_results(driver)
+                    rows = sea_parse_table(table, meta)
+                    print(f"[SEA] Parsed {len(rows)} human rows")
+                    all_rows.extend(rows)
+                except Exception as e:
+                    print(f"[SEA] FAILED (skipping rows): {e}")
+            else:
+                print("[SEA] Skipped by user")
 
             # PPB3 (human only by Organism)
-            try:
-                print("[PPB3] Running (Homo sapiens only by Organism column)...")
-                rows = run_ppb3_for_compound(meta)
-                print(f"[PPB3] Parsed {len(rows)} human rows (across methods)")
-                all_rows.extend(rows)
-            except Exception as e:
-                print(f"[PPB3] FAILED (skipping rows): {e}")
+            if not args.skip_ppb3:
+                try:
+                    print("[PPB3] Running (Homo sapiens only by Organism column)...")
+                    rows = run_ppb3_for_compound(meta)
+                    print(f"[PPB3] Parsed {len(rows)} human rows (across methods)")
+                    all_rows.extend(rows)
+                except Exception as e:
+                    print(f"[PPB3] FAILED (skipping rows): {e}")
+            else:
+                print("[PPB3] Skipped by user")
 
             if i < len(compounds):
                 wait = random.uniform(args.min_wait, args.max_wait)

@@ -2,7 +2,6 @@ integrated_np_network <- function(
   tcm_data,
   out_dir = "outputs"
 ) {
-
   suppressPackageStartupMessages({
     library(dplyr)
     library(igraph)
@@ -11,9 +10,8 @@ integrated_np_network <- function(
   })
 
   # ---- read common targets (from disease overlap output) ----
-  common_targets <- read.csv(
-    file.path(out_dir, "disease_target_overlap", "common_targets.csv")
-  )$common_target
+  common_targets_df <- read.csv(file.path(out_dir, "disease_overlap", "common_targets.csv"))
+  common_targets <- common_targets_df$symbol
 
   # ---- edges ----
   edges_herb_mol <- tcm_data %>%
@@ -35,11 +33,11 @@ integrated_np_network <- function(
   )
 
   nodes$type <- dplyr::case_when(
-    nodes$name %in% tcm_data$herb     ~ "Herb",
+    nodes$name %in% tcm_data$herb ~ "Herb",
     nodes$name %in% tcm_data$molecule ~ "Phytochemical",
-    nodes$name %in% common_targets    ~ "Disease Target",
-    nodes$name %in% tcm_data$target   ~ "Target",
-    TRUE                              ~ "Other"
+    nodes$name %in% common_targets ~ "Disease Target",
+    nodes$name %in% tcm_data$target ~ "Target",
+    TRUE ~ "Other"
   )
 
   # ---- graph ----

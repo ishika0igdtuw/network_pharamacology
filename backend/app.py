@@ -61,7 +61,17 @@ def run_pipeline_background(
     show_labels: bool = True,
     ppi_filter: int = 2,
     disease_input: str = None,
-    skip_prediction: bool = False
+    skip_prediction: bool = False,
+    # New Granular Controls
+    swiss_prob: float = 0.1,
+    ppb3_prob: float = 0.5,
+    sea_tc: float = 0.4,
+    sea_pval: float = 1e-5,
+    skip_swiss: bool = False,
+    skip_sea: bool = False,
+    skip_ppb3: bool = False,
+    max_compounds: int = 0,
+    input_filename: str = None
 ):
     """Run pipeline and send logs to queue"""
     global pipeline_running
@@ -94,26 +104,69 @@ def run_pipeline_background(
         env["TCMNP_DPI"] = str(dpi)
         env["TCMNP_FORMATS"] = "png,pdf,svg,tiff"
         
+        # Prepare Executables
+        python_exe = os.path.join(BASE_DIR, "venv", "bin", "python")
+        if not os.path.exists(python_exe):
+            python_exe = "python" # Fallback to system python
+            
         # Step 0: Disease Target Fetching (if provided) - Deprecated Python fetcher in favor of R-native integration
         # if disease_input and not skip_prediction:
         #    ... (R now handles this in run_analysis.R directly)
-
-        # Find the CSV file in 1_input_data directory
+        # ...
+        
+        # Find the CSV file
         input_dir = os.path.join(BASE_DIR, "1_input_data")
-        csv_files = [f for f in os.listdir(input_dir) if f.endswith(('.csv', '.txt'))]
         
-        if not csv_files:
-            queue.put("ERROR: No input CSV/TXT found in 1_input_data\n")
-            queue.put("DONE"); pipeline_running = False; return
-        
-        csv_file_path = os.path.join(input_dir, csv_files[0])
-        queue.put(f"Input file: {csv_files[0]}\n")
+        if input_filename:
+            csv_file_path = os.path.join(input_dir, input_filename)
+        else:
+            csv_files = [f for f in os.listdir(input_dir) if f.endswith(('.csv', '.txt'))]
+            if not csv_files:
+                queue.put("ERROR: No input CSV/TXT found in 1_input_data\n")
+                queue.put("DONE"); pipeline_running = False; return
+            csv_file_path = os.path.join(input_dir, csv_files[0])
+            input_filename = csv_files[0]
+
+        # --- SMART INPUT DETECTION ---
+        needs_step1 = True
+        try:
+            import pandas as pd
+            df_check = pd.read_csv(csv_file_path, nrows=2)
+            cols = [c.strip().lower() for c in df_check.columns]
+            
+            has_target = any(c in cols for c in ['target', 'symbol', 'gene'])
+            has_mol = any(c in cols for c in ['molecule', 'compound', 'phytochemical'])
+            has_smiles = any(c in cols for c in ['smiles', 'canonical smiles'])
+            
+            if has_target and has_mol and not has_smiles:
+                queue.put("💡 PRE-PREDICTED TARGETS DETECTED: skipping Step 1/2 and analyzing your provided targets. \n")
+                needs_step1 = False
+                skip_prediction = True
+                # Prepare TCMNP input folder and file
+                tcmnp_dir = os.path.join(BASE_DIR, "3_tcmnp_input")
+                os.makedirs(tcmnp_dir, exist_ok=True)
+                shutil.copy(csv_file_path, os.path.join(tcmnp_dir, "tcm_input.csv"))
+            elif not has_smiles:
+                queue.put("❌ ERROR: Your file lacks a 'SMILES' column for target prediction. \n")
+                queue.put("If you meant to provide predicted targets, ensure your CSV has 'molecule' and 'target' columns.\n")
+                queue.put("DONE"); pipeline_running = False; return
+        except Exception as e:
+            queue.put(f"Warning during file inspection: {str(e)}\n")
+
+        queue.put(f"Input file: {input_filename}\n")
         
         # Step 1: Target Prediction
-        if not skip_prediction:
+        if not skip_prediction and needs_step1:
             queue.put("PROGRESS:10:Running Target Prediction (Step 1/3)...\n")
+            cmd_p1 = [python_exe, os.path.join(BASE_DIR, "2_target_prediction", "run_target_prediction.py"), csv_file_path]
+            cmd_p1.append("--headless")
+            if skip_swiss: cmd_p1.append("--skip-swiss")
+            if skip_sea: cmd_p1.append("--skip-sea")
+            if skip_ppb3: cmd_p1.append("--skip-ppb3")
+            if max_compounds > 0: cmd_p1.extend(["--max-compounds", str(max_compounds)])
+            
             p1 = subprocess.Popen(
-                ["python", os.path.join(BASE_DIR, "2_target_prediction", "run_target_prediction.py"), csv_file_path],
+                cmd_p1,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=BASE_DIR, env=env
             )
             for line in p1.stdout: queue.put(line)
@@ -125,16 +178,27 @@ def run_pipeline_background(
             queue.put("PROGRESS:40:Skipping Target Prediction (using cached results)\n\n")
         
         # Step 2: Build TCMNP Input
-        queue.put("PROGRESS:45:Building TCMNP Data Structures (Step 2/3)...\n")
-        p2 = subprocess.Popen(
-            ["python", os.path.join(BASE_DIR, "3_tcmnp_input", "build_tcmnp_input.py"), "--min-prob", str(min_prob)],
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=BASE_DIR, env=env
-        )
-        for line in p2.stdout: queue.put(line)
-        p2.wait()
-        if p2.returncode != 0:
-            queue.put(f"\nERROR: Step 2 failed\n"); queue.put("DONE"); pipeline_running = False; return
-        queue.put("PROGRESS:60:✓ Data building complete\n\n")
+        if needs_step1:
+            queue.put("PROGRESS:45:Building TCMNP Data Structures (Step 2/3)...\n")
+            
+            cmd_p2 = [python_exe, os.path.join(BASE_DIR, "3_tcmnp_input", "build_tcmnp_input.py")]
+            # Pass individual thresholds
+            cmd_p2.extend(["--swiss", str(swiss_prob)])
+            cmd_p2.extend(["--ppb3", str(ppb3_prob)])
+            cmd_p2.extend(["--sea", str(sea_tc)])
+            cmd_p2.extend(["--sea-pval", str(sea_pval)])
+            
+            p2 = subprocess.Popen(
+                cmd_p2,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=BASE_DIR, env=env
+            )
+            for line in p2.stdout: queue.put(line)
+            p2.wait()
+            if p2.returncode != 0:
+                queue.put(f"\nERROR: Step 2 failed\n"); queue.put("DONE"); pipeline_running = False; return
+            queue.put("PROGRESS:60:✓ Data building complete\n\n")
+        else:
+            queue.put("PROGRESS:60:Using provided targets (skipping structure building)\n\n")
         
         # Step 3: Run Analysis (R script)
         queue.put("PROGRESS:65:Generating Analytical Plots & Networks (Step 3/3)...\n")
@@ -162,16 +226,17 @@ def run_pipeline_background(
 # SSE endpoint for streaming logs
 # -------------------------
 @app.get("/run-stream")
-async def run_pipeline_stream(
-    fontSize: int = 14,
-    fontStyle: str = "bold",
-    fontFamily: str = "Helvetica",
-    labelCase: str = "sentence",
-    showLabels: bool = True,
-    ppiFilter: int = 2,
-    dpi: int = 600,
-    minProbability: float = 0.5,
-    diseaseInput: str = None
+async def run_stream(
+    fontSize: int = 14, fontStyle: str = "bold", dpi: int = 300, 
+    minProbability: float = 0.5, fontFamily: str = "Helvetica", 
+    labelCase: str = "sentence", showLabels: str = "true", 
+    ppiFilter: int = 2, diseaseInput: str = None,
+    # Individual Predictor Controls
+    swissThreshold: float = 0.1, ppb3Threshold: float = 0.5,
+    seaThreshold: float = 0.4, seaPval: float = 1e-5,
+    runSwiss: str = "true", runSEA: str = "true", runPPB3: str = "true",
+    maxCompounds: int = 0,
+    filename: str = None
 ):
     """Streaming log output via SSE"""
     global pipeline_running
@@ -182,36 +247,64 @@ async def run_pipeline_stream(
         return StreamingResponse(error_generator(), media_type="text/event-stream")
         
     log_queue = Queue()
+    show_labels_bool = str(showLabels).lower() == "true"
+    skip_swiss = str(runSwiss).lower() == "false"
+    skip_sea = str(runSEA).lower() == "false"
+    skip_ppb3 = str(runPPB3).lower() == "false"
+
     thread = threading.Thread(
         target=run_pipeline_background, 
         args=(log_queue, fontSize, fontStyle, dpi, minProbability, 
-              fontFamily, labelCase, showLabels, ppiFilter, diseaseInput, False)
+              fontFamily, labelCase, show_labels_bool, ppiFilter, diseaseInput, False),
+        kwargs={
+            "swiss_prob": swissThreshold,
+            "ppb3_prob": ppb3Threshold,
+            "sea_tc": seaThreshold,
+            "sea_pval": seaPval,
+            "skip_swiss": skip_swiss,
+            "skip_sea": skip_sea,
+            "skip_ppb3": skip_ppb3,
+            "max_compounds": maxCompounds,
+            "input_filename": filename
+        }
     )
     thread.daemon = True
     thread.start()
     
     async def log_generator():
         while True:
-            if not log_queue.empty():
-                msg = log_queue.get()
-                yield f"data: {msg}\n\n"
-                if msg == "DONE":
-                    break
-            else:
+            try:
+                if not log_queue.empty():
+                    msg = log_queue.get_nowait()
+                    if msg:
+                        # Clean up message and handle internal newlines for SSE
+                        clean_lines = msg.strip().split('\n')
+                        for line in clean_lines:
+                            if line.strip():
+                                yield f"data: {line}\n\n"
+                        
+                        if "DONE" in msg:
+                            break
+                else:
+                    await asyncio.sleep(0.1)
+            except Exception:
                 await asyncio.sleep(0.1)
+                continue
                 
     return StreamingResponse(log_generator(), media_type="text/event-stream")
 
 @app.get("/reanalyze")
-async def reanalyze_stream(
-    fontSize: int = 14,
-    fontStyle: str = "bold",
-    fontFamily: str = "Helvetica",
-    labelCase: str = "sentence",
-    showLabels: bool = True,
-    ppiFilter: int = 2,
-    dpi: int = 600,
-    minProbability: float = 0.5
+async def reanalyze(
+    fontSize: int = 14, fontStyle: str = "bold", dpi: int = 300, 
+    minProbability: float = 0.5, fontFamily: str = "Helvetica", 
+    labelCase: str = "sentence", showLabels: str = "true", 
+    ppiFilter: int = 2, diseaseInput: str = None,
+    # Individual Predictor Controls (passed for R script logic)
+    swissThreshold: float = 0.1, ppb3Threshold: float = 0.5,
+    seaThreshold: float = 0.4, seaPval: float = 1e-5,
+    runSwiss: str = "true", runSEA: str = "true", runPPB3: str = "true",
+    maxCompounds: int = 0,
+    filename: str = None
 ):
     """Faster re-analysis by skipping Step 1"""
     global pipeline_running
@@ -222,23 +315,42 @@ async def reanalyze_stream(
         return StreamingResponse(error_generator(), media_type="text/event-stream")
         
     log_queue = Queue()
+    show_labels_bool = showLabels.lower() == "true"
+
     thread = threading.Thread(
         target=run_pipeline_background, 
         args=(log_queue, fontSize, fontStyle, dpi, minProbability, 
-              fontFamily, labelCase, showLabels, ppiFilter, None, True)
+              fontFamily, labelCase, show_labels_bool, ppiFilter, diseaseInput, True),
+        kwargs={
+            "swiss_prob": swissThreshold,
+            "ppb3_prob": ppb3Threshold,
+            "sea_tc": seaThreshold,
+            "sea_pval": seaPval,
+            "input_filename": filename
+        }
     )
     thread.daemon = True
     thread.start()
     
     async def log_generator():
         while True:
-            if not log_queue.empty():
-                msg = log_queue.get()
-                yield f"data: {msg}\n\n"
-                if msg == "DONE":
-                    break
-            else:
+            try:
+                if not log_queue.empty():
+                    msg = log_queue.get_nowait()
+                    if msg:
+                        # Clean up message and handle internal newlines for SSE
+                        clean_lines = msg.strip().split('\n')
+                        for line in clean_lines:
+                            if line.strip():
+                                yield f"data: {line}\n\n"
+                        
+                        if "DONE" in msg:
+                            break
+                else:
+                    await asyncio.sleep(0.1)
+            except Exception:
                 await asyncio.sleep(0.1)
+                continue
                 
     return StreamingResponse(log_generator(), media_type="text/event-stream")
 

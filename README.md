@@ -62,7 +62,7 @@ The backend orchestrates the pipeline execution.
 
 3.  **Install Dependencies:**
     ```bash
-    pip install fastapi uvicorn python-multipart
+    pip install -r requirements.txt
     ```
 
 4.  **Start the Server:**
@@ -102,6 +102,10 @@ The frontend provides the graphical interface.
 4.  **Upload**: Upload your input CSV/TXT file.
 5.  **Run**: Click "Run Pipeline". The logs will stream in the UI.
 6.  **Analyze**: Explore the generated network graphs and enrichment plots on the dashboard.
+
+## 🛠 Troubleshooting
+- **ModuleNotFoundError (pandas/numpy)**: Ensure that you have set up the virtual environment in the `np/` directory as described in Step 1. The backend automatically looks for the Python executable at `np/venv/bin/python`.
+- **R Package Issues**: The `run_analysis.R` script attempts to auto-install missing packages. If it fails, ensure you have an active internet connection or manually install the packages listed in the script.
 
 ## 📄 License
 Intended for research and academic use.

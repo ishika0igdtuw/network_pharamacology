@@ -1,4 +1,3 @@
-
 # Logs
 *.log
 VennDiagram*.log
@@ -9,11 +8,37 @@ final_run_v2.log
 
 # System
 .DS_Store
+Thumbs.db
 
 # R
 .Rhistory
 .RData
 .Rproj.user
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Node
+node_modules/
+dist/
+.npm
+
+# Project Specific
+np/outputs/
+np/venv/
+backend/venv/
+1_input_data/
+*.csv
+!np/3_tcmnp_input/tcm_input.csv
+np/results_all*/
+np/Rplots.pdf
+frontend/node_modules/
+.vite/
+**/_metadata.json
 
 # Temp
 typography_test/

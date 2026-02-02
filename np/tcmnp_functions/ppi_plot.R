@@ -68,11 +68,11 @@ ppi_plot <- function(
 
   igraph::V(net)$degree <- igraph::degree(net)
   igraph::V(net)$size <- igraph::degree(net)
-  
+
   # Predict hub status based on top 10% or fixed threshold
   hub_threshold <- quantile(igraph::V(net)$degree, 0.9)
   igraph::V(net)$is_hub <- igraph::V(net)$degree >= hub_threshold
-  
+
   igraph::E(net)$score <- igraph::E(net)$weight
 
   # ---------------------------
@@ -80,44 +80,44 @@ ppi_plot <- function(
   # ---------------------------
   n_nodes <- igraph::vcount(net)
   n_edges <- igraph::ecount(net)
-  
+
   # 1. Node Size Scaling
   node_size_range <- if (n_nodes < 20) {
     c(8, 15) # Large
   } else if (n_nodes < 100) {
     c(4, 10) # Medium
   } else if (n_nodes < 300) {
-    c(2, 6)  # Small
+    c(2, 6) # Small
   } else {
-    c(1, 4)  # Compact
+    c(1, 4) # Compact
   }
-  
+
   # 2. Edge Alpha Scaling (Density-aware)
   density <- if (n_nodes > 1) (2 * n_edges) / (n_nodes * (n_nodes - 1)) else 0
   edge_alpha <- max(0.1, min(0.8, 1 - density))
-  
+
   # 3. Label size scaling
   label_size_scaled <- if (n_nodes < 50) label.size else label.size * 0.7
-  
+
   # ---------------------------
   # Layout Calculation & Normalization
   # ---------------------------
   lo <- igraph::layout_with_kk(net)
-  
+
   # Normalize to fill plotting region [-1, 1]
   if (nrow(lo) > 1) {
-    lo[,1] <- 2 * (lo[,1] - min(lo[,1])) / (max(lo[,1]) - min(lo[,1])) - 1
-    lo[,2] <- 2 * (lo[,2] - min(lo[,2])) / (max(lo[,2]) - min(lo[,2])) - 1
+    lo[, 1] <- 2 * (lo[, 1] - min(lo[, 1])) / (max(lo[, 1]) - min(lo[, 1])) - 1
+    lo[, 2] <- 2 * (lo[, 2] - min(lo[, 2])) / (max(lo[, 2]) - min(lo[, 2])) - 1
   }
-  
-  igraph::V(net)$x <- lo[,1]
-  igraph::V(net)$y <- lo[,2]
+
+  igraph::V(net)$x <- lo[, 1]
+  igraph::V(net)$y <- lo[, 2]
 
   # ---------------------------
   # Plot
   # ---------------------------
-  set.seed(42) 
-  
+  set.seed(42)
+
   show_labels <- if (exists("PLOT_THEME_CONFIG")) PLOT_THEME_CONFIG$text$show_labels else TRUE
 
   p <- ggraph::ggraph(net, layout = "manual", x = x, y = y) +
@@ -132,19 +132,19 @@ ppi_plot <- function(
       alpha = 0.9
     ) +
     ggplot2::scale_color_manual(
-        values = c(
-            "FALSE" = if (exists("PLOT_THEME_CONFIG")) PLOT_THEME_CONFIG$colors$target else "#4A90E2",
-            "TRUE" = if (exists("PLOT_THEME_CONFIG")) PLOT_THEME_CONFIG$colors$hub_gene else "#DC143C"
-        ),
-        name = "Node Type",
-        labels = c("Target", "Hub Gene")
+      values = c(
+        "FALSE" = if (exists("PLOT_THEME_CONFIG")) PLOT_THEME_CONFIG$colors$target else "#4A90E2",
+        "TRUE" = if (exists("PLOT_THEME_CONFIG")) PLOT_THEME_CONFIG$colors$hub_gene else "#DC143C"
+      ),
+      name = "Node Type",
+      labels = c("Target", "Hub Gene")
     ) +
     ggplot2::scale_size_continuous(range = node_size_range, name = "Degree") +
     ggraph::scale_edge_width(range = edge.width)
 
   if (show_labels) {
     label_filter <- if (n_nodes > 100) igraph::V(net)$is_hub else (igraph::V(net)$degree >= label.degree)
-    
+
     p <- p + ggraph::geom_node_text(
       aes(filter = label_filter, label = name),
       size = label_size_scaled,
@@ -155,10 +155,10 @@ ppi_plot <- function(
   }
 
   p <- p + ggraph::theme_graph(base_family = if (exists("get_font_family")) get_font_family() else "sans") +
-       ggplot2::theme(
-         legend.position = "right",
-         plot.margin = ggplot2::margin(10, 10, 10, 10)
-       )
+    ggplot2::theme(
+      legend.position = "right",
+      plot.margin = ggplot2::margin(10, 10, 10, 10)
+    )
 
   return(p)
 }

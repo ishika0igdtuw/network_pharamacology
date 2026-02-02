@@ -26,6 +26,8 @@ def parse_args():
                         help="PPB3 probability cutoff (default: 0.5)")
     parser.add_argument("--sea", type=float, default=0.3,
                         help="SEA MaxTc cutoff (default: 0.3)")
+    parser.add_argument("--sea-pval", type=float, default=1e-5,
+                        help="SEA P-Value cutoff (default: 1e-5)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Only show retained target counts, do not write output")
     parser.add_argument("--min-prob", type=float, default=None,
@@ -50,43 +52,16 @@ def main():
     df["p_value"] = pd.to_numeric(df["p_value"], errors="coerce")
 
     # -------------------------------
-    # Apply HARDCODED thresholds (Medium Strategy)
+    # Apply Thresholds
     # -------------------------------
-    # Strategy:
-    # PPB3 Probability >= 0.8
-    # SEA P-Value < 1e-5 AND Max_Tc > 0.4
     
-    # If --min-prob is set by user, use it to override/adjust defaults
+    # If --min-prob is set by user, use it to override others
     if args.min_prob is not None:
         user_prob = args.min_prob
         print(f"[INFO] Using user-defined Global Probability Threshold: {user_prob}")
-        
-        # Adjust logic:
-        # SwissTargetPrediction (Probability) >= user_prob
-        # PPB3 (Probability) >= user_prob
-        # SEA: We map Probability ~ MaxTc. 
-        #   Let's roughly say MaxTc >= user_prob * 0.6 (since MaxTc is often lower than prob)
-        #   OR just use user_prob for MaxTc as a strict filter if user wants.
-        #   For simplicity and strictness requested by user:
-        #   Swiss >= user_prob, PPB3 >= user_prob, SEA MaxTc >= user_prob/2 (scaled) OR just same?
-        #   User request: "Allow user to set probability after Target prediction"
-        #   Let's apply it directly to Probability columns.
-        
         args.swiss = user_prob
         args.ppb3 = user_prob
-        # For SEA, MaxTc is 0-1, but usually lower. Let's keep SEA strict logic or map it.
-        # If user sets 0.8, MaxTc 0.8 is very high. 
-        # Let's map it: user_prob 0.1 -> MaxTc 0.3, user_prob 0.9 -> MaxTc 0.7
-        # Linear interp: MaxTc = 0.3 + (user_prob * 0.4) roughly?
-        # Simplest: use user_prob for Swiss/PPB3, and keep SEA default hardcoded OR scale it.
-        # Decision: Use user_prob for Swiss/PPB3. For SEA, use MaxTc >= user_prob.
-        args.sea_tc = user_prob
-        args.sea_pval = 1e-4 # slightly looser p-val if checking Tc
-    else:
-        # Defaults
-        args.ppb3 = 0.8
-        args.sea_tc = 0.4
-        args.sea_pval = 1e-5
+        args.sea = user_prob
     
     df_filtered = df[
         (
@@ -99,7 +74,7 @@ def main():
         ) |
         (
             (df["database"] == "SEA") &
-            (df["max_tc"] > args.sea_tc) & 
+            (df["max_tc"] > args.sea) & 
             (df["p_value"] < args.sea_pval)
         )
     ].copy()

@@ -29,6 +29,16 @@ function App() {
     const [minProbability, setMinProbability] = useState(0.5)
     const [diseaseInput, setDiseaseInput] = useState('')
 
+    // Individual Database Settings
+    const [swissThreshold, setSwissThreshold] = useState(0.1)
+    const [ppb3Threshold, setPpb3Threshold] = useState(0.5)
+    const [seaThreshold, setSeaThreshold] = useState(0.4)
+    const [seaPval, setSeaPval] = useState(0.00001)
+    const [runSwiss, setRunSwiss] = useState(true)
+    const [runSEA, setRunSEA] = useState(true)
+    const [runPPB3, setRunPPB3] = useState(true)
+    const [maxCompounds, setMaxCompounds] = useState(0)
+
     const eventSourceRef = useRef(null)
     const logEndRef = useRef(null)
 
@@ -53,8 +63,6 @@ function App() {
             // Dynamic Stats Calculation
             const tcmInput = files.find(f => f.name === 'tcm_input.csv')
             if (tcmInput && tcmInput.csv_meta) {
-                // Actually need more complex logic to count unique herbs/mols/targets
-                // For now, let's use the row count or mock if meta isn't detailed enough
                 setStats({
                     herbs: 'Loading...',
                     molecules: 'Loading...',
@@ -72,13 +80,21 @@ function App() {
 
     const handleUpload = async () => {
         if (!file) return setMessage({ type: 'error', text: 'Please select a file' })
+
+        console.log('Starting upload for:', file.name)
         const formData = new FormData()
         formData.append('file', file)
+
         try {
             const response = await axios.post(`${API_BASE}/upload`, formData)
+            console.log('Upload success:', response.data)
             setUploadedFilename(response.data.filename)
             setMessage({ type: 'success', text: `Uploaded: ${response.data.filename}` })
-        } catch (err) { setMessage({ type: 'error', text: 'Upload failed' }) }
+        } catch (err) {
+            console.error('Upload failed:', err)
+            const errorMsg = err.response?.data?.detail || err.message || 'Upload failed'
+            setMessage({ type: 'error', text: `Error: ${errorMsg}` })
+        }
     }
 
     const startPipeline = (isReanalyze = false) => {
@@ -94,7 +110,10 @@ function App() {
 
         const params = new URLSearchParams({
             fontSize, fontStyle, fontFamily, labelCase,
-            showLabels, ppiFilter, dpi, minProbability, diseaseInput
+            showLabels, ppiFilter, dpi, minProbability, diseaseInput,
+            swissThreshold, ppb3Threshold, seaThreshold, seaPval,
+            runSwiss, runSEA, runPPB3, maxCompounds,
+            filename: uploadedFilename
         })
 
         const endpoint = isReanalyze ? 'reanalyze' : 'run-stream'
@@ -125,6 +144,17 @@ function App() {
         }
     }
 
+    const handleReset = async () => {
+        try {
+            await axios.post(`${API_BASE}/reset`)
+            setIsRunning(false)
+            if (eventSourceRef.current) eventSourceRef.current.close()
+            setMessage({ type: 'success', text: 'Pipeline state reset' })
+        } catch (err) {
+            setMessage({ type: 'error', text: 'Reset failed' })
+        }
+    }
+
     const handleExport = (format) => {
         if (!activePlot) return
         const base = activePlot.url.substring(0, activePlot.url.lastIndexOf('.'))
@@ -132,6 +162,48 @@ function App() {
     }
 
     // --- RENDER HELPERS ---
+    const renderResultsSidebar = () => {
+        const byExt = results.reduce((acc, f) => {
+            const ext = f.name.split('.').pop().toUpperCase()
+            if (!acc[ext]) acc[ext] = []
+            acc[ext].push(f)
+            return acc
+        }, {})
+
+        return (
+            <div className="results-browser">
+                <hr style={{ margin: '20px 0', border: '0', borderTop: '1px solid #eee' }} />
+                <h3>📦 Result Assets</h3>
+
+                {Object.keys(byExt).sort().map(ext => (
+                    <details key={ext} open={ext === 'PNG'}>
+                        <summary>{ext} Files ({byExt[ext].length})</summary>
+                        <div className="asset-list">
+                            {byExt[ext].map((f, i) => (
+                                <div
+                                    key={i}
+                                    className={`asset-item ${activePlot?.url === f.url ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setActivePlot(f)
+                                        const el = document.getElementById(`fig-${f.name}`)
+                                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                                    }}
+                                >
+                                    <div className="asset-info">
+                                        <span className="asset-name" title={f.name}>{f.name.replace(/_/g, ' ')}</span>
+                                    </div>
+                                    <div className="asset-actions">
+                                        <a href={f.url} download onClick={(e) => e.stopPropagation()} className="download-icon" title="Download Asset">📥</a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </details>
+                ))}
+            </div>
+        )
+    }
+
     const renderSidebar = () => (
         <aside className="controls-panel">
             <div className="control-section">
@@ -141,99 +213,24 @@ function App() {
                     <button className="btn btn-secondary" onClick={handleUpload} style={{ marginTop: '8px', width: '100%' }}>Upload CSV</button>
                 </div>
                 <div className="input-group">
-                    <label>🔍 Disease Overlap (EFO IDs, comma separated)</label>
-                    <input
-                        type="text"
-                        placeholder="e.g. EFO_0000305, EFO_0000311"
-                        value={diseaseInput}
-                        onChange={e => setDiseaseInput(e.target.value)}
-                        disabled={isRunning}
-                    />
-                    <small style={{ color: '#666', fontSize: '0.75rem' }}>Supports Multi-set Venn (2-4 sets) & Intersection CSVs</small>
+                    <label>🔍 Disease Overlap (EFO IDs)</label>
+                    <input type="text" value={diseaseInput} onChange={e => setDiseaseInput(e.target.value)} placeholder="EFO_0000305, etc." disabled={isRunning} />
                 </div>
             </div>
 
             <div className="control-section">
-                <h3>🎚️ Interaction Filter</h3>
-                <div className="input-group">
-                    <label>Min. Confidence Score ({minProbability})</label>
-                    <input
-                        type="range" min="0.1" max="1.0" step="0.05"
-                        value={minProbability}
-                        onChange={e => setMinProbability(parseFloat(e.target.value))}
-                        disabled={isRunning}
-                    />
-                </div>
-                <div className="input-group">
-                    <label>PPI Hub Filter (Min Degree: {ppiFilter})</label>
-                    <input
-                        type="range" min="1" max="20" step="1"
-                        value={ppiFilter}
-                        onChange={e => setPpiFilter(parseInt(e.target.value))}
-                        disabled={isRunning}
-                    />
-                </div>
-            </div>
-
-            <div className="control-section">
-                <h3>🎨 Visual Style</h3>
-                <div className="input-group">
-                    <label>Font Family</label>
-                    <select value={fontFamily} onChange={e => setFontFamily(e.target.value)} disabled={isRunning}>
-                        <option value="Helvetica">Helvetica / Arial</option>
-                        <option value="Times">Times New Roman</option>
-                        <option value="Courier">Monospace (Courier)</option>
-                    </select>
-                </div>
-                <div className="input-group">
-                    <label>Label Case</label>
-                    <select value={labelCase} onChange={e => setLabelCase(e.target.value)} disabled={isRunning}>
-                        <option value="sentence">Sentence case</option>
-                        <option value="upper">UPPERCASE</option>
-                        <option value="title">Title Case</option>
-                    </select>
-                </div>
-                <div className="input-group" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <input type="checkbox" checked={showLabels} onChange={e => setShowLabels(e.target.checked)} disabled={isRunning} />
-                    <label style={{ margin: 0 }}>Show Node Labels</label>
-                </div>
-            </div>
-
-            <div className="control-section">
-                <h3>⚙️ Export Settings</h3>
-                <div className="input-group">
-                    <label>DPI (Resolution)</label>
-                    <select value={dpi} onChange={e => setDpi(parseInt(e.target.value))} disabled={isRunning}>
-                        <option value="72">72 (Screen)</option>
-                        <option value="300">300 (Standard)</option>
-                        <option value="600">600 (Publication)</option>
-                    </select>
-                </div>
-            </div>
-        </aside>
-    )
-
-    const renderStats = () => (
-        <aside className="stats-panel">
-            <h3>📊 Analysis Stats</h3>
-            <div className="stat-card">
-                <div className="stat-value">{stats.targets || 0}</div>
-                <div className="stat-label">Predicted Targets</div>
-            </div>
-            <div className="stat-card">
-                <div className="stat-value">{stats.pathways || 0}</div>
-                <div className="stat-label">Enriched Pathways</div>
-            </div>
-
-            <h3 style={{ marginTop: '30px' }}>📦 Quick Assets</h3>
-            <div className="asset-list">
-                {results.slice(0, 15).map((f, i) => (
-                    <div key={i} className="asset-item">
-                        <a href={f.url} target="_blank" rel="noreferrer" title={f.name}>{f.name}</a>
-                        <span style={{ fontSize: '0.7rem', color: '#999' }}>{f.type.toUpperCase()}</span>
+                <h3>📊 Analysis Stats</h3>
+                <div className="stats-grid">
+                    <div className="stat-card minimal">
+                        <span className="val">{stats.targets || 0}</span> <span className="lbl">Targets</span>
                     </div>
-                ))}
+                    <div className="stat-card minimal">
+                        <span className="val">{stats.pathways || 0}</span> <span className="lbl">Pathways</span>
+                    </div>
+                </div>
             </div>
+
+            {renderResultsSidebar()}
         </aside>
     )
 
@@ -244,60 +241,58 @@ function App() {
                 <div style={{ display: 'flex', gap: '10px' }}>
                     {isRunning && <div className="spinner"></div>}
                     <button className="btn btn-primary" onClick={() => startPipeline(false)} disabled={isRunning}>Run Pipeline</button>
-                    <button className="btn btn-secondary" onClick={() => startPipeline(true)} disabled={isRunning || results.length === 0}>Re-calculate</button>
+                    <button className="btn btn-secondary" onClick={() => startPipeline(true)} disabled={isRunning}>Re-calculate</button>
+                    <button className="btn btn-danger" onClick={handleReset} title="Clear stuck pipeline">Reset</button>
                 </div>
             </header>
 
-            {renderSidebar()}
+            <div className="main-content-area">
+                {renderSidebar()}
 
-            <main className="preview-panel">
-                <div className="preview-header">
-                    <h2>{activePlot ? activePlot.name : 'Plot Preview'}</h2>
-                    {activePlot && (
-                        <div className="action-buttons">
-                            <button className="btn btn-secondary" onClick={() => handleExport('png')}>PNG</button>
-                            <button className="btn btn-secondary" onClick={() => handleExport('svg')}>SVG</button>
-                            <button className="btn btn-secondary" onClick={() => handleExport('tiff')}>TIFF</button>
+                <main className="preview-panel">
+                    <div className="preview-header">
+                        <h2>{activePlot ? activePlot.name.replace(/_/g, ' ') : 'Plot Gallery'}</h2>
+                        {activePlot && activePlot.type === 'image' && (
+                            <div className="action-buttons">
+                                <button className="btn btn-secondary" onClick={() => handleExport('png')}>PNG</button>
+                                <button className="btn btn-secondary" onClick={() => handleExport('svg')}>SVG</button>
+                                <button className="btn btn-secondary" onClick={() => handleExport('tiff')}>TIFF</button>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="preview-container">
+                        <div className="vertical-plots-list">
+                            {results.filter(f => f.type === 'image').map((f, i) => (
+                                <div key={i} id={`fig-${f.name}`} className="preview-frame">
+                                    <div className="frame-header">
+                                        <span>{f.name.replace(/_/g, ' ')}</span>
+                                        <div className="frame-actions">
+                                            <a href={f.url} download className="btn-download-main">📥 Download {f.name.split('.').pop().toUpperCase()}</a>
+                                        </div>
+                                    </div>
+                                    <img src={f.url} loading="lazy" alt={f.name} />
+                                </div>
+                            ))}
                         </div>
-                    )}
-                </div>
 
-                <div className="preview-container">
-                    {activePlot ? (
-                        activePlot.type === 'image' ? (
-                            <img src={activePlot.url} className="preview-image" alt="Preview" />
-                        ) : (
+                        {results.length === 0 && (
                             <div className="no-preview">
-                                📄 CSV data table uploaded. View in stats or download.
-                                <a href={activePlot.url} className="btn btn-primary" target="_blank" rel="noreferrer" download>Open CSV</a>
+                                🖼️ Pipeline results will appear here as a scrollable gallery
                             </div>
-                        )
-                    ) : (
-                        <div className="no-preview">
-                            🖼️ Select a plot below to preview
-                        </div>
-                    )}
+                        )}
 
-                    {isRunning && (
-                        <div className="overlay">
-                            <div className="progress-bar">
-                                <div className="progress-value" style={{ width: `${progress}%` }}></div>
+                        {isRunning && (
+                            <div className="overlay">
+                                <div className="progress-bar">
+                                    <div className="progress-value" style={{ width: `${progress}%` }}></div>
+                                </div>
+                                <div style={{ fontWeight: 'bold', color: '#555' }}>{progressMessage}</div>
                             </div>
-                            <div style={{ fontWeight: 'bold', color: '#555' }}>{progressMessage}</div>
-                        </div>
-                    )}
-                </div>
-
-                <div className="plots-grid">
-                    {results.filter(f => f.type === 'image').map((f, i) => (
-                        <div key={i} className={`plot-thumb ${activePlot?.url === f.url ? 'active' : ''}`} onClick={() => setActivePlot(f)}>
-                            <img src={f.url} alt={f.name} />
-                        </div>
-                    ))}
-                </div>
-            </main>
-
-            {renderStats()}
+                        )}
+                    </div>
+                </main>
+            </div>
 
             <footer>
                 <div style={{ marginRight: 'auto', display: 'flex', gap: '20px' }}>
