@@ -12,7 +12,7 @@ from typing import Optional
 
 app = FastAPI()
 
-# CORS (React ke liye)
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -23,222 +23,246 @@ app.add_middleware(
 # Base project directory (np)
 BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "np")
 
-# Mount outputs directory to serve images/files
+# Mount outputs and results
 OUTPUTS_DIR = os.path.join(BASE_DIR, "outputs")
+RESULTS_DIR = os.path.join(BASE_DIR, "results_all3_human")
 os.makedirs(OUTPUTS_DIR, exist_ok=True)
+os.makedirs(RESULTS_DIR, exist_ok=True)
+
 app.mount("/outputs", StaticFiles(directory=OUTPUTS_DIR), name="outputs")
+app.mount("/results_files", StaticFiles(directory=RESULTS_DIR), name="results_files")
 
-# Global queue for log streaming
-log_queue: Optional[Queue] = None
 pipeline_running = False
+USE_CUSTOM_INPUT = False
 
 # -------------------------
-# Upload endpoint
-# -------------------------
-@app.post("/upload")
-async def upload_file(file: UploadFile = File(...)):
-    input_dir = os.path.join(BASE_DIR, "1_input_data")
-    os.makedirs(input_dir, exist_ok=True)
-
-    file_path = os.path.join(input_dir, file.filename)
-    with open(file_path, "wb") as f:
-        shutil.copyfileobj(file.file, f)
-
-    return {"status": "uploaded", "filename": file.filename}
-
-
-# -------------------------
-# Pipeline execution in background
+# Pipeline execution
 # -------------------------
 def run_pipeline_background(
     queue: Queue, 
+    stage: str = "all",
     font_size: int = 14, 
     font_style: str = "bold", 
     dpi: int = 600, 
-    min_prob: float = 0.5,
-    font_family: str = "Helvetica",
-    label_case: str = "sentence",
-    show_labels: bool = True,
+    min_prob: Optional[float] = None,
     ppi_filter: int = 2,
     disease_input: str = None,
     skip_prediction: bool = False,
-    # New Granular Controls
-    swiss_prob: float = 0.1,
-    ppb3_prob: float = 0.5,
-    sea_tc: float = 0.4,
-    sea_pval: float = 1e-5,
+    swiss_prob: Optional[float] = None,
+    ppb3_prob: Optional[float] = None,
+    sea_tc: Optional[float] = None,
+    sea_pval: Optional[float] = None,
     skip_swiss: bool = False,
     skip_sea: bool = False,
     skip_ppb3: bool = False,
-    max_compounds: int = 0,
-    input_filename: str = None
+    input_filename: str = None,
+    layout: str = "kk",
+    top_n: int = 10
 ):
-    """Run pipeline and send logs to queue"""
     global pipeline_running
     pipeline_running = True
     
     try:
-        # Clear previous outputs to ensure fresh results (unless reanalyzing with same base data)
-        if not skip_prediction:
-            if os.path.exists(OUTPUTS_DIR):
-                queue.put("Cleaning up previous results...\n")
-                # Using a safer cleanup to avoid permission issues with open files
-                for item in os.listdir(OUTPUTS_DIR):
-                    item_path = os.path.join(OUTPUTS_DIR, item)
-                    try:
-                        if os.path.isfile(item_path): os.unlink(item_path)
-                        elif os.path.isdir(item_path): shutil.rmtree(item_path)
-                    except Exception as e:
-                        queue.put(f"Warning: Could not delete {item}: {str(e)}\n")
-            os.makedirs(OUTPUTS_DIR, exist_ok=True)
-        
-        # Prepare Environment for R/Python customization
         env = os.environ.copy()
         env["TCMNP_FONT_SIZE"] = str(font_size)
         env["TCMNP_FONT_STYLE"] = font_style
-        env["TCMNP_FONT_FAMILY"] = font_family
-        env["TCMNP_LABEL_CASE"] = label_case
-        env["TCMNP_SHOW_LABELS"] = "TRUE" if show_labels else "FALSE"
         env["TCMNP_PPI_DEGREE_FILTER"] = str(ppi_filter)
+        env["TCMNP_PPI_CONFIDENCE"] = str(sea_tc) # Using sea_tc as confidence for PPI as well
         env["TCMNP_DISEASE_IDS"] = disease_input if disease_input else "EFO_0000305"
         env["TCMNP_DPI"] = str(dpi)
-        env["TCMNP_FORMATS"] = "png,pdf,svg,tiff"
+        env["TCMNP_LAYOUT"] = layout
         
-        # Prepare Executables
         python_exe = os.path.join(BASE_DIR, "venv", "bin", "python")
-        if not os.path.exists(python_exe):
-            python_exe = "python" # Fallback to system python
+        if not os.path.exists(python_exe): python_exe = "python"
             
-        # Step 0: Disease Target Fetching (if provided) - Deprecated Python fetcher in favor of R-native integration
-        # if disease_input and not skip_prediction:
-        #    ... (R now handles this in run_analysis.R directly)
-        # ...
-        
-        # Find the CSV file
         input_dir = os.path.join(BASE_DIR, "1_input_data")
+        csv_file_path = os.path.join(input_dir, input_filename) if input_filename else None
         
-        if input_filename:
-            csv_file_path = os.path.join(input_dir, input_filename)
-        else:
+        if not csv_file_path:
             csv_files = [f for f in os.listdir(input_dir) if f.endswith(('.csv', '.txt'))]
             if not csv_files:
-                queue.put("ERROR: No input CSV/TXT found in 1_input_data\n")
+                queue.put("ERROR: No input CSV found\n")
                 queue.put("DONE"); pipeline_running = False; return
             csv_file_path = os.path.join(input_dir, csv_files[0])
-            input_filename = csv_files[0]
 
-        # --- SMART INPUT DETECTION ---
-        needs_step1 = True
-        try:
-            import pandas as pd
-            df_check = pd.read_csv(csv_file_path, nrows=2)
-            cols = [c.strip().lower() for c in df_check.columns]
-            
-            has_target = any(c in cols for c in ['target', 'symbol', 'gene'])
-            has_mol = any(c in cols for c in ['molecule', 'compound', 'phytochemical'])
-            has_smiles = any(c in cols for c in ['smiles', 'canonical smiles'])
-            
-            if has_target and has_mol and not has_smiles:
-                queue.put("💡 PRE-PREDICTED TARGETS DETECTED: skipping Step 1/2 and analyzing your provided targets. \n")
-                needs_step1 = False
-                skip_prediction = True
-                # Prepare TCMNP input folder and file
-                tcmnp_dir = os.path.join(BASE_DIR, "3_tcmnp_input")
-                os.makedirs(tcmnp_dir, exist_ok=True)
-                shutil.copy(csv_file_path, os.path.join(tcmnp_dir, "tcm_input.csv"))
-            elif not has_smiles:
-                queue.put("❌ ERROR: Your file lacks a 'SMILES' column for target prediction. \n")
-                queue.put("If you meant to provide predicted targets, ensure your CSV has 'molecule' and 'target' columns.\n")
-                queue.put("DONE"); pipeline_running = False; return
-        except Exception as e:
-            queue.put(f"Warning during file inspection: {str(e)}\n")
-
-        queue.put(f"Input file: {input_filename}\n")
-        
-        # Step 1: Target Prediction
-        if not skip_prediction and needs_step1:
-            queue.put("PROGRESS:10:Running Target Prediction (Step 1/3)...\n")
-            cmd_p1 = [python_exe, os.path.join(BASE_DIR, "2_target_prediction", "run_target_prediction.py"), csv_file_path]
-            cmd_p1.append("--headless")
+        if stage == "prediction":
+            queue.put("PROGRESS:START:[V2] Initializing Target Prediction Engine...\n")
+            cmd_p1 = [python_exe, os.path.join(BASE_DIR, "2_target_prediction", "run_target_prediction.py"), csv_file_path, "--headless"]
             if skip_swiss: cmd_p1.append("--skip-swiss")
             if skip_sea: cmd_p1.append("--skip-sea")
             if skip_ppb3: cmd_p1.append("--skip-ppb3")
-            if max_compounds > 0: cmd_p1.extend(["--max-compounds", str(max_compounds)])
             
-            p1 = subprocess.Popen(
-                cmd_p1,
-                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=BASE_DIR, env=env
-            )
-            for line in p1.stdout: queue.put(line)
-            p1.wait()
-            if p1.returncode != 0:
-                queue.put(f"\nERROR: Step 1 failed\n"); queue.put("DONE"); pipeline_running = False; return
-            queue.put("PROGRESS:40:✓ Target Prediction complete\n\n")
-        else:
-            queue.put("PROGRESS:40:Skipping Target Prediction (using cached results)\n\n")
-        
-        # Step 2: Build TCMNP Input
-        if needs_step1:
-            queue.put("PROGRESS:45:Building TCMNP Data Structures (Step 2/3)...\n")
+            global current_process
+            current_process = subprocess.Popen(cmd_p1, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=BASE_DIR, env=env)
+            for line in current_process.stdout: 
+                if not pipeline_running: break
+                queue.put(line)
+            current_process.wait()
+            current_process = None
+
+            if pipeline_running:
+                queue.put("PROGRESS:FINALIZING:[V2] Validation complete. Results generated.\n")
+            queue.put("DONE"); pipeline_running = False; return
+
+        # Step 2: Build TCMNP Input (Filtering) - Runs before Network or if explicitly requested in 'all'
+        if stage in ["all", "network"]:
+            queue.put("PROGRESS:FILTERING:Building TCMNP Data Structures...\n")
             
-            cmd_p2 = [python_exe, os.path.join(BASE_DIR, "3_tcmnp_input", "build_tcmnp_input.py")]
-            # Pass individual thresholds
-            cmd_p2.extend(["--swiss", str(swiss_prob)])
-            cmd_p2.extend(["--ppb3", str(ppb3_prob)])
-            cmd_p2.extend(["--sea", str(sea_tc)])
-            cmd_p2.extend(["--sea-pval", str(sea_pval)])
+            # Use custom input if uploaded, otherwise build from predictions
+            network_input_file = os.path.join(BASE_DIR, "3_tcmnp_input", "tcm_input.csv")
             
-            p2 = subprocess.Popen(
-                cmd_p2,
-                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=BASE_DIR, env=env
-            )
-            for line in p2.stdout: queue.put(line)
-            p2.wait()
-            if p2.returncode != 0:
-                queue.put(f"\nERROR: Step 2 failed\n"); queue.put("DONE"); pipeline_running = False; return
-            queue.put("PROGRESS:60:✓ Data building complete\n\n")
-        else:
-            queue.put("PROGRESS:60:Using provided targets (skipping structure building)\n\n")
+            if USE_CUSTOM_INPUT:
+                 queue.put("PROGRESS:INFO:Using Custom Uploaded Network Input...\n")
+                 custom_input = os.path.join(BASE_DIR, "3_tcmnp_input", "custom_tcm_input.csv")
+                 if os.path.exists(custom_input):
+                     shutil.copy(custom_input, network_input_file)
+                     queue.put(f"PROGRESS:INFO:Loaded custom input: {custom_input}\n")
+                 else:
+                     queue.put("ERROR: Custom input file needed but not found!\n")
+                     queue.put("DONE"); return
+            else:
+                queue.put("ERROR: No custom network input provided. Please upload a specific input file to run the network analysis.\n")
+                queue.put("DONE"); return
+                
+                # DISABLED: Auto-generation from predictions
+                # s_val = swiss_prob if swiss_prob is not None else 0.5
+                # ...
+                current_process = subprocess.Popen(cmd_p2, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=BASE_DIR, env=env)
+                for line in current_process.stdout: 
+                    if not pipeline_running: break
+                    queue.put(line)
+                current_process.wait()
+                current_process = None
+                
+            if pipeline_running: queue.put("PROGRESS:COMPLETED:Target consolidation successful.\n")
+            else: queue.put("DONE"); return
+
+        # Step 3: Run R Analysis (Modular)
+        if stage in ["all", "network", "ppi", "enrichment", "disease"]:
+            queue.put(f"PROGRESS:ANALYSIS:Executing Core Analysis Stage: {stage}...\n")
+            
+            # Use the explicit output file from the previous step
+            network_input_file = os.path.join(BASE_DIR, "3_tcmnp_input", "tcm_input.csv")
+            
+            r_cmd = [
+                "Rscript", os.path.join(BASE_DIR, "run_analysis.R"), 
+                f"--stage={stage}",
+                f"--layout={layout}",
+                f"--dpi={dpi}",
+                f"--font_size={font_size}",
+                f"--font_style={font_style}",
+                f"--ppi_degree={ppi_filter}",
+                f"--top_n={top_n}",
+                f"--disease={disease_input if disease_input else ''}",
+                f"--input_file={network_input_file}"
+            ]
+            current_process = subprocess.Popen(r_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=BASE_DIR, env=env)
+            for line in current_process.stdout: 
+                if not pipeline_running: break
+                queue.put(line)
+            current_process.wait()
+            current_process = None
+            if not pipeline_running: queue.put("DONE"); return
         
-        # Step 3: Run Analysis (R script)
-        queue.put("PROGRESS:65:Generating Analytical Plots & Networks (Step 3/3)...\n")
-        p3 = subprocess.Popen(
-            ["Rscript", os.path.join(BASE_DIR, "run_analysis.R")],
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=BASE_DIR, env=env
-        )
-        for line in p3.stdout: queue.put(line)
-        p3.wait()
-        
-        if p3.returncode != 0:
-            queue.put(f"\nERROR: Step 3 failed\n"); queue.put("DONE"); pipeline_running = False; return
-        
-        queue.put("\n✓ Step 3 completed successfully\n")
-        queue.put("🎉 PIPELINE COMPLETED SUCCESSFULLY! 🎉\n")
         queue.put("DONE")
         
     except Exception as e:
         queue.put(f"\nEXCEPTION: {str(e)}\n"); queue.put("DONE")
     finally:
         pipeline_running = False
-
+        current_process = None
 
 # -------------------------
-# SSE endpoint for streaming logs
+# Endpoints
 # -------------------------
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
+    input_dir = os.path.join(BASE_DIR, "1_input_data")
+    os.makedirs(input_dir, exist_ok=True)
+    
+    # Clear old input files
+    for f in os.listdir(input_dir):
+        if f.endswith(('.csv', '.txt')):
+            os.remove(os.path.join(input_dir, f))
+            
+    # Clear old results to ensure fresh run
+    results_dir = os.path.join(BASE_DIR, "results_all3_human")
+    if os.path.exists(results_dir):
+        shutil.rmtree(results_dir)
+    os.makedirs(results_dir, exist_ok=True)
+
+    file_path = os.path.join(input_dir, file.filename)
+    with open(file_path, "wb") as f:
+        shutil.copyfileobj(file.file, f)
+    return {"status": "uploaded", "filename": file.filename}
+
+@app.post("/upload-network-input")
+async def upload_network_input(file: UploadFile = File(...)):
+    global USE_CUSTOM_INPUT
+    input_dir = os.path.join(BASE_DIR, "3_tcmnp_input")
+    os.makedirs(input_dir, exist_ok=True)
+    
+    file_path = os.path.join(input_dir, "custom_tcm_input.csv")
+    content = await file.read()
+    with open(file_path, "wb") as f:
+        f.write(content)
+    
+    USE_CUSTOM_INPUT = True
+    return {"status": "uploaded", "filename": file.filename}
+
+@app.post("/clear-network-input")
+def clear_network_input():
+    global USE_CUSTOM_INPUT
+    USE_CUSTOM_INPUT = False
+    
+    # Remove the custom file to be sure
+    custom_input = os.path.join(BASE_DIR, "3_tcmnp_input", "custom_tcm_input.csv")
+    if os.path.exists(custom_input):
+        try: os.remove(custom_input)
+        except: pass
+    
+    # Also log to queue if possible, though this is a separate request context
+    # Ideally we just return status
+    return {"status": "cleared", "message": "Reverted to using system-generated predictions."}
+
+@app.post("/validate-csv")
+async def validate_csv(file: UploadFile = File(...)):
+    try:
+        import pandas as pd
+        import io
+        contents = await file.read()
+        df = pd.read_csv(io.BytesIO(contents))
+        
+        cols = [c.strip() for c in df.columns]
+        # Required columns for the master dataset
+        required = ["Phytochemical Name", "Plant Source", "SMILES"]
+        missing = [r for r in required if r not in cols]
+        
+        if missing:
+             # Try case-insensitive fallback
+             lowercased = [c.lower() for c in cols]
+             still_missing = [r for r in required if r.lower() not in lowercased]
+             if still_missing:
+                 return {"valid": False, "missing": still_missing, "found": cols}
+            
+        # Prepare preview (first 5 rows)
+        preview_data = df.head(5).fillna("-").to_dict(orient="records")
+        row_count = len(df)
+        
+        return {
+            "valid": True, 
+            "columns": cols, 
+            "preview": preview_data, 
+            "rowCount": row_count
+        }
+    except Exception as e:
+        return {"valid": False, "error": str(e)}
+
 @app.get("/run-stream")
 async def run_stream(
-    fontSize: int = 14, fontStyle: str = "bold", dpi: int = 300, 
-    minProbability: float = 0.5, fontFamily: str = "Helvetica", 
-    labelCase: str = "sentence", showLabels: str = "true", 
-    ppiFilter: int = 2, diseaseInput: str = None,
-    # Individual Predictor Controls
-    swissThreshold: float = 0.1, ppb3Threshold: float = 0.5,
-    seaThreshold: float = 0.4, seaPval: float = 1e-5,
-    runSwiss: str = "true", runSEA: str = "true", runPPB3: str = "true",
-    maxCompounds: int = 0,
+    stage: str = "all", 
     filename: str = None
 ):
-    """Streaming log output via SSE"""
     global pipeline_running
     if pipeline_running:
         async def error_generator():
@@ -247,24 +271,10 @@ async def run_stream(
         return StreamingResponse(error_generator(), media_type="text/event-stream")
         
     log_queue = Queue()
-    show_labels_bool = str(showLabels).lower() == "true"
-    skip_swiss = str(runSwiss).lower() == "false"
-    skip_sea = str(runSEA).lower() == "false"
-    skip_ppb3 = str(runPPB3).lower() == "false"
-
     thread = threading.Thread(
         target=run_pipeline_background, 
-        args=(log_queue, fontSize, fontStyle, dpi, minProbability, 
-              fontFamily, labelCase, show_labels_bool, ppiFilter, diseaseInput, False),
         kwargs={
-            "swiss_prob": swissThreshold,
-            "ppb3_prob": ppb3Threshold,
-            "sea_tc": seaThreshold,
-            "sea_pval": seaPval,
-            "skip_swiss": skip_swiss,
-            "skip_sea": skip_sea,
-            "skip_ppb3": skip_ppb3,
-            "max_compounds": maxCompounds,
+            "queue": log_queue, "stage": stage, 
             "input_filename": filename
         }
     )
@@ -277,36 +287,31 @@ async def run_stream(
                 if not log_queue.empty():
                     msg = log_queue.get_nowait()
                     if msg:
-                        # Clean up message and handle internal newlines for SSE
-                        clean_lines = msg.strip().split('\n')
-                        for line in clean_lines:
-                            if line.strip():
-                                yield f"data: {line}\n\n"
-                        
-                        if "DONE" in msg:
-                            break
-                else:
-                    await asyncio.sleep(0.1)
-            except Exception:
-                await asyncio.sleep(0.1)
-                continue
+                        lines = msg.strip().split('\n')
+                        for line in lines:
+                            if line.strip(): yield f"data: {line}\n\n"
+                        if "DONE" in msg: break
+                else: await asyncio.sleep(0.1)
+            except Exception: await asyncio.sleep(0.1); continue
                 
     return StreamingResponse(log_generator(), media_type="text/event-stream")
 
 @app.get("/reanalyze")
 async def reanalyze(
-    fontSize: int = 14, fontStyle: str = "bold", dpi: int = 300, 
-    minProbability: float = 0.5, fontFamily: str = "Helvetica", 
-    labelCase: str = "sentence", showLabels: str = "true", 
-    ppiFilter: int = 2, diseaseInput: str = None,
-    # Individual Predictor Controls (passed for R script logic)
-    swissThreshold: float = 0.1, ppb3Threshold: float = 0.5,
-    seaThreshold: float = 0.4, seaPval: float = 1e-5,
-    runSwiss: str = "true", runSEA: str = "true", runPPB3: str = "true",
-    maxCompounds: int = 0,
-    filename: str = None
+    stage: str = "all", 
+    fontSize: int = 14, 
+    fontStyle: str = "bold", 
+    dpi: int = 300, 
+    filename: str = None, 
+    diseaseInput: str = None, 
+    ppiFilter: int = 2,
+    swiss: float = 0.5,
+    ppb3: float = 0.5,
+    sea: float = 0.5,
+    sea_pval: float = 1e-5,
+    layout: str = "kk",
+    topN: int = 10
 ):
-    """Faster re-analysis by skipping Step 1"""
     global pipeline_running
     if pipeline_running:
         async def error_generator():
@@ -315,18 +320,14 @@ async def reanalyze(
         return StreamingResponse(error_generator(), media_type="text/event-stream")
         
     log_queue = Queue()
-    show_labels_bool = showLabels.lower() == "true"
-
     thread = threading.Thread(
         target=run_pipeline_background, 
-        args=(log_queue, fontSize, fontStyle, dpi, minProbability, 
-              fontFamily, labelCase, show_labels_bool, ppiFilter, diseaseInput, True),
         kwargs={
-            "swiss_prob": swissThreshold,
-            "ppb3_prob": ppb3Threshold,
-            "sea_tc": seaThreshold,
-            "sea_pval": seaPval,
-            "input_filename": filename
+            "queue": log_queue, "stage": stage, "skip_prediction": True, 
+            "font_size": fontSize, "font_style": fontStyle, "dpi": dpi, 
+            "input_filename": filename, "disease_input": diseaseInput, "ppi_filter": ppiFilter,
+            "swiss_prob": swiss, "ppb3_prob": ppb3, "sea_tc": sea, "sea_pval": sea_pval,
+            "layout": layout, "top_n": topN
         }
     )
     thread.daemon = True
@@ -338,154 +339,214 @@ async def reanalyze(
                 if not log_queue.empty():
                     msg = log_queue.get_nowait()
                     if msg:
-                        # Clean up message and handle internal newlines for SSE
-                        clean_lines = msg.strip().split('\n')
-                        for line in clean_lines:
-                            if line.strip():
-                                yield f"data: {line}\n\n"
-                        
-                        if "DONE" in msg:
-                            break
-                else:
-                    await asyncio.sleep(0.1)
-            except Exception:
-                await asyncio.sleep(0.1)
-                continue
+                        lines = msg.strip().split('\n')
+                        for line in lines:
+                            if line.strip(): yield f"data: {line}\n\n"
+                        if "DONE" in msg: break
+                else: await asyncio.sleep(0.1)
+            except Exception: await asyncio.sleep(0.1); continue
                 
     return StreamingResponse(log_generator(), media_type="text/event-stream")
 
+@app.get("/stop")
+async def stop_pipeline():
+    global pipeline_running, current_process
+    pipeline_running = False
+    if current_process:
+        try:
+            current_process.terminate()
+            current_process.wait(timeout=5)
+        except Exception:
+            try: current_process.kill()
+            except: pass
+        current_process = None
+    return {"status": "stopped"}
 
-# -------------------------
-# Status endpoint
-# -------------------------
-@app.get("/status")
-def get_status():
-    return {"running": pipeline_running}
-
-# -------------------------
-# Results endpoint
-# -------------------------
 @app.get("/results")
 def get_results():
-    """List and categorize all output files recursively with CSV previews"""
-    if not os.path.exists(OUTPUTS_DIR):
-        return {"files": []}
-    
+    if not os.path.exists(OUTPUTS_DIR): return {"files": []}
     all_files = []
     for root, dirs, files in os.walk(OUTPUTS_DIR):
         for f in files:
-            f_path = os.path.join(root, f)
-            rel_path = os.path.relpath(f_path, OUTPUTS_DIR).replace("\\", "/")
-            mtime = os.path.getmtime(f_path)
-            
-            file_type = "file"
-            category = "other"
-            csv_meta = None
-            
-            lower_name = f.lower()
-            
-            # Remove PDFs and general "others" as requested by user
-            if lower_name.endswith('.pdf'):
-                continue
+            if f.endswith(('.png', '.svg', '.tiff', '.tif')):
+                rel_path = os.path.relpath(os.path.join(root, f), OUTPUTS_DIR).replace("\\", "/")
+                category = "other"
+                if "tcm_network" in f: category = "tcm_network"
+                elif "ppi" in f: category = "ppi"
+                elif "kegg" in f: category = "kegg_enrichment"
+                elif "go_bp" in f: category = "go_bp"
+                elif "disease" in root or "target_venn" in f: category = "validation"
                 
-            if lower_name.endswith(('.png', '.jpg', '.jpeg', '.svg', '.tiff', '.tif')):
-                file_type = "image"
-            elif lower_name.endswith('.csv'):
-                file_type = "csv"
-                # Extract CSV Metadata for preview
-                try:
-                    import csv
-                    with open(f_path, "r", encoding='utf8') as csvf:
-                        reader = csv.reader(csvf)
-                        headers = next(reader, [])
-                        preview_rows = []
-                        row_count = 0
-                        for i, row in enumerate(reader):
-                            if i < 5:
-                                preview_rows.append(row)
-                            row_count += 1
-                        csv_meta = {
-                            "headers": headers,
-                            "preview": preview_rows,
-                            "rows": row_count,
-                            "cols": len(headers)
-                        }
-                except Exception:
-                    pass
-
-            # Intelligent Categorization
-            if "integrated_np_disease_network" in lower_name:
-                category = "integrated_network"
-            elif "target_venn" in lower_name:
-                category = "validation"
-            elif "go_bp" in lower_name:
-                category = "go_bp"
-            elif "go_mf" in lower_name:
-                category = "go_mf"
-            elif "go_cc" in lower_name:
-                category = "go_cc"
-            elif "do_lollipop" in lower_name:
-                category = "do"
-            elif "kegg_lollipop" in lower_name:
-                category = "kegg_enrichment"
-            elif "kegg_pathway_visualizations" in root.lower() or "kegg_pathway" in lower_name:
-                if "hub_highlighted" in lower_name:
-                    category = "pathway_map"
-                else:
-                    category = "pathway_map_alt"
-            elif "sankey" in lower_name:
-                category = "sankey"
-            elif "alluvial" in lower_name:
-                category = "alluvial"
-            elif "tcm_network" in lower_name:
-                category = "tcm_network"
-            elif "ppi_network" in lower_name:
-                category = "ppi"
-            elif "degree_plot" in lower_name:
-                category = "degree"
-
-            all_files.append({
-                "name": f,
-                "url": f"http://localhost:8000/outputs/{rel_path}",
-                "type": file_type,
-                "category": category,
-                "mtime": mtime,
-                "csv_meta": csv_meta
-            })
-    
-    all_files.sort(key=lambda x: x['mtime'])
-    for idx, file_obj in enumerate(all_files, 1):
-        file_obj["index"] = idx
-        
+                all_files.append({
+                    "name": f,
+                    "url": f"http://localhost:8000/outputs/{rel_path}",
+                    "category": category,
+                    "mtime": os.path.getmtime(os.path.join(root, f))
+                })
+    all_files.sort(key=lambda x: x['mtime'], reverse=True)
     return {"files": all_files}
 
-@app.get("/download-all")
-def download_all():
-    """Create and return a ZIP file of all outputs"""
-    import zipfile
+@app.get("/filter-stats")
+def filter_stats(swiss: float = 0.0, ppb3: float = 0.0, sea: float = 0.0):
+    target_path = os.path.join(BASE_DIR, "results_all3_human", "combined_target_predictions_all3_human.csv")
+    if not os.path.exists(target_path): return {"count": 0}
+    try:
+        import pandas as pd
+        df = pd.read_csv(target_path)
+        mask = ((df['Database'] == 'SwissTargetPrediction') & (df['Probability'] >= swiss)) | \
+               ((df['Database'] == 'PPB3') & (df['Probability'] >= ppb3)) | \
+               ((df['Database'] == 'SEA') & (df['Max_Tc'] >= sea))
+        return {"count": len(df[mask])}
+    except: return {"count": 0}
+
+@app.get("/prediction-summary")
+def prediction_summary():
+    results_dir = os.path.join(BASE_DIR, "results_all3_human")
+    if not os.path.exists(results_dir): return {"status": "no_results"}
+    
+    summary = {}
+    files = {
+        "combined": "combined_target_predictions_all3_human.csv",
+        "swiss": "swisstargetprediction_results_human.csv",
+        "sea": "sea_results_human.csv",
+        "ppb3": "ppb3_results_human.csv"
+    }
+    
+    import pandas as pd
+    for key, filename in files.items():
+        path = os.path.join(results_dir, filename)
+        if os.path.exists(path):
+            df = pd.read_csv(path)
+            # ZERO TRANSFORMATIONS - show raw generated data
+            df_preview = df.head(100).fillna("-")
+            
+            summary[key] = {
+                "count": len(df),
+                "columns": list(df.columns),
+                "preview": df_preview.to_dict(orient="records")
+            }
+        else:
+            summary[key] = {"count": 0, "columns": [], "preview": []}
+            
+    return summary
+
+@app.get("/filter-network-input")
+def filter_network_input(
+    swiss: float = 0,
+    ppb3: float = 0,
+    sea: float = 0,
+    sea_pval: float = 1,
+    mode: str = "OR"
+):
+    """Filter combined predictions and return as downloadable CSV"""
+    import pandas as pd
+    from fastapi.responses import StreamingResponse
     import io
     
-    zip_buffer = io.BytesIO()
-    with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zip_file:
-        for root, dirs, files in os.walk(OUTPUTS_DIR):
-            for file in files:
-                f_path = os.path.join(root, file)
-                rel_path = os.path.relpath(f_path, OUTPUTS_DIR)
-                zip_file.write(f_path, rel_path)
+    results_dir = os.path.join(BASE_DIR, "results_all3_human")
+    combined_path = os.path.join(results_dir, "combined_target_predictions_all3_human.csv")
     
-    zip_buffer.seek(0)
+    if not os.path.exists(combined_path):
+        return {"error": "No prediction results found"}
+    
+    df = pd.read_csv(combined_path)
+    
+    # Apply filters based on database
+    def row_passes(row):
+        db = row.get('Database', '')
+        prob = float(row.get('Probability', 0)) if row.get('Probability') not in ['-', None, ''] else 0
+        max_tc = float(row.get('Max_Tc', 0)) if row.get('Max_Tc') not in ['-', None, ''] else 0
+        p_val = float(row.get('P_Value', 999)) if row.get('P_Value') not in ['-', None, ''] else 999
+        
+        # Check which filters are active
+        swiss_active = swiss > 0
+        ppb3_active = ppb3 > 0
+        sea_active = sea > 0 or sea_pval < 1
+        
+        # If no filters are active, include nothing
+        if not (swiss_active or ppb3_active or sea_active):
+            return False
+        
+        # Check if row passes each active filter
+        swiss_pass = (db == 'SwissTargetPrediction' and prob >= swiss) if swiss_active else None
+        ppb3_pass = (db == 'PPB3' and prob >= ppb3) if ppb3_active else None
+        sea_pass = (db == 'SEA' and max_tc >= sea and p_val <= sea_pval) if sea_active else None
+        
+        # Collect results for active filters only
+        results = [r for r in [swiss_pass, ppb3_pass, sea_pass] if r is not None]
+        
+        if mode == 'AND':
+            # AND: Must pass ALL active filters
+            return all(results) if results else False
+        else:
+            # OR: Must pass ANY active filter
+            return any(results) if results else False
+    
+    filtered_df = df[df.apply(row_passes, axis=1)]
+    
+    # Convert to CSV and return as downloadable file
+    stream = io.StringIO()
+    filtered_df.to_csv(stream, index=False)
+    stream.seek(0)
+    
     return StreamingResponse(
-        zip_buffer,
-        media_type="application/x-zip-compressed",
-        headers={"Content-Disposition": "attachment; filename=all_results.zip"}
+        iter([stream.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=network_input_filtered.csv"}
     )
 
-# -------------------------
-# Reset endpoint
-# -------------------------
-@app.post("/reset")
-def reset_pipeline():
-    global pipeline_running
-    pipeline_running = False
-    return {"status": "reset"}
+@app.get("/filter-count")
+async def get_filter_count(
+    swiss: float = 0,
+    ppb3: float = 0,
+    sea: float = 0,
+    sea_pval: float = 1,
+    mode: str = 'OR'
+):
+    """Get count of rows that match filter criteria"""
+    import pandas as pd
+    
+    results_dir = os.path.join(BASE_DIR, "results_all3_human")
+    combined_path = os.path.join(results_dir, "combined_target_predictions_all3_human.csv")
+    
+    if not os.path.exists(combined_path):
+        return {"count": 0, "total": 0}
+    
+    df = pd.read_csv(combined_path)
+    total = len(df)
+    
+    # Apply same filtering logic as download endpoint
+    def row_passes(row):
+        db = row.get('Database', '')
+        prob = float(row.get('Probability', 0)) if row.get('Probability') not in ['-', None, ''] else 0
+        max_tc = float(row.get('Max_Tc', 0)) if row.get('Max_Tc') not in ['-', None, ''] else 0
+        p_val = float(row.get('P_Value', 999)) if row.get('P_Value') not in ['-', None, ''] else 999
+        
+        swiss_active = swiss > 0
+        ppb3_active = ppb3 > 0
+        sea_active = sea > 0 or sea_pval < 1
+        
+        if not (swiss_active or ppb3_active or sea_active):
+            return True
+        
+        swiss_pass = (db == 'SwissTargetPrediction' and prob >= swiss) if swiss_active else None
+        ppb3_pass = (db == 'PPB3' and prob >= ppb3) if ppb3_active else None
+        sea_pass = (db == 'SEA' and max_tc >= sea and p_val <= sea_pval) if sea_active else None
+        
+        results = [r for r in [swiss_pass, ppb3_pass, sea_pass] if r is not None]
+        
+        if mode == 'AND':
+            return all(results) if results else False
+        else:
+            return any(results) if results else False
+    
+    filtered_count = len(df[df.apply(row_passes, axis=1)])
+    
+    return {"count": filtered_count, "total": total}
 
+@app.get("/status")
+def get_status(): return {"running": pipeline_running}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

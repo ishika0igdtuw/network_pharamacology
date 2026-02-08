@@ -100,27 +100,13 @@ ppi_plot <- function(
   label_size_scaled <- if (n_nodes < 50) label.size else label.size * 0.7
 
   # ---------------------------
-  # Layout Calculation & Normalization
-  # ---------------------------
-  lo <- igraph::layout_with_kk(net)
-
-  # Normalize to fill plotting region [-1, 1]
-  if (nrow(lo) > 1) {
-    lo[, 1] <- 2 * (lo[, 1] - min(lo[, 1])) / (max(lo[, 1]) - min(lo[, 1])) - 1
-    lo[, 2] <- 2 * (lo[, 2] - min(lo[, 2])) / (max(lo[, 2]) - min(lo[, 2])) - 1
-  }
-
-  igraph::V(net)$x <- lo[, 1]
-  igraph::V(net)$y <- lo[, 2]
-
-  # ---------------------------
   # Plot
   # ---------------------------
   set.seed(42)
 
   show_labels <- if (exists("PLOT_THEME_CONFIG")) PLOT_THEME_CONFIG$text$show_labels else TRUE
 
-  p <- ggraph::ggraph(net, layout = "manual", x = x, y = y) +
+  p <- ggraph::ggraph(net, layout = graph.layout) +
     ggraph::geom_edge_fan(
       aes(edge_width = score),
       colour = edge.color,

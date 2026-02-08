@@ -5,6 +5,7 @@ and live reporting of retained targets.
 """
 
 from pathlib import Path
+from datetime import datetime
 import pandas as pd
 import argparse
 
@@ -20,6 +21,10 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Build TCMNP input with adjustable confidence thresholds"
     )
+    parser.add_argument("--input", type=str, default=str(INPUT_FILE),
+                        help="Input CSV file path (combined predictions)")
+    parser.add_argument("--output", type=str, default=str(OUTPUT_FILE),
+                        help="Output CSV file path (filtered network input)")
     parser.add_argument("--swiss", type=float, default=0.1,
                         help="SwissTargetPrediction probability cutoff (default: 0.1)")
     parser.add_argument("--ppb3", type=float, default=0.5,
@@ -38,11 +43,17 @@ def parse_args():
 def main():
     args = parse_args()
 
-    if not INPUT_FILE.exists():
-        raise FileNotFoundError(f"Missing input file: {INPUT_FILE}")
+    if not Path(args.input).exists():
+        raise FileNotFoundError(f"Missing input file: {args.input}")
 
-    print("[INFO] Reading combined target prediction file...")
-    df = pd.read_csv(INPUT_FILE)
+    # print("[INFO] Reading combined target prediction file...")
+    input_path = Path(args.input)
+    if input_path.exists():
+        stat = input_path.stat()
+        mtime = datetime.fromtimestamp(stat.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+        print(f"DEBUG: READING FILE: {input_path.resolve()} (Size: {stat.st_size} bytes, Modified: {mtime})")
+    df = pd.read_csv(input_path)
+    print(f"DEBUG: INITIAL PREDICTION ROWS: {len(df)}")
 
     df.columns = df.columns.str.lower().str.strip()
 
@@ -79,9 +90,12 @@ def main():
         )
     ].copy()
 
+    print(f"DEBUG: ROWS RETAINED AFTER THRESHOLDS: {len(df_filtered)}")
+
     # -------------------------------
-    # Report retention stats
+    # Report retention stats - MUTED
     # -------------------------------
+    """
     print("\n[CONFIDENCE THRESHOLDS]")
     print(f" SwissTargetPrediction ≥ {args.swiss}")
     print(f" PPB3 ≥ {args.ppb3}")
@@ -97,6 +111,7 @@ def main():
     print(summary.to_string(index=False))
 
     print(f"\n[TOTAL RETAINED ROWS] {len(df_filtered)}")
+    """
 
     if args.dry_run:
         print("\n[DRY RUN] No output written. Adjust thresholds and rerun.")
@@ -127,10 +142,12 @@ def main():
     )
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    tcmnp_df.to_csv(OUTPUT_FILE, index=False)
+    tcmnp_df.to_csv(args.output, index=False)
 
-    print(f"\n[OK] TCMNP input generated: {OUTPUT_FILE}")
-    print(f"[OK] Final unique interactions: {len(tcmnp_df)}")
+    print(f"\n✔ INPUT PREDICTIONS: {len(df)}")
+    print(f"✔ FILTERED PREDICTIONS: {len(df_filtered)}")
+    print(f"✔ FINAL UNIQUE INTERACTIONS (FOR PLOT): {len(tcmnp_df)}")
+    print(f"✔ OK: TCMNP input generated: {args.output}")
 
 
 if __name__ == "__main__":

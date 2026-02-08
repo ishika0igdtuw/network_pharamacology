@@ -658,7 +658,7 @@ def main():
 
             if i < len(compounds):
                 wait = random.uniform(args.min_wait, args.max_wait)
-                print(f"Waiting {wait:.2f}s before next compound...")
+                # print(f"Waiting {wait:.2f}s before next compound...")
                 time.sleep(wait)
 
     finally:

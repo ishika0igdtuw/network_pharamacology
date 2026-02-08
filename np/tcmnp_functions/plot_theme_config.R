@@ -141,7 +141,7 @@ PLOT_THEME_CONFIG <- list(
         label_min_segment_length = 0.5,
 
         # Layout algorithms
-        preferred_layout = "fr", # Fruchterman-Reingold
+        preferred_layout = Sys.getenv("TCMNP_LAYOUT", "fr"), # Fruchterman-Reingold (default)
         layout_iterations = 500
     ),
 
@@ -368,13 +368,16 @@ save_publication_plot <- function(plot,
                 bg = PLOT_THEME_CONFIG$output$bg
             )
         } else if (fmt == "svg") {
+            # Attempt to use svglite for better consistency if available
+            dev_tool <- if (requireNamespace("svglite", quietly = TRUE)) "svglite" else "svg"
             ggplot2::ggsave(
                 filename = out_file,
                 plot = plot,
                 width = width,
                 height = height,
-                device = "svg",
-                bg = PLOT_THEME_CONFIG$output$bg
+                device = dev_tool,
+                bg = PLOT_THEME_CONFIG$output$bg,
+                scale = 1.0 # Matched to PNG proportions
             )
         } else if (fmt == "tiff" || fmt == "tif") {
             ggplot2::ggsave(

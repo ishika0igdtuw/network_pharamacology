@@ -8,12 +8,41 @@ Sys.setenv(R_GSCMD = "/usr/bin/gs")
 cat("Starting Network Pharmacology Analysis...\n")
 
 # ===============================
+# 0. Argument Parsing
+# ===============================
+args <- commandArgs(trailingOnly = TRUE)
+STAGE <- "all"
+LAYOUT <- "kk"
+DPI <- 600
+FONT_SIZE <- 14
+FONT_STYLE <- "bold"
+PPI_DEGREE <- 2
+TOP_N <- 10
+DISEASE_ID <- ""
+INPUT_FILE <- "3_tcmnp_input/tcm_input.csv"
+
+if (length(args) > 0) {
+  for (arg in args) {
+    if (grepl("^--stage=", arg)) STAGE <- sub("^--stage=", "", arg)
+    if (grepl("^--layout=", arg)) LAYOUT <- sub("^--layout=", "", arg)
+    if (grepl("^--dpi=", arg)) DPI <- as.numeric(sub("^--dpi=", "", arg))
+    if (grepl("^--font_size=", arg)) FONT_SIZE <- as.numeric(sub("^--font_size=", "", arg))
+    if (grepl("^--font_style=", arg)) FONT_STYLE <- sub("^--font_style=", "", arg)
+    if (grepl("^--ppi_degree=", arg)) PPI_DEGREE <- as.numeric(sub("^--ppi_degree=", "", arg))
+    if (grepl("^--top_n=", arg)) TOP_N <- as.numeric(sub("^--top_n=", "", arg))
+    if (grepl("^--disease=", arg)) DISEASE_ID <- sub("^--disease=", "", arg)
+    if (grepl("^--input_file=", arg)) INPUT_FILE <- sub("^--input_file=", "", arg)
+  }
+}
+cat("Running Stage:", STAGE, "| Layout:", LAYOUT, "| DPI:", DPI, "| Input File:", INPUT_FILE, "\n")
+
+# ===============================
 # 1. Libraries
 # ===============================
 cran_pkgs <- c(
   "dplyr", "ggplot2", "igraph", "ggraph",
   "stringr", "magrittr", "RColorBrewer",
-  "ggsankey", "tidyr", "data.table"
+  "ggsankey", "tidyr", "data.table", "svglite"
 )
 
 for (p in cran_pkgs) {
@@ -35,9 +64,7 @@ for (p in bioc_pkgs) {
   library(p, character.only = TRUE)
 }
 
-# Avoid namespace collision for select
 select <- dplyr::select
-
 theme_set(theme(text = element_text(family = "sans")))
 cat("✔ Libraries loaded\n")
 
@@ -45,7 +72,6 @@ cat("✔ Libraries loaded\n")
 # 2. Load functions
 # ===============================
 FUN_PATH <- "tcmnp_functions"
-
 source(file.path(FUN_PATH, "tcm_net.R"))
 source(file.path(FUN_PATH, "tcm_sankey.R"))
 source(file.path(FUN_PATH, "degree_plot.R"))
@@ -60,54 +86,49 @@ source(file.path(FUN_PATH, "disease_target_overlap.R"))
 source(file.path(FUN_PATH, "target_overlap_network.R"))
 source("tcmnp_functions/integrated_np_network.R")
 source(file.path(FUN_PATH, "integrated_np_disease_network.R"))
-source(file.path(FUN_PATH, "export_cytoscape.R")) # NEW: Load Cytoscape export function
-
-# Load typography theme
+source(file.path(FUN_PATH, "export_cytoscape.R"))
 source("tcmnp_functions/plot_theme_config.R")
-
-cat("✔ Functions loaded\n")
-cat("✔ Typography theme loaded (Title Case, 600 DPI)\n")
+# Override with Command Line Args
+PLOT_THEME_CONFIG$font_sizes$base <- FONT_SIZE
+PLOT_THEME_CONFIG$fonts$style <- FONT_STYLE
+PLOT_THEME_CONFIG$output$dpi <- DPI
+cat("✔ Functions loaded & Theme configured\n")
 
 # ===============================
 # 3. Load data
 # ===============================
-INPUT_FILE <- "3_tcmnp_input/tcm_input.csv"
+# INPUT_FILE is set in args parsing or defaults to "3_tcmnp_input/tcm_input.csv"
+if (!exists("INPUT_FILE")) {
+  INPUT_FILE <- "3_tcmnp_input/tcm_input.csv"
+}
 PROJECT_ROOT <- getwd()
 OUTPUT_DIR <- file.path(PROJECT_ROOT, "outputs")
 dir.create(OUTPUT_DIR, recursive = TRUE, showWarnings = FALSE)
-cat("📁 Outputs will be saved to:", OUTPUT_DIR, "\n")
 
+if (!file.exists(INPUT_FILE)) {
+  stop("Input file not found. Please run target prediction first.")
+}
 
 tcm_data <- read.csv(INPUT_FILE, stringsAsFactors = FALSE)
 colnames(tcm_data) <- tolower(colnames(tcm_data))
 tcm_data <- distinct(tcm_data)
-
 cat("✔ Input rows:", nrow(tcm_data), "\n")
 
-# ===============================
-# 3.5. Identify Preliminary Hubs (for early visualization)
-# ===============================
-# Identify top 30 targets by degree to use as hubs in enrichment plots
+# Identify hubs once
 prelim_hubs <- tcm_data %>%
   dplyr::count(target, sort = TRUE) %>%
   dplyr::slice(1:30) %>%
   dplyr::rename(gene = target)
-
 write.csv(prelim_hubs, file.path(OUTPUT_DIR, "hub_genes_automated.csv"), row.names = FALSE)
-cat("✔ Preliminary hub genes identified and saved\n")
 
 # ===============================
-# 4. Disease vs Predicted Target Overlap (MODULE 1)
+# MODULE: Disease Overlap
 # ===============================
-cat("PROGRESS:70:Performing Disease Overlap Analysis...\n")
-tryCatch(
-  {
-    # Check for multiple disease IDs from environment
+if (STAGE == "all" || STAGE == "disease") {
+  cat("PROGRESS:20:Performing Disease Overlap Analysis...\n")
+  try({
     disease_ids_raw <- Sys.getenv("TCMNP_DISEASE_IDS", "EFO_0000305")
-    disease_ids <- unlist(strsplit(disease_ids_raw, ","))
-    disease_ids <- trimws(disease_ids)
-
-    cat("Starting multi-set disease overlap analysis for:", paste(disease_ids, collapse = ", "), "\n")
+    disease_ids <- unlist(strsplit(disease_ids_raw, ",")) %>% trimws()
 
     disease_target_overlap(
       disease_ids = disease_ids,
@@ -115,337 +136,100 @@ tryCatch(
       out_dir = file.path(OUTPUT_DIR, "disease_overlap"),
       dpi = PLOT_THEME_CONFIG$output$dpi
     )
-    cat("✔ Disease overlap analysis completed\n")
-  },
-  error = function(e) {
-    message("Disease Target Overlap failed: ", e$message)
-  }
-)
 
-# Integrated Networks and Overlap Networks using the first disease as primary if multi-set
-primary_disease_id <- unlist(strsplit(Sys.getenv("TCMNP_DISEASE_IDS", "EFO_0000305"), ","))[1]
+    primary_disease_id <- disease_ids[1]
+    integrated_np_disease_network(tcm_data = tcm_data, out_dir = OUTPUT_DIR, disease_label = primary_disease_id)
 
-cat("PROGRESS:75:Building Integrated Networks...\n")
-tryCatch(
-  {
-    integrated_np_network(
-      tcm_data = tcm_data,
-      out_dir = OUTPUT_DIR
-    )
-
-    # Use primary disease ID for the combined network
-    integrated_np_disease_network(
-      tcm_data = tcm_data,
-      out_dir = OUTPUT_DIR,
-      disease_label = primary_disease_id
-    )
-  },
-  error = function(e) {
-    message("Integrated Network construction failed: ", e$message)
-  }
-)
-
-# -------------------------------
-# Target-only overlap network (MODULE 1 Intersection)
-# -------------------------------
-tryCatch(
-  {
-    predicted_targets <- unique(tcm_data$target)
-    common_targets_file <- file.path(OUTPUT_DIR, "disease_overlap", "common_targets.csv")
-
-    if (file.exists(common_targets_file)) {
-      common_targets <- read.csv(common_targets_file)$symbol
-
-      # For visualization purposes, take first disease sets if available
-      disease_sets <- list.files(file.path(OUTPUT_DIR, "disease_overlap"), pattern = "^set_.*\\.csv", full.names = TRUE)
-      if (length(disease_sets) > 0) {
-        disease_targets <- read.csv(disease_sets[1])$symbol
-        target_overlap_network(
-          disease_targets   = disease_targets,
-          predicted_targets = predicted_targets,
-          common_targets    = common_targets,
-          out_dir           = OUTPUT_DIR
-        )
-      }
-    }
-  },
-  error = function(e) {
-    message("Target Overlap Network failed: ", e$message)
-  }
-)
-
-
-# ===============================
-# 6. TCM Compound–Target Network
-# ===============================
-cat("PROGRESS:80:Building TCM Compound-Target Network...\n")
-tryCatch(
-  {
-    # Dynamic Sizing for TCM Network
-    n_tcm_nodes <- length(unique(c(tcm_data$herb, tcm_data$molecule, tcm_data$target)))
-    dyn_width_tcm <- max(14, n_tcm_nodes / 20 * 1.2) # Wider aspect ratio
-    dyn_height_tcm <- max(12, n_tcm_nodes / 25)
-
-    message(sprintf("Saving TCM Network (Nodes: %d, Size: %.1f x %.1f inches)...", n_tcm_nodes, dyn_width_tcm, dyn_height_tcm))
-
-    p3 <- tcm_net(tcm_data, label.degree = 0, rem.dis.inter = FALSE)
-    p3 <- tcm_net(tcm_data, label.degree = 0, rem.dis.inter = FALSE)
-    save_publication_plot(p3, file.path(OUTPUT_DIR, "tcm_network"), width = dyn_width_tcm, height = dyn_height_tcm)
-
-    # Export for Cytoscape
-    export_for_cytoscape(tcm_data, OUTPUT_DIR, file_prefix = "TCM_Network")
-  },
-  error = function(e) {
-    message("TCM Network Plot failed: ", e$message)
-    try(dev.off(), silent = TRUE)
-  }
-)
-
-# ===============================
-# 7. Degree hubs (TCM only)
-# ===============================
-tryCatch(
-  {
-    hub_degree <- tcm_data %>% dplyr::count(target, sort = TRUE)
-    write.csv(
-      hub_degree,
-      file.path(OUTPUT_DIR, "hub_targets_degree.csv"),
-      row.names = FALSE
-    )
-
-    p_deg <- degree_plot(tcm_data, plot.set = "horizontal")
-    ggsave(file.path(OUTPUT_DIR, "degree_plot.png"), p_deg, width = 10, height = 8, dpi = 600)
-    ggsave(file.path(OUTPUT_DIR, "degree_plot.pdf"), p_deg, width = 10, height = 8)
-  },
-  error = function(e) {
-    message("Degree Hubs analysis failed: ", e$message)
-    try(dev.off(), silent = TRUE)
-  }
-)
-
-# ===============================
-# 8. KEGG + GO Enrichment
-# ===============================
-cat("PROGRESS:85:Running KEGG & GO Enrichment Analysis...\n")
-tryCatch(
-  {
-    eg <- bitr(
-      unique(tcm_data$target),
-      fromType = "SYMBOL",
-      toType = "ENTREZID",
-      OrgDb = org.Hs.eg.db
-    )
-    eg <- eg[!is.na(eg$ENTREZID), ]
-
-    # KEGG
-    kk <- NULL # Initialize kk
-    tryCatch(
-      {
-        kk <- enrichKEGG(
-          gene = eg$ENTREZID,
-          organism = "hsa",
-          pvalueCutoff = 0.05
-        )
-        if (!is.null(kk)) {
-          png(file.path(OUTPUT_DIR, "kegg_enrichment.png"), width = 2700, height = 2100, res = 300, type = "cairo")
-          bar_plot(kk, title = "KEGG Pathway Enrichment")
-          dev.off()
-          lollipop_plot(data = kk, title = "KEGG Pathway Enrichment", out_dir = OUTPUT_DIR, file_prefix = "KEGG_Lollipop")
-
-          # ---- KEGG Pathway Visualization with Hub Gene Highlighting ----
-          # Generate top 10 KEGG pathway diagrams with hub genes highlighted
-          cat("Generating KEGG pathway visualizations with hub gene highlighting (Top 10)...\n")
-          tryCatch(
-            {
-              # Save KEGG enrichment results for visualization script
-              kegg_df <- as.data.frame(kk)
-              write.csv(
-                kegg_df,
-                file.path(OUTPUT_DIR, "kegg_pathway_enrichment.csv"),
-                row.names = FALSE
-              )
-
-              # Run visualization scripts
-              source("tcmnp_functions/visualize_kegg_pathways_with_hubs.R")
-              source("tcmnp_functions/add_titles_to_kegg_plots.R")
-              source("tcmnp_functions/rename_kegg_files_with_names.R")
-              source("tcmnp_functions/create_pathway_summary_plots.R")
-
-              cat("✔ KEGG pathway visualizations complete (Top 10 with hub highlighting)\n")
-            },
-            error = function(e) {
-              message("KEGG pathway visualization failed: ", e$message)
-            }
-          )
-        }
-      },
-      error = function(e) {
-        message("KEGG Enrichment failed: ", e$message)
-        try(dev.off(), silent = TRUE)
-      }
-    )
-
-    # GO BP
-    bp <- NULL # Initialize bp
-    tryCatch(
-      {
-        bp <- enrichGO(
-          gene = eg$ENTREZID,
-          OrgDb = org.Hs.eg.db,
-          ont = "BP",
-          pvalueCutoff = 0.05,
-          readable = TRUE
-        )
-        if (!is.null(bp)) {
-          p2 <- bar_plot(bp, title = "GO Biological Process Enrichment")
-          ggsave(file.path(OUTPUT_DIR, "go_bp_enrichment.png"), p2, width = 12, height = 10, dpi = 600)
-          ggsave(file.path(OUTPUT_DIR, "go_bp_enrichment.pdf"), p2, width = 12, height = 10)
-          lollipop_plot(data = bp, title = "GO Biological Process", out_dir = OUTPUT_DIR, file_prefix = "GO_BP_Lollipop")
-        }
-      },
-      error = function(e) {
-        message("GO BP Enrichment failed: ", e$message)
-        try(dev.off(), silent = TRUE)
-      }
-    )
-
-    # GO MF
-    mf <- NULL # Initialize mf
-    tryCatch(
-      {
-        mf <- enrichGO(gene = eg$ENTREZID, OrgDb = org.Hs.eg.db, ont = "MF", pvalueCutoff = 0.05, readable = TRUE)
-        if (!is.null(mf)) lollipop_plot(data = mf, title = "GO Molecular Function", out_dir = OUTPUT_DIR, file_prefix = "GO_MF_Lollipop")
-      },
-      error = function(e) {
-        message("GO MF Enrichment failed: ", e$message)
-      }
-    )
-
-    # GO CC
-    cc <- NULL # Initialize cc
-    tryCatch(
-      {
-        cc <- enrichGO(gene = eg$ENTREZID, OrgDb = org.Hs.eg.db, ont = "CC", pvalueCutoff = 0.05, readable = TRUE)
-        if (!is.null(cc)) lollipop_plot(data = cc, title = "GO Cellular Component", out_dir = OUTPUT_DIR, file_prefix = "GO_CC_Lollipop")
-      },
-      error = function(e) {
-        message("GO CC Enrichment failed: ", e$message)
-      }
-    )
-
-    # Disease Ontology
-    do <- NULL # Initialize do
-    tryCatch(
-      {
-        do <- DOSE::enrichDO(gene = eg$ENTREZID, pvalueCutoff = 0.05, minGSSize = 5, readable = TRUE)
-        if (!is.null(do)) lollipop_plot(data = do, title = "Disease Ontology Enrichment", out_dir = OUTPUT_DIR, file_prefix = "DO_Lollipop")
-      },
-      error = function(e) {
-        message("DO Enrichment failed: ", e$message)
-      }
-    )
-
-    # ===============================
-    # 9. Circular plots
-    # ===============================
-    tryCatch(
-      {
-        if (exists("kk") && !is.null(kk)) pathway_ccplot(kk, root = "KEGG", top = 5)
-        if (exists("bp") && !is.null(bp)) pathway_ccplot(bp, root = "GO_BP", top = 5)
-      },
-      error = function(e) {
-        message("Circular Plots failed: ", e$message)
-      }
-    )
-  },
-  error = function(e) {
-    message("Enrichment Analysis Block failed: ", e$message)
-  }
-)
-
-
-cat("PROGRESS:90:Generating Sankey & Alluvial Flow Diagrams...\n")
-tryCatch(
-  {
-    cat("Generating Sankey Plot...\n")
-    # Dynamic height for Sankey (based on target count)
-    n_targets_count <- length(unique(tcm_data$target))
-    dyn_height_sank <- max(15, n_targets_count * 0.5)
-
-    p_sankey <- tcm_sankey(tcm_data, text.size = 5)
-    save_publication_plot(p_sankey, file.path(OUTPUT_DIR, "sankey_plot"), width = 12, height = dyn_height_sank)
-  },
-  error = function(e) {
-    message("Sankey Plot failed: ", e$message)
-    try(dev.off(), silent = TRUE)
-  }
-)
-
-tryCatch(
-  {
-    cat("Generating Alluvial Plot...\n")
-    p_alluv <- tcm_alluvial(tcm_data, text.size = 5)
-    save_publication_plot(p_alluv, file.path(OUTPUT_DIR, "alluvial_plot"), width = 14, height = 10)
-  },
-  error = function(e) {
-    message("Alluvial Plot failed: ", e$message)
-  }
-)
-
-
-# ===============================
-# 11. PPI Network Construction
-# ===============================
-cat("PROGRESS:95:Constructing Protein-Protein Interaction (PPI) Network...\n")
-cat("Constructing PPI Network...\n")
-# Use targets from our tcm_data
-targets_list <- unique(tcm_data$target)
-
-ppi_res <- tryCatch(
-  {
-    tcm_ppi(
-      targets = targets_list,
-      species = 9606,
-      score_threshold = 400, # Medium confidence
-      degree_filter = 1, # Keep ALL connected nodes (not just hubs)
-      string_cache = "data/stringdb"
-    )
-  },
-  error = function(e) {
-    message("PPI construction failed: ", e$message)
-    return(NULL)
-  }
-)
-
-if (!is.null(ppi_res)) {
-  ppi_nodes <- unique(c(ppi_res$ppi_edges$from, ppi_res$ppi_edges$to))
-  n_ppi_nodes <- length(ppi_nodes)
-
-  # CONTENT-AWARE SCALING
-  ppi_canvas <- calculate_canvas_size(n_ppi_nodes, type = "network")
-  message(sprintf("Saving PPI Network (Nodes: %d, Size: %.1f x %.1f inches)...", n_ppi_nodes, ppi_canvas$width, ppi_canvas$height))
-
-  tryCatch(
-    {
-      p_ppi <- ppi_plot(
-        ppi_res$ppi_edges,
-        label.degree = 0,
-        label.size = get_scaled_label_size(n_ppi_nodes),
-        edge.width = c(0.1, 0.8)
-      )
-      save_publication_plot(p_ppi, file.path(OUTPUT_DIR, "ppi_network"), width = ppi_canvas$width, height = ppi_canvas$height)
-      write.csv(ppi_res$ppi_edges, file.path(OUTPUT_DIR, "ppi_edges.csv"), row.names = FALSE)
-      export_for_cytoscape(ppi_res$ppi_edges, OUTPUT_DIR, file_prefix = "PPI_Network")
-    },
-    error = function(e) {
-      message("PPI Network Plot failed: ", e$message)
-    }
-  )
+    cat("✔ Disease overlap complete\n")
+  })
 }
 
 # ===============================
-# DONE
+# MODULE: Network (Compound-Target)
 # ===============================
-cat("PROGRESS:100:Pipeline completed successfully\n")
-cat("\nANALYSIS COMPLETED SUCCESSFULLY\n")
-cat("Outputs saved in:", OUTPUT_DIR, "\n")
+if (STAGE == "all" || STAGE == "network") {
+  cat("PROGRESS:40:Building Compound-Target Network...\n")
+  try({
+    # Content-aware scaling
+    node_count <- length(unique(c(tcm_data$molecule, tcm_data$target)))
+    base_size <- 12
+    # node_size = base_size + log(node_count) - as requested logic
+    # We apply this to the image dimensions or scaling factor
+
+    dyn_width <- max(12, 12 * (1 + log10(node_count / 20 + 1)))
+    dyn_height <- max(10, 10 * (1 + log10(node_count / 20 + 1)))
+
+    p_net <- tcm_net(
+      tcm_data,
+      label.degree = 0,
+      graph.layout = PLOT_THEME_CONFIG$network$preferred_layout,
+      label.size = get_scaled_label_size(node_count) / 2.845
+    )
+    save_publication_plot(p_net, file.path(OUTPUT_DIR, "tcm_network"), width = dyn_width, height = dyn_height)
+    export_for_cytoscape(tcm_data, OUTPUT_DIR, file_prefix = "TCM_Network")
+    cat("✔ Network construction complete\n")
+  })
+}
+
+# ===============================
+# MODULE: PPI (STRING)
+# ===============================
+if (STAGE == "all" || STAGE == "ppi") {
+  cat("PROGRESS:60:Constructing PPI Network (STRING)...\n")
+  try({
+    targets_list <- unique(tcm_data$target)
+    conf <- as.numeric(Sys.getenv("TCMNP_PPI_CONFIDENCE", "0.4")) * 1000
+    deg_filt <- as.integer(Sys.getenv("TCMNP_PPI_DEGREE_FILTER", "2"))
+
+    ppi_res <- tcm_ppi(
+      targets = targets_list,
+      species = 9606,
+      score_threshold = conf,
+      degree_filter = deg_filt,
+      string_cache = "data/stringdb"
+    )
+
+    if (!is.null(ppi_res)) {
+      n_ppi <- length(unique(c(ppi_res$ppi_edges$from, ppi_res$ppi_edges$to)))
+      canvas <- calculate_canvas_size(n_ppi, type = "network")
+      p_ppi <- ppi_plot(
+        ppi_res$ppi_edges,
+        label.degree = 0,
+        graph.layout = PLOT_THEME_CONFIG$network$preferred_layout,
+        label.size = get_scaled_label_size(n_ppi) / 2.845
+      )
+      save_publication_plot(p_ppi, file.path(OUTPUT_DIR, "ppi_network"), width = canvas$width, height = canvas$height)
+      write.csv(ppi_res$ppi_edges, file.path(OUTPUT_DIR, "ppi_edges.csv"), row.names = FALSE)
+      export_for_cytoscape(ppi_res$ppi_edges, OUTPUT_DIR, file_prefix = "PPI_Network")
+    }
+    cat("✔ PPI complete\n")
+  })
+}
+
+# ===============================
+# MODULE: Enrichment
+# ===============================
+if (STAGE == "all" || STAGE == "enrichment") {
+  cat("PROGRESS:80:Running Enrichment Analysis...\n")
+  try({
+    eg <- bitr(unique(tcm_data$target), fromType = "SYMBOL", toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+    eg <- eg[!is.na(eg$ENTREZID), ]
+
+    # KEGG
+    kk <- enrichKEGG(gene = eg$ENTREZID, organism = "hsa", pvalueCutoff = 0.05)
+    if (!is.null(kk)) {
+      lollipop_plot(data = kk, title = "KEGG Pathway Enrichment", out_dir = OUTPUT_DIR, file_prefix = "KEGG_Lollipop")
+      # Custom pathview call would go here
+    }
+
+    # GO BP
+    bp <- enrichGO(gene = eg$ENTREZID, OrgDb = org.Hs.eg.db, ont = "BP", pvalueCutoff = 0.05, readable = TRUE)
+    if (!is.null(bp)) {
+      lollipop_plot(data = bp, title = "GO Biological Process", out_dir = OUTPUT_DIR, file_prefix = "GO_BP_Lollipop")
+    }
+    cat("✔ Enrichment complete\n")
+  })
+}
+
+cat("PROGRESS:100:Stage complete\n")
+cat("DONE\n")

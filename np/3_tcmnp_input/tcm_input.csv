@@ -1,18 +1,13 @@
 herb,molecule,target
-Abies alba,(+)-Bornyl acetate,ACHE
 Abies alba,(+)-Bornyl acetate,Solute carrier organic anion transporter family member 1B1
 Abies alba,(+)-Bornyl acetate,Solute carrier organic anion transporter family member 1B3
-Abrus precatorius,4-Hydroxycinnamic acid,ABCG2
 Abrus precatorius,4-Hydroxycinnamic acid,AKR1B1
 Abrus precatorius,4-Hydroxycinnamic acid,AKR1B10
-Abrus precatorius,4-Hydroxycinnamic acid,AKR1C3
-Abrus precatorius,4-Hydroxycinnamic acid,ALOX5
 Abrus precatorius,4-Hydroxycinnamic acid,APP
 Abrus precatorius,4-Hydroxycinnamic acid,Aldose reductase
 Abrus precatorius,4-Hydroxycinnamic acid,BACE1
 Abrus precatorius,4-Hydroxycinnamic acid,CA1
 Abrus precatorius,4-Hydroxycinnamic acid,CA12
-Abrus precatorius,4-Hydroxycinnamic acid,CA13
 Abrus precatorius,4-Hydroxycinnamic acid,CA14
 Abrus precatorius,4-Hydroxycinnamic acid,CA2
 Abrus precatorius,4-Hydroxycinnamic acid,CA3
@@ -22,9 +17,7 @@ Abrus precatorius,4-Hydroxycinnamic acid,CA5B
 Abrus precatorius,4-Hydroxycinnamic acid,CA6
 Abrus precatorius,4-Hydroxycinnamic acid,CA7
 Abrus precatorius,4-Hydroxycinnamic acid,CA9
-Abrus precatorius,4-Hydroxycinnamic acid,CISD1
 Abrus precatorius,4-Hydroxycinnamic acid,CXCL12
-Abrus precatorius,4-Hydroxycinnamic acid,CYP1B1
 Abrus precatorius,4-Hydroxycinnamic acid,Carbonic anhydrase I
 Abrus precatorius,4-Hydroxycinnamic acid,Carbonic anhydrase II
 Abrus precatorius,4-Hydroxycinnamic acid,Carbonic anhydrase III
@@ -40,196 +33,19 @@ Abrus precatorius,4-Hydroxycinnamic acid,ESR1
 Abrus precatorius,4-Hydroxycinnamic acid,ESR2
 Abrus precatorius,4-Hydroxycinnamic acid,Estrogen receptor alpha
 Abrus precatorius,4-Hydroxycinnamic acid,F3
-Abrus precatorius,4-Hydroxycinnamic acid,FOS
-Abrus precatorius,4-Hydroxycinnamic acid,GLO1
 Abrus precatorius,4-Hydroxycinnamic acid,HCAR2
 Abrus precatorius,4-Hydroxycinnamic acid,HDAC1
 Abrus precatorius,4-Hydroxycinnamic acid,HDAC11
 Abrus precatorius,4-Hydroxycinnamic acid,HDAC2
 Abrus precatorius,4-Hydroxycinnamic acid,HDAC8
 Abrus precatorius,4-Hydroxycinnamic acid,HDAC9
-Abrus precatorius,4-Hydroxycinnamic acid,JUN
-Abrus precatorius,4-Hydroxycinnamic acid,MAOA
 Abrus precatorius,4-Hydroxycinnamic acid,MAOB
-Abrus precatorius,4-Hydroxycinnamic acid,MIF
 Abrus precatorius,4-Hydroxycinnamic acid,MMP1
 Abrus precatorius,4-Hydroxycinnamic acid,MMP2
 Abrus precatorius,4-Hydroxycinnamic acid,MMP9
-Abrus precatorius,4-Hydroxycinnamic acid,NFE2L2
-Abrus precatorius,4-Hydroxycinnamic acid,NQO2
-Abrus precatorius,4-Hydroxycinnamic acid,PTGER2
-Abrus precatorius,4-Hydroxycinnamic acid,PTGER3
-Abrus precatorius,4-Hydroxycinnamic acid,PTGER4
-Abrus precatorius,4-Hydroxycinnamic acid,RARB
 Abrus precatorius,4-Hydroxycinnamic acid,Raji
 Abrus precatorius,4-Hydroxycinnamic acid,Solute carrier organic anion transporter family member 1B1
 Abrus precatorius,4-Hydroxycinnamic acid,Solute carrier organic anion transporter family member 1B3
 Abrus precatorius,4-Hydroxycinnamic acid,TLR9
-Abrus precatorius,4-Hydroxycinnamic acid,TTR
 Abrus precatorius,4-Hydroxycinnamic acid,Tyrosinase
 Abrus precatorius,4-Hydroxycinnamic acid,Xanthine dehydrogenase
-Curcuma longa,Curcumin,A549
-Curcuma longa,Curcumin,ABCB1
-Curcuma longa,Curcumin,ABCG2
-Curcuma longa,Curcumin,ACHE
-Curcuma longa,Curcumin,AGS
-Curcuma longa,Curcumin,AKR1B1
-Curcuma longa,Curcumin,AKR1B10
-Curcuma longa,Curcumin,AKR1C3
-Curcuma longa,Curcumin,ALOX12
-Curcuma longa,Curcumin,ALOX15
-Curcuma longa,Curcumin,ALOX5
-Curcuma longa,Curcumin,ALPI
-Curcuma longa,Curcumin,APP
-Curcuma longa,Curcumin,Amyloid-beta A4 protein
-Curcuma longa,Curcumin,BACE1
-Curcuma longa,Curcumin,BCHE
-Curcuma longa,Curcumin,CA1
-Curcuma longa,Curcumin,CA12
-Curcuma longa,Curcumin,CA13
-Curcuma longa,Curcumin,CA14
-Curcuma longa,Curcumin,CA2
-Curcuma longa,Curcumin,CA3
-Curcuma longa,Curcumin,CA4
-Curcuma longa,Curcumin,CA5A
-Curcuma longa,Curcumin,CA5B
-Curcuma longa,Curcumin,CA6
-Curcuma longa,Curcumin,CA7
-Curcuma longa,Curcumin,CA9
-Curcuma longa,Curcumin,CAMK2A
-Curcuma longa,Curcumin,CCND3
-Curcuma longa,Curcumin,CHEK1
-Curcuma longa,Curcumin,CISD1
-Curcuma longa,Curcumin,COLO 201
-Curcuma longa,Curcumin,CXCL12
-Curcuma longa,Curcumin,CYP19A1
-Curcuma longa,Curcumin,CYP1A1
-Curcuma longa,Curcumin,CYP1A2
-Curcuma longa,Curcumin,CYP1B1
-Curcuma longa,Curcumin,CYP2C19
-Curcuma longa,Curcumin,Caco-2
-Curcuma longa,Curcumin,Coagulation factor III
-Curcuma longa,Curcumin,Cytochrome P450 3A4
-Curcuma longa,Curcumin,DLD-1
-Curcuma longa,Curcumin,DU-145
-Curcuma longa,Curcumin,EA.hy 926
-Curcuma longa,Curcumin,EGFR
-Curcuma longa,Curcumin,EP300
-Curcuma longa,Curcumin,Estradiol 17-beta-dehydrogenase 1
-Curcuma longa,Curcumin,F3
-Curcuma longa,Curcumin,FOS
-Curcuma longa,Curcumin,FaDu
-Curcuma longa,Curcumin,GFER
-Curcuma longa,Curcumin,GLO1
-Curcuma longa,Curcumin,GSK3B
-Curcuma longa,Curcumin,Glyoxalase I
-Curcuma longa,Curcumin,HCT-116
-Curcuma longa,Curcumin,HDAC1
-Curcuma longa,Curcumin,HDAC6
-Curcuma longa,Curcumin,HEK293
-Curcuma longa,Curcumin,HL-60
-Curcuma longa,Curcumin,HSD17B1
-Curcuma longa,Curcumin,HSD17B2
-Curcuma longa,Curcumin,HSD17B3
-Curcuma longa,Curcumin,HSP60/HSP10
-Curcuma longa,Curcumin,HT-29
-Curcuma longa,Curcumin,HeLa
-Curcuma longa,Curcumin,HepG2
-Curcuma longa,Curcumin,IKBKG
-Curcuma longa,Curcumin,IKBKG IKBKB CHUK
-Curcuma longa,Curcumin,IMR-32
-Curcuma longa,Curcumin,JUN
-Curcuma longa,Curcumin,KB
-Curcuma longa,Curcumin,KCNA3
-Curcuma longa,Curcumin,LN-229
-Curcuma longa,Curcumin,LNCaP
-Curcuma longa,Curcumin,Lysine-specific histone demethylase 1
-Curcuma longa,Curcumin,MAOA
-Curcuma longa,Curcumin,MAOB
-Curcuma longa,Curcumin,MAPT
-Curcuma longa,Curcumin,MCF7
-Curcuma longa,Curcumin,MCL1
-Curcuma longa,Curcumin,MDA-MB-231
-Curcuma longa,Curcumin,MET
-Curcuma longa,Curcumin,MMP1
-Curcuma longa,Curcumin,MMP2
-Curcuma longa,Curcumin,MMP9
-Curcuma longa,Curcumin,MPO
-Curcuma longa,Curcumin,MTNR1A
-Curcuma longa,Curcumin,MTNR1B
-Curcuma longa,Curcumin,Matrix metalloproteinase 9
-Curcuma longa,Curcumin,Microtubule-associated protein tau
-Curcuma longa,Curcumin,NFE2L2
-Curcuma longa,Curcumin,NFKB1
-Curcuma longa,Curcumin,NOD2
-Curcuma longa,Curcumin,NOX4
-Curcuma longa,Curcumin,NQO2
-Curcuma longa,Curcumin,Nuclear factor NF-kappa-B p105 subunit
-Curcuma longa,Curcumin,ODC1
-Curcuma longa,Curcumin,PC-3
-Curcuma longa,Curcumin,PTGES
-Curcuma longa,Curcumin,PTGS1
-Curcuma longa,Curcumin,PTGS2
-Curcuma longa,Curcumin,PTPN1
-Curcuma longa,Curcumin,Perilipin-1/ABHD5
-Curcuma longa,Curcumin,Prelamin-A/C
-Curcuma longa,Curcumin,RELA
-Curcuma longa,Curcumin,Raji
-Curcuma longa,Curcumin,SHBG
-Curcuma longa,Curcumin,STAT3
-Curcuma longa,Curcumin,STK17B
-Curcuma longa,Curcumin,SW480
-Curcuma longa,Curcumin,Sarcoplasmic/endoplasmic reticulum calcium ATPase 2
-Curcuma longa,Curcumin,Sarcoplasmic/endoplasmic reticulum calcium ATPase 3
-Curcuma longa,Curcumin,Solute carrier organic anion transporter family member 1B1
-Curcuma longa,Curcumin,Solute carrier organic anion transporter family member 1B3
-Curcuma longa,Curcumin,TLR9
-Curcuma longa,Curcumin,TNFRSF1A
-Curcuma longa,Curcumin,TOP2A
-Curcuma longa,Curcumin,TRPV1
-Curcuma longa,Curcumin,TTR
-Curcuma longa,Curcumin,TUBB1
-Curcuma longa,Curcumin,Toll-like receptor 9
-Syzygium aromaticum,Eugenol,ADORA1
-Syzygium aromaticum,Eugenol,ADORA2A
-Syzygium aromaticum,Eugenol,ALOX12
-Syzygium aromaticum,Eugenol,ALOX15
-Syzygium aromaticum,Eugenol,ALOX5
-Syzygium aromaticum,Eugenol,APP
-Syzygium aromaticum,Eugenol,CA13
-Syzygium aromaticum,Eugenol,CA14
-Syzygium aromaticum,Eugenol,CA2
-Syzygium aromaticum,Eugenol,CA5A
-Syzygium aromaticum,Eugenol,CA5B
-Syzygium aromaticum,Eugenol,CA6
-Syzygium aromaticum,Eugenol,CA7
-Syzygium aromaticum,Eugenol,CHRNA3
-Syzygium aromaticum,Eugenol,CHRNA4
-Syzygium aromaticum,Eugenol,Cyclooxygenase-1
-Syzygium aromaticum,Eugenol,DAO
-Syzygium aromaticum,Eugenol,DRD1
-Syzygium aromaticum,Eugenol,DUSP3
-Syzygium aromaticum,Eugenol,EGLN1
-Syzygium aromaticum,Eugenol,EP300
-Syzygium aromaticum,Eugenol,FADS1
-Syzygium aromaticum,Eugenol,FOS
-Syzygium aromaticum,Eugenol,GLO1
-Syzygium aromaticum,Eugenol,GPR84
-Syzygium aromaticum,Eugenol,HDAC6
-Syzygium aromaticum,Eugenol,JUN
-Syzygium aromaticum,Eugenol,Lymphoblastoid cell
-Syzygium aromaticum,Eugenol,MAPT
-Syzygium aromaticum,Eugenol,NFE2L2
-Syzygium aromaticum,Eugenol,NFKB1
-Syzygium aromaticum,Eugenol,PARP1
-Syzygium aromaticum,Eugenol,PTGS1
-Syzygium aromaticum,Eugenol,SHBG
-Syzygium aromaticum,Eugenol,SRC
-Syzygium aromaticum,Eugenol,SRD5A1
-Syzygium aromaticum,Eugenol,Solute carrier organic anion transporter family member 1B1
-Syzygium aromaticum,Eugenol,Solute carrier organic anion transporter family member 1B3
-Syzygium aromaticum,Eugenol,TRPM8
-Syzygium aromaticum,Eugenol,TRPV1
-Syzygium aromaticum,Eugenol,TTR
-Syzygium aromaticum,Eugenol,Transient receptor potential cation channel subfamily A member 1
-Syzygium aromaticum,Eugenol,VEGFA
